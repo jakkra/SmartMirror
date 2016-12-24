@@ -1,0 +1,39 @@
+{
+  "name": "lookup-server",
+  "version": "0.0.1",
+  "private": true,
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "dependencies": {
+    "async": "^2.1.4",
+    "babel-cli": "6.14.0",
+    "babel-core": "6.14.0",
+    "babel-preset-es2015": "6.14.0",
+    "babel-preset-stage-0": "6.5.0",
+    "express": "4.13.3",
+    "fs": "0.0.2",
+    "google-auto-auth": "^0.5.2",
+    "google-proto-files": "^0.8.6",
+    "grpc": "^1.0.1",
+    "install": "^0.8.4",
+    "moment": "^2.17.1",
+    "natural": "^0.4.0",
+    "node-record-lpcm16": "^0.1.8",
+    "npm": "^4.0.5",
+    "snowboy": "^1.1.0",
+    "sql.js": "^0.3.2"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "babel-node server.js",
+    "client": "babel-node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0"
+  }
+}
