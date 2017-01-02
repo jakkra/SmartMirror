@@ -2,15 +2,21 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: black
 }
 
 .App {
-  margin-top: 1em;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+}
+
+.Clock {
+	background-color: black;
+	margin-top: 1em;
   margin-left: 1em;
   margin-right: 1em;
-
+  color: white;
+  font-size: 6em;
 }
 
-#food-search {
-  margin-top: 5em;
-}

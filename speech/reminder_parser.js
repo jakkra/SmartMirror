@@ -1,5 +1,6 @@
 const moment = require('moment');
 const SpeechCommand = require('./speech_command');
+const request = require('../request_helper');
 
 const time1 = new RegExp("om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)");
 const time2 = new RegExp("att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)");
@@ -57,6 +58,7 @@ exports.parse = function(s){
   if(date !== null && reminderText !== '') {
     console.log('Success parsing reminder!')
     console.log(date, reminderText);
+    request.createReminder(date, reminderText);
     return SpeechCommand.CREATE_REMINDER;
   }
 }

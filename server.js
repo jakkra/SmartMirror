@@ -1,9 +1,13 @@
-const express = require('express');
 const fs = require('fs');
-const app = express();
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 const speech = require('./speech/stream.js');
-const hotword = require('./speech/hot_word.js')
+const hotword = require('./speech/hot_word.js');
 const commands = require('./speech/command_classify');
+const tempLogger = require('./util/temp_logger');
+//const motionDetector = require('./util/motion');
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -24,6 +28,10 @@ app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
+io.on('connection', function(socket){
+  console.log('A user connected');
+});
+
 hotword.initCallback(() => speech.listen((param) => {
 	if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
 		const result = param.results[0].alternatives[0];
@@ -31,3 +39,6 @@ hotword.initCallback(() => speech.listen((param) => {
 		console.log(commands.classifyCommand(result.transcript.toLowerCase()));
 	}
 }))
+
+//tempLogger.start();
+//motionDetector.initDetectorWatch();
