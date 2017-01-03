@@ -9,6 +9,8 @@ body {
   background-color: black;
   height: 100vh;
   width: 100vw;
+      float: left;
+
 }
 
 .Clock {
@@ -20,3 +22,16 @@ body {
   font-size: 6em;
 }
 
+.Date {
+  background-color: black;
+  color: white;
+  font-size: 3em;
+  margin-left: 2em;
+}
+
+.Temperature {
+  background-color: black;
+  color: white;
+  font-size: 3em;
+  margin-left: 2em;
+}
