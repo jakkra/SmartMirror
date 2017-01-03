@@ -4,7 +4,6 @@ const request_helper = require('../request_helper');
 
 module.exports = {
 	start: function() {
-		console.log("Starting module: " + this.name);
 		sensor.isDriverLoaded(function (err, isLoaded) {
 			console.log(isLoaded);
 		  if(isLoaded === false) {
@@ -12,8 +11,8 @@ module.exports = {
 		  }
 		  var self = this;			
 			setInterval(function() {
-				self.checkTemperature();
-			}, this.config.updateTemperatureInterval);
+				checkTemperature();
+			}, 20*60*1000);
 		});
 
 	}

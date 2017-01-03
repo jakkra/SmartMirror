@@ -1,3 +1,6 @@
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/pi/MagicMirror-7bdbfab367e6.json';
+process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
+
 const fs = require('fs');
 var express = require('express');
 var app = express();
@@ -7,9 +10,9 @@ const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
 const commands = require('./speech/command_classify');
 const tempLogger = require('./util/temp_logger');
-//const motionDetector = require('./util/motion');
+const motionDetector = require('./util/motion');
 
-app.set('port', (process.env.PORT || 3001));
+app.set('port', (process.env.PORT || 3003));
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -40,5 +43,5 @@ hotword.initCallback(() => speech.listen((param) => {
 	}
 }))
 
-//tempLogger.start();
-//motionDetector.initDetectorWatch();
+tempLogger.start();
+motionDetector.start();

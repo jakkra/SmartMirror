@@ -19,6 +19,7 @@ var protoDescriptor = grpc.load({
 });
 var speechProto = protoDescriptor.google.cloud.speech.v1beta1;
 var isListening = false;
+console.log('STARTING STREAM.js');
 
 function getSpeechService (callback) {
   var googleAuthClient = googleAuth({
@@ -43,6 +44,7 @@ function getSpeechService (callback) {
   });
 }
 exports.listen = function(callback) {
+	console.log('listen');
   if(isListening === true) return;
   async.waterfall([
     function (cb) {
@@ -84,7 +86,8 @@ exports.listen = function(callback) {
       // Start recording
       var readableMicrophoneStream = record.start({
         sampleRate : 16000,
-        verbose : true
+        verbose : true,
+        recordProgram: 'arecord'
       });
 
       // Stream the microphone audio to the Speech API

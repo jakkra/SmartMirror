@@ -6,6 +6,8 @@ const Models   = snowboy.Models;
 
 const models = new Models();
 
+console.log('hot_word');
+
 exports.initCallback = function(callback) {
   models.add({
     file: './resources/Spegel.pmdl',
@@ -35,7 +37,8 @@ exports.initCallback = function(callback) {
 
   const mic = record.start({
     threshold: 0,
-    verbose: false
+    verbose: false,
+    recordProgram: 'arecord'
   });
 
   mic.pipe(detector);
