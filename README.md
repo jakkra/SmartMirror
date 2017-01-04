@@ -24,3 +24,5 @@ cd client/
 npm run build
 ```
 
+## Solutions
+Webpack doesn't reload when saving: $echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p

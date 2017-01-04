@@ -1,5 +1,8 @@
 import React from 'react';
 import Clock from './Clock';
+import Weather from './Weather';
+import Forecast from './Forecast'
+import { Col, Row } from 'react-bootstrap';
 
 
 export default class App extends React.Component {
@@ -38,7 +41,20 @@ export default class App extends React.Component {
   render() {
     return (
       <div className='App'>
-        <Clock temperature={this.state.temperature}/>
+        <Row>
+          <Col xs={4}>
+            <Clock temperature={this.state.temperature}/>
+          </Col>
+          <Col xs={4}/>
+          <Col xs={4}>
+            <Row>
+              <Weather/>
+            </Row>
+            <Row style={{marginTop: 200}}>
+              <Forecast/>
+            </Row>
+          </Col>
+        </Row>
       </div>
     );
   }
