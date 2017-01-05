@@ -42,15 +42,14 @@ export default class App extends React.Component {
     return (
       <div className='App'>
         <Row>
-          <Col xs={4}>
+          <Col xs={7}>
             <Clock temperature={this.state.temperature}/>
           </Col>
-          <Col xs={4}/>
-          <Col xs={4}>
+          <Col xs={5}>
             <Row>
               <Weather/>
             </Row>
-            <Row style={{marginTop: 200}}>
+            <Row style={{marginTop: 150}}>
               <Forecast/>
             </Row>
           </Col>

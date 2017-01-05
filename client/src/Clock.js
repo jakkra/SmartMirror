@@ -10,14 +10,14 @@ const styles = {
   },
   clock: {
     color: 'white',
-    fontSize: '6em',
+    fontSize: '4em',
     marginLeft: 30,
     margin: 0,
     padding: 0
   },
   smallText: {
     color: 'white',
-    fontSize: '2.2em',
+    fontSize: '1.7em',
     marginLeft: 30,
     margin: 0,
     padding: 0
