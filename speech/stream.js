@@ -94,6 +94,11 @@ exports.listen = function(callback) {
       readableMicrophoneStream
         .pipe(toRecognizeRequest)
         .pipe(call);
+
+      // In case no end of audio
+      setTimeout(function () {
+        record.stop()
+      }, 10000)
     }
   ], function (err) {
     if (err) {

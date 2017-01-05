@@ -22,8 +22,6 @@ const commandHandler = require('./speech/command_handler');
 
 app.set('port', (process.env.PORT || 3001))
 
-
-//server.listen(3000);
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
@@ -54,14 +52,17 @@ app.listen(app.get('port'), () => {
 });
 
 hotword.initCallback(() => speech.listen((param) => {
-if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
-	const result = param.results[0].alternatives[0];
-	console.log(result.transcript);
-	const command = commands.classifyCommand(result.transcript.toLowerCase());
-	console.log(command);
-  commandHandler.handle(command);
-  hotword.listenForHotword();
-}
+  if(param && param.endpointerType === 'ENDPOINTER_EVENT_UNSPECIFIED'){
+    hotword.listenForHotword();
+  }
+  console.log(param);
+  if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
+    const result = param.results[0].alternatives[0];
+    console.log(result.transcript);
+    const command = commands.classifyCommand(result.transcript.toLowerCase());
+    console.log(command);
+    commandHandler.handle(command);
+  }
 }));
 hotword.listenForHotword();
 

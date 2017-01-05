@@ -18,7 +18,15 @@ export function getForecast(callback) {
 	return fetch(url)
   .then(checkStatus)
   .then(res => res.json())
-  .then(res => res.query.results.channel.item.forecast)
+  .then(res => {
+  	const f = {
+  		forecast: res.query.results.channel.item.forecast.slice(1),
+  		sunrise: res.query.results.channel.astronomy.sunrise,
+  		sunset: res.query.results.channel.astronomy.sunset
+  	};
+  	console.log(f);
+  	return f
+  })
 }
 
 const mapping = {

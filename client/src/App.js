@@ -17,7 +17,7 @@ export default class App extends React.Component {
       s.send({event: 'connect', data: 'Hey there'});
     });
     this.state = {
-      temperature: 'E',
+      temperature: '22',
     };
   }
 
@@ -53,6 +53,9 @@ export default class App extends React.Component {
               <Forecast/>
             </Row>
           </Col>
+        </Row>
+        <Row style={{position: 'absolute', bottom: '0px'}}>
+          
         </Row>
       </div>
     );

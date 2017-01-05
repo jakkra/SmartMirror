@@ -10,14 +10,23 @@ const styles = {
   },
   clock: {
     color: 'white',
-    fontSize: '4em',
+    fontSize: '5.8em',
     marginLeft: 30,
     margin: 0,
-    padding: 0
+    padding: 0,
+    lineHeight: 1,
+  },
+  clockSeconds: {
+    color: 'white',
+    fontSize: '2.2em',
+    margin: 0,
+    padding: 0,
+    lineHeight: 1,
+    paddingTop: 7
   },
   smallText: {
     color: 'white',
-    fontSize: '1.7em',
+    fontSize: '2.2em',
     marginLeft: 30,
     margin: 0,
     padding: 0
@@ -51,21 +60,34 @@ export default class Clock extends React.Component {
   }
 
   render() {
+    let day = this.state.date.format('dddd, LL');
+    day = day.charAt(0).toUpperCase() + day.slice(1);
     return (
       <div  style={styles.container}>
         <Row>
           <Col xs={12}/>
-            <p style={styles.clock}> {this.state.date.format('HH:mm')}</p>
+            <p style={styles.smallText}> {day}</p>
           <Col/>
         </Row>
         <Row>
-          <Col xs={12}/>
-            <p style={styles.smallText}> {this.state.date.format('dddd LL')}</p>
-          <Col/>
+          <Col xs={12}>
+            <Row>
+              <Col style={{padding: 0}} xs={4}>
+                <div style={styles.clock}>
+                  {this.state.date.format('HH:mm')}
+                </div>
+              </Col>
+              <Col xs={8}>
+                <div style={styles.clockSeconds}>
+                  {this.state.date.format('ss')}
+                </div>
+              </Col>
+            </Row>
+          </Col>
         </Row>
         <Row>
           <Col xs={12}/>
-            <p style={styles.smallText}>Temperatur inne: {this.props.temperature}</p>
+            <p style={styles.smallText}>{this.props.temperature} °C</p>
           <Col/>
         </Row>
       </div>

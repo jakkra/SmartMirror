@@ -26,3 +26,10 @@ npm run build
 
 ## Solutions
 Webpack doesn't reload when saving: $echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+
+Auto open chrome in SSH:
+```
+export DISPLAY=:0.0
+npm start
+```
