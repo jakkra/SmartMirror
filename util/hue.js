@@ -27,7 +27,7 @@ api.groups(function(err, result) {
 module.exports = {
 	allLights: function(options) {
 		const state = lightState.create(options);
-		api.setGroupState(groupAll.id, state).then(displayResult).fail(displayError);
+		api.setGroupLightState(groupAll.id, state).then(displayResult).fail(displayError);
 	},
 	light: function(name, options) {
 		const state = lightState.create(options);

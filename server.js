@@ -1,5 +1,5 @@
 // For google cloud speech
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/MagicMirror-7bdbfab367e6.json';
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/Documents/MagicMirror-7bdbfab367e6.json';
 process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
 
 var express = require('express');
@@ -18,6 +18,7 @@ const commands = require('./speech/command_classify');
 //const tempLogger = require('./util/temp_logger');
 //const motionDetector = require('./util/motion');
 const hue = require('./util/hue.js');
+const commandHandler = require('./speech/command_handler');
 
 app.set('port', (process.env.PORT || 3001))
 
@@ -58,9 +59,11 @@ if(param && param.results && param.results[0] && param.results[0].alternatives &
 	console.log(result.transcript);
 	const command = commands.classifyCommand(result.transcript.toLowerCase());
 	console.log(command);
-
+  commandHandler.handle(command);
+  hotword.listenForHotword();
 }
 }));
+hotword.listenForHotword();
 
 //tempLogger.start();
 //motionDetector.start();

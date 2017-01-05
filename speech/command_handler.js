@@ -1,15 +1,16 @@
 const SpeechCommand = require('./speech_command');
 
-const hue = require('./util/hue.js');
+const hue = require('../util/hue.js');
 
 
-exports.classifyCommand = function(command){
+exports.handle = function(command){
   switch (command) {
     case SpeechCommand.LIGHTS_ON_ALL:
-    	hue.lightAll({on: true, brightness: 100});
+    console.log('all light on');
+    	hue.allLights({on: true, brightness: 100});
       break;
     case SpeechCommand.LIGHTS_OFF_ALL:
-      hue.lightAll({on: false, brightness: 100});
+      hue.allLights({on: false, brightness: 100});
       break;
     case SpeechCommand.LIGHTS_ON_LIVING_ROOM:
     	hue.light('Dining Table', {on: true, brightness: 100});

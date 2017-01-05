@@ -5,10 +5,15 @@ const Detector = snowboy.Detector;
 const Models   = snowboy.Models;
 
 const models = new Models();
+let callback = null;
 
 console.log('hot_word');
 
-exports.initCallback = function(callback) {
+exports.initCallback = function(cb) {
+  callback = cb;
+}
+
+exports.listenForHotword = function(){
   models.add({
     file: './resources/Spegel.pmdl',
     sensitivity: '0.5',
@@ -32,6 +37,7 @@ exports.initCallback = function(callback) {
 
   detector.on('hotword', function (index, hotword) {
     console.log('hotword', index, hotword);
+    record.stop();
     callback();
   });
 
