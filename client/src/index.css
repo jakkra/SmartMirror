@@ -9,7 +9,7 @@ body {
   background-color: black;
   height: 100vh;
   width: 100vw;
-      float: left;
+  float: left;
 
 }
 
@@ -43,4 +43,26 @@ html {
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.Buddy, h2 {
+  margin: 0;
+  transition: all 1250ms ease;
+  box-sizing: border-box;
+}
+
+.status {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  transition: all 1250ms ease;
+  margin-right: 4px;
+  margin-bottom: 2px;
+  border-radius: 50%;
+  background-color: hsl(100, 50%, 50%);
+}
+
+.offline {
+  background-color: hsl(0, 50%, 50%);
 }

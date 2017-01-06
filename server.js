@@ -51,20 +51,36 @@ app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
-hotword.initCallback(() => speech.listen((param) => {
-  if(param && param.endpointerType === 'ENDPOINTER_EVENT_UNSPECIFIED'){
-    hotword.listenForHotword();
-  }
-  console.log(param);
-  if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
-    const result = param.results[0].alternatives[0];
-    console.log(result.transcript);
-    const command = commands.classifyCommand(result.transcript.toLowerCase());
-    console.log(command);
-    commandHandler.handle(command);
-  }
-}));
+function sendToClient(event, data) {
+  var aWss = expressWs.getWss('/a');
+  aWss.clients.forEach(function (client) {
+    client.send(JSON.stringify({event: event, data: data}));
+  });
+}
+
+hotword.initCallback(() => {
+  sendToClient('recording', {isRecording: true});
+  speech.listen((param) => {
+    console.log(param);
+    if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
+      const result = param.results[0].alternatives[0];
+      console.log(result.transcript);
+      const command = commands.classifyCommand(result.transcript.toLowerCase());
+      console.log(command);
+      commandHandler.handle(command);
+
+    }
+  }, done)
+}
+);
 hotword.listenForHotword();
+function done(){
+  console.log('________________DONE________________');
+
+  hotword.listenForHotword();
+  sendToClient('recording', {isRecording: false});
+}
+
 
 //tempLogger.start();
 //motionDetector.start();

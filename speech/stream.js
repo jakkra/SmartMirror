@@ -19,6 +19,7 @@ var protoDescriptor = grpc.load({
 });
 var speechProto = protoDescriptor.google.cloud.speech.v1beta1;
 var isListening = false;
+var stopTimer = null;
 console.log('STARTING STREAM.js');
 
 function getSpeechService (callback) {
@@ -43,7 +44,7 @@ function getSpeechService (callback) {
     return callback(null, stub);
   });
 }
-exports.listen = function(callback) {
+exports.listen = function(callback, done) {
 	console.log('listen');
   if(isListening === true) return;
   async.waterfall([
@@ -57,6 +58,8 @@ exports.listen = function(callback) {
         .on('data', function (recognizeResponse) {
           if (recognizeResponse.endpointerType == 'END_OF_AUDIO') {
             record.stop();
+            clearTimeout(stopTimer);
+
             isListening = false;
           }
           callback(recognizeResponse);
@@ -96,7 +99,8 @@ exports.listen = function(callback) {
         .pipe(call);
 
       // In case no end of audio
-      setTimeout(function () {
+      stopTimer = setTimeout(function () {
+        console.log('_______STOOOOOP____');
         record.stop()
       }, 10000)
     }
@@ -105,5 +109,6 @@ exports.listen = function(callback) {
       return console.error(err);
     }
     console.log('DONE');
+    done();
   });
 }

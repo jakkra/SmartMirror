@@ -7,7 +7,7 @@ import moment from 'moment';
 const styles = {
   container: {
     marginLeft: 100,
-    marginRight: 40
+    marginRight: 50
   },
   weatherImg: {
   	position: 'absolute',
@@ -28,7 +28,7 @@ const styles = {
   },
   sunIcon: {
     color: 'white',
-    fontSize: '2em',
+    fontSize: '1.8em',
     margin: 0,
     padding: 0,
     textAlign: 'right',
@@ -40,7 +40,7 @@ const styles = {
     margin: 0,
     padding: 0,
     textAlign: 'right',
-    marginRight: 40
+    marginRight: 0
   },
   locationLabel: {
   	color: 'white',
@@ -81,31 +81,27 @@ export default class Forecast extends React.Component {
   }
 
   refreshForecast() {
-  	console.log('Update forecast');
   	getForecast()
   	.then(this.handleNewForecast)
   	.catch((err) => console.log(err));
   }
 
   handleNewForecast(weather){
-  	console.log(weather);
   	this.setState({
   		weather: weather
   	})
   }
 
   render() {
-  	console.log('forecasts', this.state.weather);
-
     return (
       <div style={styles.container}>
   	       <p style={styles.locationLabel}> Lund </p>
         <Row>
           <Col xs={6}>
-            <i style={styles.sunIcon} className='wi wi-sunrise'> {this.state.weather.sunrise}</i>
+            <i style={styles.sunIcon} className='wi wi-sunrise'> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</i>
           </Col>
           <Col style={{ textAlign: 'right' }} xs={6}>
-            <i style={styles.sunIcon} className='wi wi-sunset'> {this.state.weather.sunset}</i>
+            <i style={styles.sunIcon} className='wi wi-sunset'> {moment(this.state.weather.sunset, ["h:mm A"]).format("HH:mm")}</i>
           </Col>
         </Row>
         

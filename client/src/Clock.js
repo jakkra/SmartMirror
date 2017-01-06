@@ -6,7 +6,8 @@ moment.locale('sv');
 
 const styles = {
   container: {
-    'margin': 40
+    marginLeft: 40,
+    marginTop: 40
   },
   clock: {
     color: 'white',
@@ -38,7 +39,6 @@ export default class Clock extends React.Component {
     super(props);
     this.state = {
       date: new moment(),
-      lol: 'hej'
     };
   }
 

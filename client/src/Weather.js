@@ -5,7 +5,7 @@ import { getCurrentWeather, fileFromInt } from './lib/smhi';
 
 const styles = {
   container: {
-    margin: 40,
+    margin: 50,
     marginLeft: 0,
     marginTop: 60
   },
@@ -13,11 +13,10 @@ const styles = {
     color: 'white',
     fontSize: '1.4em',
     margin: 0,
-    padding: 0
+    padding: 0,
+    textAlign: 'right'
   },
   weatherImg: {
-  	//position: 'absolute',
-  	//right: '40px',
 		maxWidth: '100%',
 		height: 'auto',
   }
@@ -46,18 +45,12 @@ export default class Weather extends React.Component {
   }
 
   refreshWeather() {
-  	console.log('Updating current temp');
   	getCurrentWeather()
   	.then(this.handleNewWeather)
   	.catch((err) => console.log(err));
   }
 
-  handlNewForecast(forecast){
-  	console.log(forecast);
-  }
-
   handleNewWeather(weather){
-  	console.log(weather);
   	this.setState({
   		weather: weather
   	})
@@ -72,7 +65,7 @@ export default class Weather extends React.Component {
   	}
   	let windDirectionSymbol;
   	if(this.state.weather.windDirection){
-	  	windDirectionSymbol = (<img style={{marginTop: 20, marginLeft: 0, maxWidth: '25%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../resources/weather-icons/wind_arrow.png')}/>);
+	  	windDirectionSymbol = (<img style={{ position: 'absolute', right: 40, textAlign: 'right' ,marginTop: 20, marginLeft: 0, maxWidth: '16%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../resources/weather-icons/wind_arrow.png')}/>);
   	} else {
   		windDirectionSymbol = null;
   	}

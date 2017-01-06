@@ -24,7 +24,6 @@ export function getForecast(callback) {
   		sunrise: res.query.results.channel.astronomy.sunrise,
   		sunset: res.query.results.channel.astronomy.sunset
   	};
-  	console.log(f);
   	return f
   })
 }

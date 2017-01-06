@@ -14,6 +14,7 @@ exports.initCallback = function(cb) {
 }
 
 exports.listenForHotword = function(){
+  console.log('Starting HOTWORD');
   models.add({
     file: './resources/Spegel.pmdl',
     sensitivity: '0.5',

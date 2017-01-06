@@ -2,6 +2,9 @@ import React from 'react';
 import Clock from './Clock';
 import Weather from './Weather';
 import Forecast from './Forecast'
+import News from './News';
+import RecordingStatus from './RecordingStatus';
+
 import { Col, Row } from 'react-bootstrap';
 
 
@@ -18,6 +21,7 @@ export default class App extends React.Component {
     });
     this.state = {
       temperature: '22',
+      isRecording: false
     };
   }
 
@@ -32,6 +36,11 @@ export default class App extends React.Component {
           temperature: data.temperature
         })
         break;
+      case 'recording':
+        this.setState({
+          isRecording: message.data.isRecording
+        })
+        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -40,10 +49,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
+      <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
         <Row>
           <Col xs={7}>
             <Clock temperature={this.state.temperature}/>
+            <RecordingStatus isRecording={this.state.isRecording} />
           </Col>
           <Col xs={5}>
             <Row>
@@ -54,8 +64,8 @@ export default class App extends React.Component {
             </Row>
           </Col>
         </Row>
-        <Row style={{position: 'absolute', bottom: '0px'}}>
-          
+        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%'}}>
+          <News/>
         </Row>
       </div>
     );
