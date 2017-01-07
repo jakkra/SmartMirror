@@ -10,6 +10,8 @@ wunderlistClientID=''
 
 GOOGLE_APPLICATION_CREDENTIALS = '/home/user/../credentials.json'
 GCLOUD_PROJECT = 'project_ID'
+
+target='Krantz-Ubuntu' // Set to 'PI' on your Raspberry Pi. Avoids errors initializing gpio when not on Pi.
 ```
 
 # Fill in client/config.js

@@ -1,6 +1,4 @@
 require('dotenv').config()
-//process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/Documents/MagicMirror-7bdbfab367e6.json';
-//process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
 
 var express = require('express');
 var app = express();
@@ -15,8 +13,10 @@ app.ws('/', function(ws, req) {
 const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
 const commands = require('./speech/command_classify');
-//const tempLogger = require('./util/temp_logger');
-//const motionDetector = require('./util/motion');
+if(process.env.target ==='PI'){
+  const tempLogger = require('./util/temp_logger');
+  const motionDetector = require('./util/motion');
+}
 const hue = require('./util/hue.js');
 const commandHandler = require('./speech/command_handler');
 const messages = require('./util/messages.json');
@@ -80,10 +80,10 @@ function done(){
   sendToClient('recording', {isRecording: false});
 }
 
-
-/*tempLogger.start();
-motionDetector.start(() => {
-  commandHandler.reportMotion();
-  sendToClient('motion', {message: 'Motion detected'});
-});
-*/
+if(process.env.target ==='PI'){
+  tempLogger.start();
+  motionDetector.start(() => {
+    commandHandler.reportMotion();
+    sendToClient('motion', {message: 'Motion detected'});
+  });
+}
