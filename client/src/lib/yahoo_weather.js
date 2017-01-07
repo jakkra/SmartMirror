@@ -1,4 +1,7 @@
 
+import { config } from '../config.js';
+
+
 const checkStatus = (res) => {
     return new Promise((resolve, reject) => {
         if (res.status >= 200 && res.status < 299) {
@@ -13,7 +16,7 @@ const checkStatus = (res) => {
 
 export function getForecast(callback) {
 	const url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast ' +
-          'where woeid=897819 and u=\'c\'&format=json';
+          'where woeid=' + config.YAHOO_WOEID + ' and u=\'c\'&format=json';
 
 	return fetch(url)
   .then(checkStatus)

@@ -1,6 +1,7 @@
 // For google cloud speech
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/Documents/MagicMirror-7bdbfab367e6.json';
-process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
+require('dotenv').config()
+//process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/Documents/MagicMirror-7bdbfab367e6.json';
+//process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
 
 var express = require('express');
 var app = express();
@@ -19,6 +20,8 @@ const commands = require('./speech/command_classify');
 //const motionDetector = require('./util/motion');
 const hue = require('./util/hue.js');
 const commandHandler = require('./speech/command_handler');
+const messages = require('./util/messages.json');
+const requestHelper = require('./request_helper');
 
 app.set('port', (process.env.PORT || 3001))
 
@@ -32,19 +35,20 @@ app.get('/api/on', (req, res) => {
   res.json({
     message: 'Light on'
   });
-  var aWss = expressWs.getWss('/a');
-  aWss.clients.forEach(function (client) {
-    client.send(JSON.stringify({event: 'temperature', data: {temperature: 26.0}}));
-  });
+  const rand = Math.floor(Math.random() * messages.length);
+  console.log(rand);
+  const m = messages[rand];
+  sendToClient('motion', {message: m});
 	return;
 });
 
-app.get('/api/off', (req, res) => {
-	hue.light('Closet', {on: false, brightness: 100});
-  res.json({
-    message: 'Light off'
-  });
+app.get('/api/tasks', (req, res) => {
+	requestHelper.getTasks((tasks) => {
+    res.json({
+      tasks: tasks
+    });
 	return;
+  })
 });
 
 app.listen(app.get('port'), () => {
@@ -76,11 +80,14 @@ hotword.initCallback(() => {
 hotword.listenForHotword();
 function done(){
   console.log('________________DONE________________');
-
   hotword.listenForHotword();
   sendToClient('recording', {isRecording: false});
 }
 
 
-//tempLogger.start();
-//motionDetector.start();
+/*tempLogger.start();
+motionDetector.start(() => {
+  commandHandler.reportMotion();
+  sendToClient('motion', {message: 'Motion detected'});
+});
+*/

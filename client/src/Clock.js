@@ -12,7 +12,7 @@ const styles = {
   clock: {
     color: 'white',
     fontSize: '5.8em',
-    marginLeft: 30,
+    marginLeft: 20,
     margin: 0,
     padding: 0,
     lineHeight: 1,

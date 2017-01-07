@@ -4,6 +4,8 @@ import Weather from './Weather';
 import Forecast from './Forecast'
 import News from './News';
 import RecordingStatus from './RecordingStatus';
+import Message from './Message';
+import Tasks from './Tasks';
 
 import { Col, Row } from 'react-bootstrap';
 
@@ -11,7 +13,6 @@ import { Col, Row } from 'react-bootstrap';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Constructor');
     let s = new WebSocket("ws://localhost:3001/");
     s.onmessage = this.handleMessage.bind(this);
     s.addEventListener('error', m => console.log(m));
@@ -20,13 +21,17 @@ export default class App extends React.Component {
       s.send({event: 'connect', data: 'Hey there'});
     });
     this.state = {
-      temperature: '22',
-      isRecording: false
+      temperature: '22.6',
+      isRecording: false,
+      message: {
+        text: 'No messages set',
+        visible: false
+      }
     };
+
   }
 
   handleMessage(message) {
-    console.log(message);
     message = JSON.parse(message.data);
     console.log('new message', message);
     const data = message.data;
@@ -41,6 +46,23 @@ export default class App extends React.Component {
           isRecording: message.data.isRecording
         })
         break;
+      case 'motion':
+        if(!this.state.message.visible){
+          this.setState({
+            message: {
+              text: data.message,
+              visible: true
+            }
+          })
+          setTimeout(() => {
+            this.setState({
+              message: {
+                visible: false
+              }
+            })
+          }, 10000)
+        }
+        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -54,6 +76,8 @@ export default class App extends React.Component {
           <Col xs={7}>
             <Clock temperature={this.state.temperature}/>
             <RecordingStatus isRecording={this.state.isRecording} />
+            <Tasks/>
+
           </Col>
           <Col xs={5}>
             <Row>
@@ -63,6 +87,10 @@ export default class App extends React.Component {
               <Forecast/>
             </Row>
           </Col>
+        </Row>
+        <Row style={{height: '20%'}}/>
+        <Row >
+          <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
         </Row>
         <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%'}}>
           <News/>

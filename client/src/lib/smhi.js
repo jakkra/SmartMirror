@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { config } from '../config.js';
 
 const checkStatus = (res) => {
     return new Promise((resolve, reject) => {
@@ -58,10 +59,8 @@ const getKeyName = (key) => {
 }
 
 export function getCurrentWeather(callback) {
-	const longitude = '13'; 
-	const latitude = '55.6';
 	const url = 'http://opendata-download-metfcst.smhi.se/api/category/pmp2g/version/2/geotype/point/lon/'
-	+ longitude + '/lat/' + latitude + '/data.json';
+	+ config.SMHI_COORD.longitude + '/lat/' + config.SMHI_COORD.latitude + '/data.json';
 
 	return fetch(url)
   .then(checkStatus)

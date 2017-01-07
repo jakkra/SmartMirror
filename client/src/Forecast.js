@@ -55,6 +55,7 @@ const styles = {
 export default class Forecast extends React.Component {
   constructor(props) {
     super(props);
+    // Save the API limit when developing
     const dummy = 
     {
       forecast: JSON.parse("[{\"code\":\"30\",\"date\":\"06 Jan 2017\",\"day\":\"Fri\",\"high\":\"-3\",\"low\":\"-7\",\"text\":\"Partly Cloudy\"},{\"code\":\"14\",\"date\":\"07 Jan 2017\",\"day\":\"Sat\",\"high\":\"1\",\"low\":\"-3\",\"text\":\"Snow Showers\"},{\"code\":\"28\",\"date\":\"08 Jan 2017\",\"day\":\"Sun\",\"high\":\"1\",\"low\":\"-4\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"09 Jan 2017\",\"day\":\"Mon\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"10 Jan 2017\",\"day\":\"Tue\",\"high\":\"3\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"11 Jan 2017\",\"day\":\"Wed\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"23\",\"date\":\"12 Jan 2017\",\"day\":\"Thu\",\"high\":\"3\",\"low\":\"2\",\"text\":\"Breezy\"},{\"code\":\"28\",\"date\":\"13 Jan 2017\",\"day\":\"Fri\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"30\",\"date\":\"14 Jan 2017\",\"day\":\"Sat\",\"high\":\"1\",\"low\":\"-1\",\"text\":\"Partly Cloudy\"}]"),
@@ -73,7 +74,7 @@ export default class Forecast extends React.Component {
       () => this.refreshForecast(),
       1000 * 60 * 10
     );*/
-    this.refreshForecast();
+    // this.refreshForecast();
   }
 
   componentWillUnmount() {

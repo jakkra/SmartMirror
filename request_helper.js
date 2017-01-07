@@ -1,4 +1,6 @@
 const request = require('request');
+require('dotenv').config()
+
 
 module.exports = {
 
@@ -7,7 +9,7 @@ module.exports = {
 		var options = {
 		  url: 'https://radiant-wave-58367.herokuapp.com/api/reminder/create',
 		  headers: {
-		    'x-access-token': 'eyJhbGciOiJIUzI1NiJ9.aWpha2tyYUBnbWFpbC5jb20.kukrD_C1oJizmCvBc5-UOoUJBevMKC1o0BXRChidL5E',
+		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
 		  },
 		  json: true,
 		  body: {
@@ -28,7 +30,7 @@ module.exports = {
 		var options = {
 		  url: 'https://radiant-wave-58367.herokuapp.com/api/temperature/',
 		  headers: {
-		    'x-access-token': 'eyJhbGciOiJIUzI1NiJ9.aWpha2tyYUBnbWFpbC5jb20.kukrD_C1oJizmCvBc5-UOoUJBevMKC1o0BXRChidL5E',
+		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
 		  },
 		  json: true,
 		  body: {
@@ -40,5 +42,41 @@ module.exports = {
 		    console.log(body)
 		  }
 		})
+	},
+
+	reportMotion: function() {
+		var options = {
+		  url: 'https://radiant-wave-58367.herokuapp.com/api/surveillance',
+		  headers: {
+		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
+		  },
+		  json: true,
+		  body: {time: new Date().toISOString()}
+		};
+  	request.post(options, function (error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body)
+		  }
+		})
+	},
+	
+	// Wunderlist
+	getTasks(callback){
+		var options = {
+		  url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + process.env.wunderlistListID,
+		  headers: {
+		    'X-Access-Token': process.env.wunderlistAccessToken,
+		    'X-Client-ID': process.env.wunderlistClientID
+		  }
+		};
+
+		request(options, function(err, resp, body){
+		  var tasks = JSON.parse(body);
+		  if (!err && resp.statusCode === 200) {
+		    callback(tasks)
+		  } else {
+		    console.log('code: ',resp.statusCode, err);
+		  }
+		});
 	}
 }
