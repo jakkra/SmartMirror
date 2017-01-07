@@ -1,6 +1,5 @@
 const SpeechCommand = require('./speech_command');
-
-const hue = require('../util/hue.js');
+const hue = require('../util/hue');
 
 
 exports.handle = function(command){

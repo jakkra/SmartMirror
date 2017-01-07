@@ -1,4 +1,3 @@
-// For google cloud speech
 require('dotenv').config()
 //process.env['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/jakkra/Documents/MagicMirror-7bdbfab367e6.json';
 //process.env['GCLOUD_PROJECT'] = 'hazel-aria-120722';
@@ -22,6 +21,7 @@ const hue = require('./util/hue.js');
 const commandHandler = require('./speech/command_handler');
 const messages = require('./util/messages.json');
 const requestHelper = require('./request_helper');
+const speaker = require('./speech/amazon-polly-speaker');
 
 app.set('port', (process.env.PORT || 3001))
 
@@ -30,13 +30,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
-app.get('/api/on', (req, res) => {
-	hue.light('Closet', {on: true, brightness: 100});
-  res.json({
-    message: 'Light on'
-  });
+app.get('/api/test/:text', (req, res) => {
+  if (req.params.text) speaker.speak(req.params.text);
   const rand = Math.floor(Math.random() * messages.length);
-  console.log(rand);
   const m = messages[rand];
   sendToClient('motion', {message: m});
 	return;

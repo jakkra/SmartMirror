@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "async": "^2.1.4",
+    "aws-sdk": "^2.7.21",
     "babel-cli": "6.14.0",
     "babel-core": "6.14.0",
     "babel-preset-es2015": "6.14.0",
@@ -30,6 +31,7 @@
     "moment": "^2.17.1",
     "node-hue-api": "^2.3.0",
     "node-record-lpcm16": "^0.1.8",
+    "node-uuid": "^1.4.7",
     "npm": "^4.0.5",
     "onoff": "^1.1.1",
     "react": "^15.4.1",
@@ -39,7 +41,8 @@
     "react-dom": "^15.4.1",
     "reactstrap": "^3.9.5",
     "request": "^2.79.0",
-    "snowboy": "^1.1.0"
+    "snowboy": "^1.1.0",
+    "speaker": "^0.3.0"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",

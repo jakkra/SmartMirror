@@ -1,5 +1,6 @@
 const request = require('request');
 require('dotenv').config()
+const speaker = require('./speech/amazon-polly-speaker');
 
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
 		};
 		request.post(options, function (error, response, body) {
 		  if (!error && response.statusCode == 200) {
-		    console.log(body)
+		    speaker.speak('Jag påminner dig att ' + text);
 		  }
 		})
 	},
