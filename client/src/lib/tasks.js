@@ -1,3 +1,5 @@
+import { config } from '../config.js';
+
 const checkStatus = (res) => {
     return new Promise((resolve, reject) => {
         if (res.status >= 200 && res.status < 299) {
@@ -11,7 +13,7 @@ const checkStatus = (res) => {
 
 
 export function getTasks(callback) {
-	const url = 'http://localhost:3000/api/tasks';
+	const url = config.serverBaseURL + '/api/tasks';
 
 	return fetch(url)
   .then(checkStatus)

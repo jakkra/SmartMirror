@@ -3,5 +3,6 @@ export const config = {
 	SMHI_COORD: {
 		longitude: '13',
 		latitude: '55.6'
-	}, 
+	},
+	serverBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000'
 };

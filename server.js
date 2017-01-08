@@ -4,11 +4,6 @@ var express = require('express');
 var app = express();
 var expressWs = require('express-ws')(app);
 
-app.ws('/', function(ws, req) {
-    ws.on('message', function(msg) {
-      console.log(msg);
-    });
-});
 
 const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
@@ -24,8 +19,20 @@ app.set('port', (process.env.PORT || 3001))
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
+  console.log('In production');
   app.use(express.static('client/build'))
 }
+
+app.ws('/', function(ws, req) {
+    ws.on('message', function(msg) {
+      console.log(msg);
+      if(process.env.target ==='PI'){ // Send current temperature when a client connects
+        const tempLogger = require('./util/temp_logger');
+        const temperature = tempLogger.checkTemperature();
+        sendTemperatureToClient(temperature);
+      }
+    });
+});
 
 app.get('/api/test/:text', (req, res) => {
   if (req.params.text) speaker.speak(req.params.text);
@@ -65,12 +72,13 @@ hotword.initCallback(() => {
       const command = commands.classifyCommand(result.transcript.toLowerCase());
       console.log(command);
       commandHandler.handle(command);
-
     }
   }, done)
 }
 );
+
 hotword.listenForHotword();
+
 function done(){
   console.log('________________DONE________________');
   hotword.listenForHotword();
@@ -80,11 +88,15 @@ function done(){
 if(process.env.target ==='PI'){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
-  tempLogger.start();
+  tempLogger.start(sendTemperatureToClient);
   motionDetector.start(() => {
     requestHelper.reportMotion();
     const rand = Math.floor(Math.random() * messages.length);
     const m = messages[rand];
     sendToClient('motion', {message: m});
   });
+}
+
+function sendTemperatureToClient(readTemperature){
+  sendToClient('temperature', { temperature: readTemperature });
 }

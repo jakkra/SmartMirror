@@ -11,20 +11,24 @@ module.exports = {
 		  }
 		  var self = this;			
 			setInterval(function() {
-				checkTemperature();
-			}, 10*1000);
-		  checkTemperature();
+				logTemperature();
+			}, 20 * 60 * 1000);
+		  logTemperature();
 		});
 
+	}, 
+	checkTemperature: function() {
+		var listOfDeviceIds = sensor.list();
+		if (listOfDeviceIds.length > 0) {
+			var id = listOfDeviceIds[listOfDeviceIds.length - 1];
+			var temperature = sensor.get(id);
+			console.log('Temp is: ' + temperature);
+			return temperature;
+		};
+		return null;
 	}
 };
 
-function checkTemperature() {
-	var listOfDeviceIds = sensor.list();
-	if (listOfDeviceIds.length > 0) {
-		var id = listOfDeviceIds[listOfDeviceIds.length - 1];
-		var temperature = sensor.get(id);
-		request_helper.logTemperature(temperature);
-		console.log('Temp is: ' + temperature);
-	};
+function logTemperature(temperature){
+	request_helper.logTemperature(temperature);
 }
