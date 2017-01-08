@@ -12,7 +12,8 @@ module.exports = {
 		  var self = this;			
 			setInterval(function() {
 				checkTemperature();
-			}, 20*60*1000);
+			}, 10*1000);
+		  checkTemperature();
 		});
 
 	}

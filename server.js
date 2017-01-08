@@ -13,10 +13,7 @@ app.ws('/', function(ws, req) {
 const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
 const commands = require('./speech/command_classify');
-if(process.env.target ==='PI'){
-  const tempLogger = require('./util/temp_logger');
-  const motionDetector = require('./util/motion');
-}
+
 const hue = require('./util/hue.js');
 const commandHandler = require('./speech/command_handler');
 const messages = require('./util/messages.json');
@@ -81,9 +78,13 @@ function done(){
 }
 
 if(process.env.target ==='PI'){
+  const tempLogger = require('./util/temp_logger');
+  const motionDetector = require('./util/motion');
   tempLogger.start();
   motionDetector.start(() => {
-    commandHandler.reportMotion();
-    sendToClient('motion', {message: 'Motion detected'});
+    requestHelper.reportMotion();
+    const rand = Math.floor(Math.random() * messages.length);
+    const m = messages[rand];
+    sendToClient('motion', {message: m});
   });
 }
