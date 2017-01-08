@@ -1,6 +1,6 @@
 
 var sensor = require('ds18x20');
-const request_helper = require('../request_helper');
+const request_helper = require('./request_helper');
 
 module.exports = {
 	start: function() {

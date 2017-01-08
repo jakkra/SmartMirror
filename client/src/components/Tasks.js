@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTasks } from './lib/tasks';
+import { getTasks } from '../lib/tasks';
 import FlipMove from 'react-flip-move';
 import FA from 'react-fontawesome';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Col, Row } from 'react-bootstrap';
-import { getForecast, getIconClass } from './lib/yahoo_weather';
+import { getForecast, getIconClass } from '../lib/yahoo_weather';
 import moment from 'moment';
 
 const styles = {
@@ -53,6 +53,15 @@ const styles = {
 }
 
 export default class Forecast extends React.Component {
+
+  static propTypes = {
+    visible: React.PropTypes.bool
+  };
+
+  static defaultProps = {
+    visible: true
+  };
+
   constructor(props) {
     super(props);
     // Save the API limit when developing
@@ -95,7 +104,7 @@ export default class Forecast extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container}>
   	       <p style={styles.locationLabel}> Lund </p>
         <Row>
           <Col xs={6}>

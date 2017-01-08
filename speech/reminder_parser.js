@@ -1,6 +1,6 @@
 const moment = require('moment');
 const SpeechCommand = require('./speech_command');
-const request = require('../request_helper');
+const request = require('../util/request_helper');
 
 const time1 = new RegExp("om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)");
 const time2 = new RegExp("att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)");

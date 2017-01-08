@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Col, Row } from 'react-bootstrap';
-import { getCurrentWeather, fileFromInt } from './lib/smhi';
+import { getCurrentWeather, fileFromInt } from '../lib/smhi';
 
 const styles = {
   container: {
@@ -59,13 +59,13 @@ export default class Weather extends React.Component {
   render() {
   	let weatherSymbol;
   	if(this.state.weather.weatherSymbol){
-	  	weatherSymbol = (<img style={styles.weatherImg} role="presentation" src={require('../resources/weather-icons/' + fileFromInt(this.state.weather.weatherSymbol))}/>);
+	  	weatherSymbol = (<img style={styles.weatherImg} role="presentation" src={require('../../resources/weather-icons/' + fileFromInt(this.state.weather.weatherSymbol))}/>);
   	} else {
   		weatherSymbol = null;
   	}
   	let windDirectionSymbol;
   	if(this.state.weather.windDirection){
-	  	windDirectionSymbol = (<img style={{ position: 'absolute', right: 40, textAlign: 'right' ,marginTop: 20, marginLeft: 0, maxWidth: '16%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../resources/weather-icons/wind_arrow.png')}/>);
+	  	windDirectionSymbol = (<img style={{ position: 'absolute', right: 40, textAlign: 'right' ,marginTop: 20, marginLeft: 0, maxWidth: '16%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../../resources/weather-icons/wind_arrow.png')}/>);
   	} else {
   		windDirectionSymbol = null;
   	}

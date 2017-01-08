@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getLatestNews } from './lib/svt_news';
+import { getLatestNews } from '../lib/svt_news';
 import FlipMove from 'react-flip-move';
 
 const styles = {
@@ -26,6 +26,14 @@ const styles = {
 }
 
 export default class News extends React.Component {
+  static propTypes = {
+    visible: React.PropTypes.bool
+  };
+
+  static defaultProps = {
+    visible: true
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -93,7 +101,7 @@ export default class News extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container}>
         <FlipMove 
         	staggerDurationBy="30"
           duration={500}

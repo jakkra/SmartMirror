@@ -4,16 +4,18 @@ var express = require('express');
 var app = express();
 var expressWs = require('express-ws')(app);
 
+const mirrorSocket = require('./util/mirror_socket')(expressWs);
+const commandHandler = require('./speech/command_handler')(mirrorSocket);
 
 const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
-const commands = require('./speech/command_classify');
 
 const hue = require('./util/hue.js');
-const commandHandler = require('./speech/command_handler');
+const commands = require('./speech/command_classify')
 const messages = require('./util/messages.js');
-const requestHelper = require('./request_helper');
+const requestHelper = require('./util/request_helper');
 const speaker = require('./speech/amazon-polly-speaker');
+
 
 app.set('port', (process.env.PORT || 3001))
 
@@ -36,9 +38,27 @@ app.ws('/', function(ws, req) {
 
 app.get('/api/speak/:text', (req, res) => {
   if (req.params.text) speaker.speak(req.params.text);
-  sendToClient('motion', {message: messages.getMessage()});
 	return;
 });
+
+app.get('/api/hide', (req, res) => {
+  mirrorSocket.sendToClient('visibility', {component: 'forecasts', visible: false});
+    mirrorSocket.sendToClient('visibility', {component: 'news', visible: false});
+
+  res.json({
+      success: true
+    });
+});
+
+app.get('/api/show', (req, res) => {
+  mirrorSocket.sendToClient('visibility', {component: 'forecasts', visible: true});
+    mirrorSocket.sendToClient('visibility', {component: 'news', visible: true});
+
+  res.json({
+      success: true
+    });
+});
+
 
 app.get('/api/tasks', (req, res) => {
 	requestHelper.getTasks((tasks) => {
@@ -53,15 +73,9 @@ app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
-function sendToClient(event, data) {
-  var aWss = expressWs.getWss('/a');
-  aWss.clients.forEach(function (client) {
-    client.send(JSON.stringify({event: event, data: data}));
-  });
-}
 
 hotword.initCallback(() => {
-  sendToClient('recording', {isRecording: true});
+  mirrorSocket.sendToClient('recording', {isRecording: true});
   speech.listen((param) => {
     console.log(param);
     if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
@@ -80,7 +94,7 @@ hotword.listenForHotword();
 function done(){
   console.log('________________DONE________________');
   hotword.listenForHotword();
-  sendToClient('recording', {isRecording: false});
+  mirrorSocket.sendToClient('recording', {isRecording: false});
 }
 
 if(process.env.target ==='PI'){
@@ -89,10 +103,10 @@ if(process.env.target ==='PI'){
   tempLogger.start(sendTemperatureToClient);
   motionDetector.start(() => {
     requestHelper.reportMotion();
-    sendToClient('motion', {message: messages.getMessage()});
+    mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
   });
 }
 
 function sendTemperatureToClient(readTemperature){
-  sendToClient('temperature', { temperature: readTemperature });
+  mirrorSocket.sendToClient('temperature', { temperature: readTemperature });
 }

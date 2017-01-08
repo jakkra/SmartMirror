@@ -1,6 +1,6 @@
 const request = require('request');
 require('dotenv').config()
-const speaker = require('./speech/amazon-polly-speaker');
+const speaker = require('../speech/amazon-polly-speaker');
 
 
 module.exports = {

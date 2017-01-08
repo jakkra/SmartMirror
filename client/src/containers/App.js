@@ -1,13 +1,13 @@
 import React from 'react';
-import Clock from './Clock';
-import Weather from './Weather';
-import Forecast from './Forecast'
-import News from './News';
-import RecordingStatus from './RecordingStatus';
-import Message from './Message';
-import Tasks from './Tasks';
+import Clock from '../components/Clock';
+import Weather from '../components/Weather';
+import Forecast from '../components/Forecast'
+import News from '../components/News';
+import RecordingStatus from '../components/RecordingStatus';
+import Message from '../components/Message';
+import Tasks from '../components/Tasks';
 
-import { config } from './config.js';
+import { config } from '../config.js';
 
 import { Col, Row } from 'react-bootstrap';
 
@@ -28,6 +28,10 @@ export default class App extends React.Component {
       message: {
         text: 'No messages set',
         visible: false
+      },
+      visibility: {
+        news: true,
+        forecasts: true
       }
     };
 
@@ -65,6 +69,13 @@ export default class App extends React.Component {
           }, 10000)
         }
         break;
+      case 'visibility':
+        const prevStateVisability = this.state.visibility;
+        prevStateVisability[data.component] = data.visible;
+        this.setState({
+          visibility: prevStateVisability
+        })
+        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -86,7 +97,7 @@ export default class App extends React.Component {
               <Weather/>
             </Row>
             <Row style={{marginTop: 150}}>
-              <Forecast/>
+              <Forecast visible={this.state.visibility.forecasts} />
             </Row>
           </Col>
         </Row>
@@ -95,7 +106,7 @@ export default class App extends React.Component {
           <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
         </Row>
         <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%'}}>
-          <News/>
+          <News visible={this.state.visibility.news} />
         </Row>
       </div>
     );

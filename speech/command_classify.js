@@ -1,7 +1,7 @@
 const SpeechCommand = require('./speech_command');
 const reminderParser = require('./reminder_parser');
 
-const lampSynonymsSwedish = ['lampa', 'lampan', 'lampor', 'lamporna', 'ljus', 'ljuset', 'ljusen', 'ljuset', 'lyset', 'taket', 'i taket', 'i hallen', 'tänd', 'släck', 'ljus', 'ljusen'];
+const lampSynonymsSwedish = ['lampa', 'lampan', 'lampor', 'lamporna', 'ljus', 'ljuset', 'ljusen', 'ljuset', 'lyset', 'taket', 'i taket', 'i hallen', 'tänd', 'släck', 'ljus'];
 const onSynonymsSwedish = ['sätt på', 'till', 'tänd', 'tända', 'starta', 'händer'];
 const offSynonymsSwedish = ['stäng av', 'stäng av', 'stänga', 'från', 'släck', 'släcka', 'stoppa', 'fläck', 'fläckt', 'fläkt'];
 const allSynonymsSwedish = ['alla', 'samtliga'];
