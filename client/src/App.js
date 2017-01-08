@@ -7,13 +7,15 @@ import RecordingStatus from './RecordingStatus';
 import Message from './Message';
 import Tasks from './Tasks';
 
+import { config } from './config.js';
+
 import { Col, Row } from 'react-bootstrap';
 
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    let s = new WebSocket("ws://localhost:3001/");
+    let s = new WebSocket('ws://' + config.wsServerBaseURL);
     s.onmessage = this.handleMessage.bind(this);
     s.addEventListener('error', m => console.log(m));
     s.addEventListener('open', m => {

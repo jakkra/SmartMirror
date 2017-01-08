@@ -11,7 +11,7 @@ const commands = require('./speech/command_classify');
 
 const hue = require('./util/hue.js');
 const commandHandler = require('./speech/command_handler');
-const messages = require('./util/messages.json');
+const messages = require('./util/messages.js');
 const requestHelper = require('./request_helper');
 const speaker = require('./speech/amazon-polly-speaker');
 
@@ -28,17 +28,15 @@ app.ws('/', function(ws, req) {
       console.log(msg);
       if(process.env.target ==='PI'){ // Send current temperature when a client connects
         const tempLogger = require('./util/temp_logger');
-        const temperature = tempLogger.checkTemperature();
+        const temperature = tempLogger.getTemperature();
         sendTemperatureToClient(temperature);
       }
     });
 });
 
-app.get('/api/test/:text', (req, res) => {
+app.get('/api/speak/:text', (req, res) => {
   if (req.params.text) speaker.speak(req.params.text);
-  const rand = Math.floor(Math.random() * messages.length);
-  const m = messages[rand];
-  sendToClient('motion', {message: m});
+  sendToClient('motion', {message: messages.getMessage()});
 	return;
 });
 
@@ -91,9 +89,7 @@ if(process.env.target ==='PI'){
   tempLogger.start(sendTemperatureToClient);
   motionDetector.start(() => {
     requestHelper.reportMotion();
-    const rand = Math.floor(Math.random() * messages.length);
-    const m = messages[rand];
-    sendToClient('motion', {message: m});
+    sendToClient('motion', {message: messages.getMessage()});
   });
 }
 
