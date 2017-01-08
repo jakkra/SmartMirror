@@ -21,7 +21,7 @@ const styles = {
     color: 'white',
     fontSize: '2.2em',
     margin: 0,
-    marginLeft: 50,
+    marginLeft: 35,
     padding: 0,
     lineHeight: 1,
     paddingTop: 7

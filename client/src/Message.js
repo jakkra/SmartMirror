@@ -4,7 +4,7 @@ const styles = {
   message: {
     marginLeft: 40,
     color: 'white',
-    fontSize: '5.5em',
+    fontSize: '3.5em',
     textAlign: 'center'
   },
 }
