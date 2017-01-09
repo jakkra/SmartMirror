@@ -42,7 +42,8 @@
     "reactstrap": "^3.9.5",
     "request": "^2.79.0",
     "snowboy": "^1.1.0",
-    "speaker": "^0.3.0"
+    "speaker": "^0.3.0",
+    "striptags": "^2.1.1"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",

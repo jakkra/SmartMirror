@@ -54,6 +54,21 @@ module.exports = (mirrorSocket) => {
           break;
         case SpeechCommand.TURN_OFF:
           exec("sudo shutdown -h now");
+        case SpeechCommand.SHOW_ARTICLES:
+          mirrorSocket.sendToClient('visibility', {component: 'article', visible: true});
+          break;
+        case SpeechCommand.HIDE_ARTICLES:
+          mirrorSocket.sendToClient('visibility', {component: 'article', visible: false});
+          break;
+        case SpeechCommand.NEXT_ARTICLE:
+          mirrorSocket.sendToClient('command', {component: 'article', action: 'next'});
+          break;
+        case SpeechCommand.PREVIOUS_ARTICLE:
+          mirrorSocket.sendToClient('command', {component: 'article', action: 'previous'});
+          break;
+        case SpeechCommand.CHANGE_ARTICLE_SOURCE:
+          mirrorSocket.sendToClient('command', {component: 'article', action: 'change_source'});
+          break;
         case SpeechCommand.UNKNOWN:
           console.log("Command not found: " + command);
           break;

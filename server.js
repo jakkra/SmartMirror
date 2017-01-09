@@ -14,7 +14,6 @@ const hue = require('./util/hue.js');
 const commands = require('./speech/command_classify')
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
-const speaker = require('./speech/amazon-polly-speaker');
 
 
 app.set('port', (process.env.PORT || 3001))
@@ -25,6 +24,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
+require('./routes')(app, mirrorSocket);
+
 app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
       console.log(msg);
@@ -34,39 +35,6 @@ app.ws('/', function(ws, req) {
         sendTemperatureToClient(temperature);
       }
     });
-});
-
-app.get('/api/speak/:text', (req, res) => {
-  if (req.params.text) speaker.speak(req.params.text);
-	return;
-});
-
-app.get('/api/hide', (req, res) => {
-  mirrorSocket.sendToClient('visibility', {component: 'forecasts', visible: false});
-    mirrorSocket.sendToClient('visibility', {component: 'news', visible: false});
-
-  res.json({
-      success: true
-    });
-});
-
-app.get('/api/show', (req, res) => {
-  mirrorSocket.sendToClient('visibility', {component: 'forecasts', visible: true});
-    mirrorSocket.sendToClient('visibility', {component: 'news', visible: true});
-
-  res.json({
-      success: true
-    });
-});
-
-
-app.get('/api/tasks', (req, res) => {
-	requestHelper.getTasks((tasks) => {
-    res.json({
-      tasks: tasks
-    });
-	return;
-  })
 });
 
 app.listen(app.get('port'), () => {

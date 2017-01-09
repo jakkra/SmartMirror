@@ -4,7 +4,7 @@ const reminderParser = require('./reminder_parser');
 const lampSynonymsSwedish = ['lampa', 'lampan', 'lampor', 'lamporna', 'ljus', 'ljuset', 'ljusen', 'ljuset', 'lyset', 'taket', 'i taket', 'i hallen', 'tänd', 'släck', 'ljus'];
 const onSynonymsSwedish = ['sätt på', 'till', 'tänd', 'tända', 'starta', 'händer'];
 const offSynonymsSwedish = ['stäng av', 'stäng av', 'stänga', 'från', 'släck', 'släcka', 'stoppa', 'fläck', 'fläckt', 'fläkt'];
-const allSynonymsSwedish = ['alla', 'samtliga'];
+const allSynonymsSwedish = ['alla', 'samtliga', 'allt'];
 const bedroomSynonymsSwedish = ['säng', 'sängen', 'sängens', 'sovrum', 'sovrums', 'sovrummet', 'sovrummets'];
 const hallwaySynonymsSwedish = ['hall', 'hallen', 'hallens', 'dörr', 'dörren', 'Halland'];
 const livingRoomSynonymsSwedish = ['vardagsrum', 'vardagsrummet', 'matbord', 'matbordet'];
@@ -15,9 +15,13 @@ const busSynonymsSwedish = ['bussen', 'buss', 'bus'];
 const changeSynonymsSwedish = ['ändra', 'byt', 'ändra till'];
 const showSynonymsSwedish = ['visa', 'starta', 'ta fram'];
 const hideSynonymsSwedish = ['dölj', 'stäng av', 'ta bort', 'göm'];
-const newsSynonymsSwedish = ['nyheter', 'nyheterna', 'artiklar', 'artiklarna', 'nyhetskälla'];
+const newsSynonymsSwedish = ['nyheter', 'nyheterna', 'nyhetskälla'];
 const forecastsSynonymsSwedish = ['väder', 'vädret', 'prognos', 'prognoserna'];
+const articleSynonymsSwedish = ['blog', 'bloggar', 'bloggen', 'inlägg', 'inläggen', 'inlägget', 'artiklar', 'artiklarna', 'artikel', 'artikeln'];
+
 const whenSynonymsSwedish = ['när', 'byt', 'går'];
+const nextSynonymsSwedish = ['nästa', 'efterkommande'];
+const previousSynonymsSwedish = ['förra', 'föregående'];
 
 const remindSynonymsSwedish = ['påminn'];
 
@@ -32,6 +36,8 @@ exports.classifyCommand = function(s){
       return parseForecasts(s);
   } else if (stringContainsItemFromList(s, newsSynonymsSwedish)) {
       return parseNews(s);
+  } else if(stringContainsItemFromList(s, articleSynonymsSwedish)){
+      return parseArticle(s);
   } else if(stringContainsItemFromList(s, busSynonymsSwedish)){
       return parseBus(s);
   } else if(stringContainsItemFromList(s, remindSynonymsSwedish)){
@@ -53,6 +59,21 @@ function stringContainsItemFromList(command, list) {
     }
   }
   return false;
+}
+
+function parseArticle(s) {
+  console.log('parse article');
+  if (stringContainsItemFromList(s, showSynonymsSwedish)) {
+    return SpeechCommand.SHOW_ARTICLES;
+  } else if (stringContainsItemFromList(s, hideSynonymsSwedish)) {
+    return SpeechCommand.HIDE_ARTICLES;
+  } else if(stringContainsItemFromList(s, nextSynonymsSwedish)){
+    return SpeechCommand.NEXT_ARTICLE;
+  } else if(stringContainsItemFromList(s, previousSynonymsSwedish)){
+    return SpeechCommand.PREVIOUS_ARTICLE;
+  } else {
+    return SpeechCommand.UNKNOWN;
+  }
 }
 
 function parseBus(s) {

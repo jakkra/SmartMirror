@@ -72,11 +72,11 @@ module.exports = {
 		};
 
 		request(options, function(err, resp, body){
-		  var tasks = JSON.parse(body);
 		  if (!err && resp.statusCode === 200) {
+			  const tasks = JSON.parse(body);
 		    callback(tasks)
 		  } else {
-		    console.log('code: ',resp.statusCode, err);
+		    console.log('code: ', resp.statusCode, err);
 		  }
 		});
 	}

@@ -71,7 +71,7 @@ export default class Weather extends React.Component {
   	}
 
     return (
-      <div style={styles.container}>
+      <div hidden={!this.props.visible}  style={styles.container}>
         <Row>
           <Col xs={8}>
             <p style={styles.weather}>{this.state.weather.temp} °C</p>

@@ -20,3 +20,12 @@ export function getTasks(callback) {
   .then(res => res.json())
   .then(res => res.tasks)
 }
+
+export function getArticles(callback) {
+  const url = config.serverBaseURL + '/api/articles';
+
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.articles)
+}

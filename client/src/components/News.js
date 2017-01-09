@@ -39,7 +39,7 @@ export default class News extends React.Component {
     this.state = {
     	articles: [],
     	subArticles: [],
-    	numArticles: 1
+    	numArticles: 1,
     };
     this.refreshNews = this.refreshNews.bind(this);
     this.handleNewNews = this.handleNewNews.bind(this);

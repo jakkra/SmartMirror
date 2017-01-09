@@ -17,6 +17,7 @@
     "react-flip-move": "^2.7.3",
     "react-fontawesome": "^1.5.0",
     "react-forecast": "0.0.7",
+    "react-modal": "^1.6.5",
     "smhi-node": "0.0.7",
     "weather-icons": "^1.3.2",
     "wunderlist": "^0.1.3"

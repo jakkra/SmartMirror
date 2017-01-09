@@ -6,11 +6,11 @@ import News from '../components/News';
 import RecordingStatus from '../components/RecordingStatus';
 import Message from '../components/Message';
 import Tasks from '../components/Tasks';
+import Article from '../components/Article';
 
 import { config } from '../config.js';
 
 import { Col, Row } from 'react-bootstrap';
-
 
 export default class App extends React.Component {
   constructor(props) {
@@ -31,7 +31,9 @@ export default class App extends React.Component {
       },
       visibility: {
         news: true,
-        forecasts: true
+        forecasts: true,
+        article: false,
+        tasks: true,
       }
     };
 
@@ -76,6 +78,9 @@ export default class App extends React.Component {
           visibility: prevStateVisability
         })
         break;
+      case 'command':
+        this.refs[data.component].onEvent(data);
+        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -85,16 +90,17 @@ export default class App extends React.Component {
   render() {
     return (
       <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
+        <Article ref='article' visible={this.state.visibility.article} />
         <Row>
           <Col xs={7}>
             <Clock temperature={this.state.temperature}/>
             <RecordingStatus isRecording={this.state.isRecording} />
-            <Tasks/>
+            <Tasks visible={this.state.visibility.news} />
 
           </Col>
           <Col xs={5}>
             <Row>
-              <Weather/>
+              <Weather visible={this.state.visibility.news} />
             </Row>
             <Row style={{marginTop: 150}}>
               <Forecast visible={this.state.visibility.forecasts} />

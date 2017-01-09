@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { getTasks } from '../lib/tasks';
+import BaseComponent from './BaseComponent';
+import { getTasks } from '../lib/fetch';
 import FlipMove from 'react-flip-move';
 import FA from 'react-fontawesome';
 
@@ -31,7 +32,7 @@ const styles = {
   },
 }
 
-export default class Tasks extends React.Component {
+export default class Tasks extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -101,7 +102,7 @@ export default class Tasks extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container}>
       	<div style={styles.listName}>
           Att handla
           <FA
