@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const styles = {
   container: {
-    marginLeft: 100,
+    marginLeft: 200,
     marginRight: 50
   },
   weatherImg: {

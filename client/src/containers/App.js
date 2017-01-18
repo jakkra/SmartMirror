@@ -92,13 +92,14 @@ export default class App extends React.Component {
       <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
         <Article ref='article' visible={this.state.visibility.article} />
         <Row>
-          <Col xs={7}>
+          <Col xs={4}>
             <Clock temperature={this.state.temperature}/>
             <RecordingStatus isRecording={this.state.isRecording} />
             <Tasks visible={this.state.visibility.news} />
 
           </Col>
-          <Col xs={5}>
+          <Col xs={4} />
+          <Col xs={4}>
             <Row>
               <Weather visible={this.state.visibility.news} />
             </Row>
