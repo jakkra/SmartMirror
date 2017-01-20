@@ -34,6 +34,8 @@ export default class App extends React.Component {
         forecasts: true,
         article: false,
         tasks: true,
+        weather: true,
+        clock: true,
       }
     };
 
@@ -93,17 +95,17 @@ export default class App extends React.Component {
         <Article ref='article' visible={this.state.visibility.article} />
         <Row>
           <Col xs={4}>
-            <Clock temperature={this.state.temperature}/>
+            <Clock temperature={this.state.visibility.clock}/>
             <RecordingStatus isRecording={this.state.isRecording} />
-            <Tasks visible={this.state.visibility.news} />
+            <Tasks visible={this.state.visibility.tasks} />
 
           </Col>
           <Col xs={4} />
           <Col xs={4}>
             <Row>
-              <Weather visible={this.state.visibility.news} />
+              <Weather visible={this.state.visibility.weather} />
             </Row>
-            <Row style={{marginTop: 150}}>
+            <Row style={{marginTop: 50}}>
               <Forecast visible={this.state.visibility.forecasts} />
             </Row>
           </Col>
