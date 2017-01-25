@@ -29,3 +29,12 @@ export function getArticles(callback) {
   .then(res => res.json())
   .then(res => res.articles)
 }
+
+export function getForecast(callback) {
+  const url = config.serverBaseURL + '/api/forecast';
+
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.forecast)
+}

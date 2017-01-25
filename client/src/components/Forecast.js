@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { Col, Row } from 'react-bootstrap';
-import { getForecast, getIconClass } from '../lib/yahoo_weather';
+import { getForecast } from '../lib/fetch';
 import moment from 'moment';
+import Skycons from 'react-skycons';
 
 const styles = {
   container: {
@@ -15,11 +16,12 @@ const styles = {
   },
   forecastText: {
   	color: 'white',
-    fontSize: '1.5em',
+    fontSize: '1.7em',
     margin: 0,
     padding: 0
   },
   foreacstIcon: {
+    height: '40px',
   	color: 'white',
     fontSize: '1.8em',
     margin: 0,
@@ -36,7 +38,7 @@ const styles = {
   },
   foreacstTemp: {
   	color: 'white',
-    fontSize: '1.5em',
+    fontSize: '1.6em',
     margin: 0,
     padding: 0,
     textAlign: 'right',
@@ -67,9 +69,9 @@ export default class Forecast extends React.Component {
     // Save the API limit when developing
     const dummy = 
     {
-      forecast: JSON.parse("[{\"code\":\"30\",\"date\":\"06 Jan 2017\",\"day\":\"Fri\",\"high\":\"-3\",\"low\":\"-7\",\"text\":\"Partly Cloudy\"},{\"code\":\"14\",\"date\":\"07 Jan 2017\",\"day\":\"Sat\",\"high\":\"1\",\"low\":\"-3\",\"text\":\"Snow Showers\"},{\"code\":\"28\",\"date\":\"08 Jan 2017\",\"day\":\"Sun\",\"high\":\"1\",\"low\":\"-4\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"09 Jan 2017\",\"day\":\"Mon\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"10 Jan 2017\",\"day\":\"Tue\",\"high\":\"3\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"28\",\"date\":\"11 Jan 2017\",\"day\":\"Wed\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"23\",\"date\":\"12 Jan 2017\",\"day\":\"Thu\",\"high\":\"3\",\"low\":\"2\",\"text\":\"Breezy\"},{\"code\":\"28\",\"date\":\"13 Jan 2017\",\"day\":\"Fri\",\"high\":\"2\",\"low\":\"1\",\"text\":\"Mostly Cloudy\"},{\"code\":\"30\",\"date\":\"14 Jan 2017\",\"day\":\"Sat\",\"high\":\"1\",\"low\":\"-1\",\"text\":\"Partly Cloudy\"}]"),
+      forecast: [],
       sunrise: '8:35 AM',
-      sunset: '3:52 PM'
+      sunset: '2:52 PM'
     };
     this.state = {
     	weather: dummy
@@ -79,11 +81,11 @@ export default class Forecast extends React.Component {
   }
 
   componentDidMount() {
-    /*this.timerID = setInterval(
+    this.timerID = setInterval(
       () => this.refreshForecast(),
       1000 * 60 * 10
-    );*/
-    // this.refreshForecast();
+    );
+     this.refreshForecast();
   }
 
   componentWillUnmount() {
@@ -91,12 +93,21 @@ export default class Forecast extends React.Component {
   }
 
   refreshForecast() {
-  	getForecast()
-  	.then(this.handleNewForecast)
+    getForecast()
+    .then(res => {
+      console.log(res);
+      const f = {
+        forecast: res.daily.data.slice(1),
+        sunrise: new Date(res.daily.data["0"].sunriseTime * 1000),
+        sunset: new Date(res.daily.data["0"].sunsetTime * 1000)
+      };
+      this.handleNewForecast(f);
+    })
   	.catch((err) => console.log(err));
   }
 
   handleNewForecast(weather){
+    console.log(weather);
   	this.setState({
   		weather: weather
   	})
@@ -121,15 +132,15 @@ export default class Forecast extends React.Component {
 	        	<Row key={i}>
 		          <Col xs={4}>
 		          	<div style={styles.forecastText}>
-		          		{moment(new Date(object.date)).format('dddd')}
+		          		{moment(new Date(object.temperatureMaxTime) * 1000).format('dddd')}
 		          	</div>
 		          </Col>
 		          <Col style={{ textAlign: 'center' }}xs={4}>
-		          	<i style={styles.foreacstIcon} className={getIconClass(object.code)}></i>
+                <Skycons style={styles.foreacstIcon} color='white' icon={object.icon.replace(new RegExp('-', 'g'), '_').toUpperCase()} autoplay={true}/>
 		          </Col>
 		          <Col xs={4}>
 		          	<div style={styles.foreacstTemp}>
-		          		{object.high} / {object.low}
+		          		{Math.round(object.temperatureMax)} / {Math.round(object.temperatureMin)}
 		          	</div>
 		          </Col>
 		        </Row>

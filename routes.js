@@ -87,4 +87,12 @@ module.exports = (app, mirrorSocket) => {
 	    });
 	});
 
+	app.get('/api/forecast', (req, res) => {
+		requestHelper.getForecast((forecast) => {
+	    res.json({
+	      forecast: forecast
+	    });
+		return;
+	  })
+	});
 }

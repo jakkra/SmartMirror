@@ -79,5 +79,15 @@ module.exports = {
 		    console.log('code: ', resp.statusCode, err);
 		  }
 		});
+	},
+
+	getForecast(callback){
+		request
+		.get('https://api.darksky.net/forecast/e6e170a4d778f0260cedd8d50877457d/55.6,13?lang=sv&units=si', function (error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		  	let forecast = JSON.parse(body);
+		    callback(forecast);
+		  }
+		})
 	}
 }
