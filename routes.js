@@ -3,8 +3,36 @@ const exec = require('child_process').exec;
 const speaker = require('./speech/amazon-polly-speaker');
 const requestHelper = require('./util/request_helper');
 const articleExtractor = require('./util/article_extractor');
+const serialHandler = require('./util/serial_handler');
 
 module.exports = (app, mirrorSocket) => {
+
+	app.get('/api/serial/:command', (req, res) => {
+		serialHandler.writeString(req.params.command);
+	  res.json({
+      success: true
+    });
+	});
+
+	app.post('/api/serial', (req, res) => {
+		if(req.body.mode){
+			const mode = req.body.mode;
+			const speed = req.body.speed;
+			serialHandler.writeString('mode:' + req.body.mode + ':' + req.body.speed);
+		} else {
+	    const side = req.body.side;
+	    const rgb = req.body.rgb;
+	   	if(side === 'all'){
+	   		serialHandler.writeString('rgb:' + rgb.r + ':' + rgb.g + ':' + rgb.b);
+	   	} else {
+	   		serialHandler.writeString('side:' + side + ':' + rgb.r + ':' + rgb.g + ':' + rgb.b);
+	   	}
+	  }
+	  res.json({
+      success: true
+    });
+	});
+
 	app.get('/api/speak/:text', (req, res) => {
 	  if (req.params.text) speaker.speak(req.params.text);
 	  res.json({

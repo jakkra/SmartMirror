@@ -15,6 +15,9 @@ const commands = require('./speech/command_classify')
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.set('port', (process.env.PORT || 3001))
 
