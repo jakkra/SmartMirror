@@ -41,6 +41,21 @@ app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
+app.get('/api/parse/:command', (req, res) => {
+  if(!req.params.command) {
+    res.json({
+      success: false,
+      message: 'Missing param: command',
+    });
+  }
+  const command = commands.classifyCommand(req.params.command.toLowerCase());
+  console.log(command);
+  commandHandler.handle(command);
+  res.json({
+    success: true
+  });
+});
+
 
 hotword.initCallback(() => {
   mirrorSocket.sendToClient('recording', {isRecording: true});

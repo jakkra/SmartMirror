@@ -76,7 +76,33 @@ module.exports = {
 			  const tasks = JSON.parse(body);
 		    callback(tasks)
 		  } else {
-		    console.log('code: ', resp.statusCode, err);
+		    console.log('error', err);
+		  }
+		});
+	},
+	
+	// Wunderlist
+	createTask(title){
+		var options = {
+		  url: 'https://a.wunderlist.com/api/v1/tasks',
+		  headers: {
+		    'X-Access-Token': process.env.wunderlistAccessToken,
+		    'X-Client-ID': process.env.wunderlistClientID,
+		    'Content-Type': 'application/json'
+		  },
+		  body: JSON.stringify({
+		  	list_id: parseInt(process.env.wunderlistListID), // Wunderlist requires it to be a number
+		  	title: title
+		  })
+		};
+
+		request.post(options, function(err, resp, body){
+		  if (!err && resp.statusCode === 201) {
+			  //const response = JSON.parse(body);
+		    console.log(body);
+		  } else {
+		    console.log(body);
+		    console.log('error', err);
 		  }
 		});
 	},

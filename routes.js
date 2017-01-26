@@ -64,6 +64,19 @@ module.exports = (app, mirrorSocket) => {
 	  })
 	});
 
+	app.get('/api/tasks/create/:title', (req, res) => {
+		if(req.params.title){
+			requestHelper.createTask(req.params.title)
+	    res.json({
+	      success: true
+	    });
+		} else {
+			res.json({
+	      success: false
+	    });
+		}
+	});
+
 	app.get('/api/articles', (req, res) => {
 		articleExtractor.getArticles((articles) => {
 	    res.json({

@@ -6,12 +6,15 @@ const time1 = new RegExp("om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)");
 const time2 = new RegExp("att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)");
 const tomorrow = new RegExp("imorgon\\s+(?:klockan)?\\s*([0-9]+)(?:\\.)?([0-9]+)?\\s+att\\s+(.*)");
 const weekday = new RegExp("på\\s+([^\\s]*)\\s+att\\s+(.*)");
+const buySomething = new RegExp("att\\s+.*(?:köpa|handla)\\s+(?:mer|mera|flera|fler)?\\s+(.*)");
 
 exports.parse = function(s){
   const matcher1 = s.match(time1);
   const matcher2 = s.match(time2);
   const tomorrowMatcher = s.match(tomorrow);
   const weekdayMatcher = s.match(weekday);
+  const buyMatcher = s.match(buySomething);
+
   let date = null;
   let reminderText = '';
 
@@ -50,6 +53,10 @@ exports.parse = function(s){
       console.log(err);
       return SpeechCommand.UNKNOWN;
     }
+  } else if(buyMatcher !== null){
+    console.log('Parse buy');
+    console.log(buyMatcher);
+    request.createTask(buyMatcher[1]);
   } else {
     console.log('No match found for: ' + s);
     return SpeechCommand.UNKNOWN;

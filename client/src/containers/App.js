@@ -95,7 +95,7 @@ export default class App extends React.Component {
         <Article ref='article' visible={this.state.visibility.article} />
         <Row>
           <Col xs={4}>
-            <Clock temperature={this.state.visibility.clock}/>
+            <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
             <RecordingStatus isRecording={this.state.isRecording} />
             <Tasks visible={this.state.visibility.tasks} />
 

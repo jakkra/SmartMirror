@@ -25,6 +25,7 @@ const previousSynonymsSwedish = ['förra', 'föregående'];
 
 const remindSynonymsSwedish = ['påminn'];
 
+
 const turnOffMirrorSwedish = ['stäng av spegeln', 'spegel stäng av dig', 'gå och sov spegel'];
 
 exports.classifyCommand = function(s){

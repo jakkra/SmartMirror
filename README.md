@@ -68,7 +68,7 @@ npm start
 $ sudo apt-get install unclutter
 $ unclutter -display :0.0 -idle 5 # Hides cursor after 5 seconds of inactivity
 
-$ chromium-browser --kiosk http://localhost:3001 # Launch Chromium in kiosk mode
+$ chromium-browser --kiosk --incognito http://localhost:3001 # Launch Chromium in kiosk mode
 
 $ sudo apt-get install -y fonts-tlwg-sawasdee # Installs the font I use.
 ```
