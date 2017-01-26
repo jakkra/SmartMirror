@@ -13,14 +13,14 @@ const styles = {
   },
   taskTitle: {
     color: 'white',
-    fontSize: '1.4em',
+    fontSize: '1.7em',
     margin: 0,
     padding: 0,
     textAlign: 'left'
   },
   listName: {
     color: 'white',
-    fontSize: '2em',
+    fontSize: '2.4em',
     margin: 0,
     padding: 0,
     textAlign: 'left'
@@ -28,7 +28,7 @@ const styles = {
   shoppingIcon: {
     color: 'white',
     marginLeft: 15,
-    fontSize: '0.8em'
+    fontSize: '0.9em'
   },
 }
 

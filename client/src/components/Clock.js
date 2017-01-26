@@ -11,7 +11,7 @@ const styles = {
   },
   clock: {
     color: 'white',
-    fontSize: '5.8em',
+    fontSize: '6.3em',
     marginLeft: 20,
     margin: 0,
     padding: 0,
@@ -19,16 +19,16 @@ const styles = {
   },
   clockSeconds: {
     color: 'white',
-    fontSize: '2.2em',
+    fontSize: '2.4em',
     margin: 0,
-    marginLeft: 20,
+    marginLeft: 60,
     padding: 0,
     lineHeight: 1,
     paddingTop: 7
   },
   smallText: {
     color: 'white',
-    fontSize: '2.2em',
+    fontSize: '2.7em',
     marginLeft: 30,
     margin: 0,
     padding: 0

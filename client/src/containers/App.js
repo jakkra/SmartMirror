@@ -91,7 +91,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
+      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingLeft: 80, paddingRight: 60, paddingTop: 45}} className='App'>
         <Article ref='article' visible={this.state.visibility.article} />
         <Row>
           <Col xs={4}>
@@ -110,11 +110,11 @@ export default class App extends React.Component {
             </Row>
           </Col>
         </Row>
-        <Row style={{height: '20%'}}/>
-        <Row >
+        <Row style={{height: '1%'}}/>
+        <Row style={{marginBottom: 100, marginTop: 50}}>
           <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
         </Row>
-        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%'}}>
+        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60}}>
           <News visible={this.state.visibility.news} />
         </Row>
       </div>
