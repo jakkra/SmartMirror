@@ -114,7 +114,7 @@ export default class App extends React.Component {
         <Row style={{marginBottom: 100, marginTop: 50}}>
           <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
         </Row>
-        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60}}>
+        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60, paddingBottom: 0}}>
           <News visible={this.state.visibility.news} />
         </Row>
       </div>

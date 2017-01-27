@@ -5,9 +5,10 @@ import FlipMove from 'react-flip-move';
 
 const styles = {
   container: {
-    margin: 50,
     marginLeft: 50,
-    marginTop: 60
+    marginRight: 50,
+    marginTop: 60,
+    marginBottom: 0,
   },
   articleTitle: {
     color: 'white',

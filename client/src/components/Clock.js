@@ -16,6 +16,7 @@ const styles = {
     margin: 0,
     padding: 0,
     lineHeight: 1,
+    lineWidth: 1,
   },
   clockSeconds: {
     color: 'white',
@@ -36,6 +37,14 @@ const styles = {
 }
 
 export default class Clock extends React.Component {
+
+  static propTypes = {
+    visible: React.PropTypes.bool
+  };
+
+  static defaultProps = {
+    visible: true
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -64,7 +73,7 @@ export default class Clock extends React.Component {
     let day = this.state.date.format('dddd, LL');
     day = day.charAt(0).toUpperCase() + day.slice(1);
     return (
-      <div  style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container}>
         <Row>
           <Col xs={12}/>
             <p style={styles.smallText}> {day}</p>
