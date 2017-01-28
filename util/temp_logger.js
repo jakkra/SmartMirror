@@ -20,6 +20,12 @@ module.exports = {
 
 	getTemperature: function(){
 		return checkTemperature();
+	},
+
+	pollTemperature: function(interval, callback){
+		setInterval(function() {
+			callback(checkTemperature());
+		}, interval);
 	}
 };
 

@@ -31,7 +31,6 @@ require('./routes')(app, mirrorSocket);
 
 app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
-      console.log(msg);
       if(process.env.target ==='PI'){ // Send current temperature when a client connects
         const tempLogger = require('./util/temp_logger');
         const temperature = tempLogger.getTemperature();
@@ -86,7 +85,8 @@ function done(){
 if(process.env.target ==='PI'){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
-  tempLogger.start(sendTemperatureToClient);
+  tempLogger.start();
+  tempLogger.pollTemperature(1000 * 60, sendTemperatureToClient);
   motionDetector.start(() => {
     requestHelper.reportMotion();
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
