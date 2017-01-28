@@ -77,7 +77,6 @@ hotword.initCallback(() => {
 hotword.listenForHotword();
 
 function done(){
-  console.log('________________DONE________________');
   hotword.listenForHotword();
   mirrorSocket.sendToClient('recording', {isRecording: false});
 }
