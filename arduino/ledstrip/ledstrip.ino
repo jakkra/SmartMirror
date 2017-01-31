@@ -4,9 +4,9 @@
 #endif
 
 #define PIN 6
-#define NUM_LEDS 150
-#define NUM_LEDS_HORIZONTAL 5
-#define NUM_LEDS_VERTICAL 10
+#define NUM_LEDS 77
+#define NUM_LEDS_HORIZONTAL 16
+#define NUM_LEDS_VERTICAL 22
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -18,10 +18,10 @@
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 int brightness = 255;
-uint32_t topColor = strip.Color(100, 0, 0);
-uint32_t rightColor = strip.Color(0, 100, 0);
-uint32_t bottomColor = strip.Color(0, 0, 100);
-uint32_t leftColor = strip.Color(100, 100, 100);
+uint32_t topColor = strip.Color(20, 10, 10);
+uint32_t rightColor = strip.Color(20, 10, 10);
+uint32_t bottomColor = strip.Color(20, 10, 10);
+uint32_t leftColor = strip.Color(20, 10, 10);
 
 void setup() {
   Serial.begin(9600);
@@ -106,11 +106,11 @@ void colorWipe() {
   uint32_t c;
   for(uint16_t i=0; i<strip.numPixels(); i++) {
     if(i >= 0 && i < NUM_LEDS_HORIZONTAL){
-      c = topColor;
+      c = bottomColor;
     } else if(i >= NUM_LEDS_HORIZONTAL && i < NUM_LEDS_HORIZONTAL + NUM_LEDS_VERTICAL){
       c = rightColor;
     } else if(i >= NUM_LEDS_HORIZONTAL + NUM_LEDS_VERTICAL && i < 2 * NUM_LEDS_HORIZONTAL + NUM_LEDS_VERTICAL){
-      c = bottomColor;
+      c = topColor;
     } else {
       c = leftColor;
     }
