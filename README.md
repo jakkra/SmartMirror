@@ -59,11 +59,11 @@ Headlines and short descriptions are changing in the bottom of the Mirror every 
 
 ## Images
 
-<img src="pics/full.jpg" width="400"/> <img src="pics/rc.jpg" width="400"/>
+<img src="pics/rsz_full.jpg" width="400"/> <img src="pics/rsz_rc.jpg" width="400"/>
 
-<img src="pics/lc.jpg">
-<img src="pics/m.jpg">
-<img src="pics/rs.jpg" width="400">
+<img src="pics/rsz_lc.jpg">
+<img src="pics/rsz_m.jpg">
+<img src="pics/rsz_rs.jpg" width="400">
 
 ## Running locally
 
