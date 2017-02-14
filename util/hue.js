@@ -5,8 +5,8 @@ var hue = require("node-hue-api"),
 let lights, groups = [];
 let bedroom, diningTable, closet, groupAll;
 
-const hostname = "192.168.1.135",
-  username = "MSTTSfC3pjVnsgf9lQQ0uLUJhRRgmTOfXx9JHn7Q";
+const hostname = process.env.HUE_HOSTNAME,
+  username = process.env.HUE_USERNAME;
 
 const api = new HueApi(hostname, username);
 
