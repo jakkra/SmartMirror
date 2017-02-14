@@ -20,14 +20,13 @@ All voice parsing is done very simple, however I tried to make all commands as d
 
 Reminders can be created in various ways (In Swedish, but translated here to english):
 
-* Reminders can be created in various different ways:
 * Remind [me] in 20 minutes/hours/days to take a walk.
 * Remind [me] to walk the dog in 2 minutes/hours/days.
 * Remind [me] tomorrow at 12:35 to do the dishes.
 * Remind [me] on **weekday** to wash the car.
 * Remind [me] to buy/shop [more/extra] milk. // Adds it to a Wunderlist list (Shopping list in my case)
 
-When a reminder is successfully created, the Mirror will say something like "Will remind you to do X".
+When a reminder is successfully created, the Mirror will speak something like "Will remind you to do X".
 
 **Led strip**
 
@@ -39,9 +38,8 @@ It displays the items on a Wunderlist list (in my case our shopping list).
 
 **Weather**
 
-Displays current weather including temperature outside, feels like temperaturem wind speed and direction.
-Displays sunrise/sunset
-5 day forecast.
+Displays current weather including temperature outside, feels like temperature wind speed and direction.
+Also sunrise/sunset and 5 day forecast.
 
 **Inside temperature**
 
@@ -51,7 +49,7 @@ Which is retreived from a DS18B20 temperature sensor connected to the Raspberry 
 
 Motion detection is retreived from a connected PIR motion detector connected to the Raspberry PI.
 When motion is detected, a message will appear on the Mirror. It changes depending on the time of the day.
-Also it notifies my [Home automation and monitoring backend](https://github.com/jakkra/OneBackendToRuleThemAll) that motion was detected, so that my [Home automation and monitoring app](https://github.com/jakkra/OneAppToRuleThemAll) will notify me if I'm not at home that someone is in my apartment.
+Also it notifies my [Home automation and monitoring backend](https://github.com/jakkra/OneBackendToRuleThemAll) that motion was detected, so my [Home automation and monitoring app](https://github.com/jakkra/OneAppToRuleThemAll) will notify me if I'm not at home and someone is in my apartment.
 
 **Swedish news from SVT**
 
