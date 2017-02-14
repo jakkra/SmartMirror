@@ -58,11 +58,12 @@ Also it notifies my [Home automation and monitoring backend](https://github.com/
 Headlines and short descriptions are changing in the bottom of the Mirror every 20 seconds or so.
 
 ## Images
-![Full Mirror](pics/full.jpg)
-![Left Corner Mirror](pics/lc.jpg)
-![Right Corner Mirror](pics/rc.jpg)
-![Middle Mirror](pics/m.jpg)
-![Right Side Leds Mirror](pics/rs.jpg)
+
+<img src="pics/full.jpg" width="400"/> <img src="pics/rc.jpg" width="400"/>
+
+<img src="pics/lc.jpg">
+<img src="pics/m.jpg">
+<img src="pics/rs.jpg" width="400">
 
 ## Running locally
 
