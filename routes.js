@@ -9,9 +9,7 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/serial/:command', (req, res) => {
 		serialHandler.writeString(req.params.command);
-	  res.json({
-      success: true
-    });
+	  res.redirect("/webApp");
 	});
 
 	app.post('/api/serial', (req, res) => {
@@ -28,16 +26,12 @@ module.exports = (app, mirrorSocket) => {
 	   		serialHandler.writeString('side:' + side + ':' + rgb.r + ':' + rgb.g + ':' + rgb.b);
 	   	}
 	  }
-	  res.json({
-      success: true
-    });
+	  res.redirect("/webApp");
 	});
 
 	app.get('/api/speak/:text', (req, res) => {
 	  if (req.params.text) speaker.speak(req.params.text);
-	  res.json({
-      success: true
-    });
+	  res.redirect("/webApp");
 	});
 
 	app.get('/api/hide', (req, res) => {
@@ -48,25 +42,22 @@ module.exports = (app, mirrorSocket) => {
 	  mirrorSocket.sendToClient('visibility', {component: 'weather', visible: false});
 	  mirrorSocket.sendToClient('visibility', {component: 'clock', visible: false});
 
-	  res.json({
-      success: true
-    });
+	  res.redirect("/webApp");
+
 	});
 
 	app.get('/api/hide/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: false});
 	
-	  res.json({
-	      success: true
-	    });
+	  	   res.redirect("/webApp");
+
 	});
 
 	app.get('/api/show/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: true});
 
-	  res.json({
-	      success: true
-	    });
+	  res.redirect("/webApp");
+
 	});
 
 
@@ -116,16 +107,17 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/shutdown', (req, res) => {
 		exec("sudo shutdown -h now");
-    res.json({
-      success: true
-    });
+    res.redirect("/webApp");
+	});
+
+	app.get('/api/reboot', (req, res) => {
+		exec("sudo reboot");
+    res.redirect("/webApp");
 	});
 
 	app.get('/api/next', (req, res) => {
 	  mirrorSocket.sendToClient('command', {component: 'article', action: 'next'});
-	  res.json({
-	      success: true
-	    });
+	  res.redirect("/webApp");
 	});
 
 	app.get('/api/forecast', (req, res) => {

@@ -140,4 +140,9 @@ $ export DISPLAY=:0.0 # When starting chromium over SSH this must be done
 $ chromium-browser --kiosk --incognito http://localhost:3001 # Launch Chromium in kiosk mode
 
 $ sudo apt-get install -y fonts-tlwg-sawasdee # Installs the font I use.
+
+# Flashing new software to the arduino from the terminal
+$ arduino --board arduino:avr:uno --port /dev/ttyACM0 --save-prefs # store config
+$ arduino --upload $(pwd)/ledstrip.ino # Flashes the new software
+
 ```

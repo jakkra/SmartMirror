@@ -101,6 +101,7 @@ export default class Tasks extends BaseComponent {
   }
 
   render() {
+    if(this.state.tasks.length < 1) return null;
     return (
       <div hidden={!this.props.visible} style={styles.container}>
       	<div style={styles.listName}>

@@ -131,9 +131,9 @@ void colorWipe(uint32_t c, uint8_t wait) {
 void rainbow(uint8_t wait) {
   uint16_t i, j;
 
-  for(j=0; j<256 && !Serial.available(); j++) {
+  for(j=0; !Serial.available(); j++) {
     for(i=0; i<strip.numPixels(); i++) {
-      setPixelColor(i, Wheel((i+j) & 255));
+      setPixelColor(i, Wheel((i+j%255) & 255));
       if(Serial.available()) return;
     }
     strip.show();
@@ -144,9 +144,9 @@ void rainbow(uint8_t wait) {
 void rainbowCycle(uint8_t wait) {
   uint16_t i, j;
 
-  for(j=0; j<256*5 && !Serial.available(); j++) { // 5 cycles of all colors on wheel
+  for(j=0; !Serial.available(); j++) { // 5 cycles of all colors on wheel
     for(i=0; i< strip.numPixels(); i++) {
-      setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+      setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + (j % 255*5)) & 255));
     }
     strip.show();
     delay(wait);
