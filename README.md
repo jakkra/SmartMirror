@@ -4,6 +4,15 @@ It's a Magic Mirror, you all know what it is. This is a complete rewrite in Reac
 
 Both voice recognition and the UI is in Swedish, currently I have no quick and easy support for changing to english.
 
+## Images
+
+<img src="pics/rsz_full.jpg" width="400"/> <img src="pics/rsz_rc.jpg" width="400"/>
+
+<img src="pics/rsz_lc.jpg">
+<img src="pics/rsz_m.jpg">
+<img src="pics/rsz_rs.jpg" width="400"> <img src="pics/list.gif" width="400">
+<img src="pics/rsz_web_app.jpg" width="400" >
+
 ## Features
 **Voice Recognation using Google Cloud Speech**
 
@@ -54,14 +63,6 @@ Also it notifies my [Home automation and monitoring backend](https://github.com/
 **Swedish news from SVT**
 
 Headlines and short descriptions are changing in the bottom of the Mirror every 20 seconds or so.
-
-## Images
-
-<img src="pics/rsz_full.jpg" width="400"/> <img src="pics/rsz_rc.jpg" width="400"/>
-
-<img src="pics/rsz_lc.jpg">
-<img src="pics/rsz_m.jpg">
-<img src="pics/rsz_rs.jpg" width="400"> <img src="pics/list.gif" width="400">
 
 
 ## Running locally
@@ -118,6 +119,7 @@ Running `npm run build` creates the static bundle.
 cd client/
 npm run build
 ```
+Move client/webApp-move2build to client/build and rename it to whatever. It's accessed on <hostname>/<whatever name> afterwards.
 
 ## Solutions
 Webpack doesn't reload when saving: 
@@ -141,8 +143,24 @@ $ chromium-browser --kiosk --incognito http://localhost:3001 # Launch Chromium i
 
 $ sudo apt-get install -y fonts-tlwg-sawasdee # Installs the font I use.
 
+$ sudo iptables -t nat -I PREROUTING --source 0/0 --destination 0/0 -p tcp --dport 80 -j REDIRECT --to-ports 3001 # Redirect traffic on port 80 to our server at 3001. Allows access on local network to web app on url <hostname>/app.
+$ sudo apt-get install iptables-persistent # Keep iptables after reboots
 # Flashing new software to the arduino from the terminal
 $ arduino --board arduino:avr:uno --port /dev/ttyACM0 --save-prefs # store config
 $ arduino --upload $(pwd)/ledstrip.ino # Flashes the new software
-
 ```
+
+## Autostarting the mirror
+Save this file somewhere:
+```
+#!/bin/sh
+
+cd /home/pi/Documents/SmartMirror
+NODE_ENV=production /usr/bin/npm run server &
+export DISPLAY=:0.0
+/bin/sleep 30 # Let the server startup before trying to access the website, otherwise we get page not found.
+sudo -u pi chromium-browser --kiosk --incognito http://localhost:3001 # Chromium must not be ran as root.
+```
+
+Add @/home/pi/start.sh to ~/.config/lxsession/LXDE-pi/autostart
+
