@@ -12,7 +12,7 @@ Both voice recognition and the UI is in Swedish, currently I have no quick and e
 <img src="pics/rsz_m.jpg">
 <img src="pics/rsz_rs.jpg" width="400"> <img src="pics/list.gif" width="400">
 
-My app to control the mirror supports iOS, however you must pay to be a developer to run it on an actual device, so I made a simple web app to control the mirror from.
+My [Home automation and monitoring app](https://github.com/jakkra/OneAppToRuleThemAll) which can control the mirror supports iOS, however you must pay to be a developer to run it on an actual device, so I made a simple web app to control the mirror from.
 
 <img src="pics/rsz_web_app.jpg" width="400" >
 
