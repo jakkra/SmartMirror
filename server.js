@@ -53,7 +53,7 @@ app.get('/api/parse/:command', (req, res) => {
   const command = commands.classifyCommand(req.params.command.toLowerCase());
   console.log(command);
   commandHandler.handle(command);
-  res.redirect("/webApp");
+  res.redirect("/app");
 });
 
 

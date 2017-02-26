@@ -9,7 +9,7 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/serial/:command', (req, res) => {
 		serialHandler.writeString(req.params.command);
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 	});
 
 	app.post('/api/serial', (req, res) => {
@@ -26,12 +26,12 @@ module.exports = (app, mirrorSocket) => {
 	   		serialHandler.writeString('side:' + side + ':' + rgb.r + ':' + rgb.g + ':' + rgb.b);
 	   	}
 	  }
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 	});
 
 	app.get('/api/speak/:text', (req, res) => {
 	  if (req.params.text) speaker.speak(req.params.text);
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 	});
 
 	app.get('/api/hide', (req, res) => {
@@ -42,21 +42,21 @@ module.exports = (app, mirrorSocket) => {
 	  mirrorSocket.sendToClient('visibility', {component: 'weather', visible: false});
 	  mirrorSocket.sendToClient('visibility', {component: 'clock', visible: false});
 
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 
 	});
 
 	app.get('/api/hide/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: false});
 	
-	  	   res.redirect("/webApp");
+	  	   res.redirect("/app");
 
 	});
 
 	app.get('/api/show/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: true});
 
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 
 	});
 
@@ -107,17 +107,17 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/shutdown', (req, res) => {
 		exec("sudo shutdown -h now");
-    res.redirect("/webApp");
+    res.redirect("/app");
 	});
 
 	app.get('/api/reboot', (req, res) => {
 		exec("sudo reboot");
-    res.redirect("/webApp");
+    res.redirect("/app");
 	});
 
 	app.get('/api/next', (req, res) => {
 	  mirrorSocket.sendToClient('command', {component: 'article', action: 'next'});
-	  res.redirect("/webApp");
+	  res.redirect("/app");
 	});
 
 	app.get('/api/forecast', (req, res) => {
