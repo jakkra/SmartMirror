@@ -8,7 +8,7 @@ module.exports = {
 	createReminder: function(date, text) {
 		var self = this;
 		var options = {
-		  url: 'https://radiant-wave-58367.herokuapp.com/api/reminder/create',
+		  url: 'http://207.154.239.115/api/reminder/create',
 		  headers: {
 		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
 		  },
@@ -29,7 +29,7 @@ module.exports = {
 	logTemperature: function(temp) {
 		var self = this;
 		var options = {
-		  url: 'https://radiant-wave-58367.herokuapp.com/api/temperature/',
+		  url: 'http://207.154.239.115/api/temperature/',
 		  headers: {
 		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
 		  },
@@ -47,7 +47,7 @@ module.exports = {
 
 	reportMotion: function() {
 		var options = {
-		  url: 'https://radiant-wave-58367.herokuapp.com/api/surveillance',
+		  url: 'http://207.154.239.115/api/surveillance',
 		  headers: {
 		    'x-access-token': process.env.RuleThemAllBackendAccessToken,
 		  },
