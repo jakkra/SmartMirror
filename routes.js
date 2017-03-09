@@ -110,6 +110,16 @@ module.exports = (app, mirrorSocket) => {
     res.redirect("/app");
 	});
 
+	app.get('/api/sleep', (req, res) => {
+		exec("sudo tvservice -o");
+    res.redirect("/app");
+	});
+
+	app.get('/api/wakeup', (req, res) => {
+		exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
+    res.redirect("/app");
+	});
+
 	app.get('/api/reboot', (req, res) => {
 		exec("sudo reboot");
     res.redirect("/app");
