@@ -2,12 +2,14 @@
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
-#include <SimpleTimer.h>
+
 
 #define PIN 6
 #define NUM_LEDS 77
 #define NUM_LEDS_HORIZONTAL 16
 #define NUM_LEDS_VERTICAL 22
+
+void reUpdateColors();
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -24,11 +26,12 @@ uint32_t rightColor = strip.Color(200, 100, 100);
 uint32_t bottomColor = strip.Color(200, 100, 100);
 uint32_t leftColor = strip.Color(200, 100, 100);
 
-SimpleTimer timer;
+#include <MsTimer2.h>
 
 void setup() {
   Serial.begin(9600);
-  timer.setInterval(1000 * 60 * 20, reUpdateColors); // Sometimes the mirror spontainiously changes some leds color :/ , quick fix for that.
+  MsTimer2::set(1000L * 60 * 20, reUpdateColors); // 20 min period
+  MsTimer2::start(); // Sometimes the mirror spontainiously changes some leds color :/ , quick fix for that.
   strip.begin();
   strip.setBrightness(brightness);
   strip.show();
@@ -43,7 +46,6 @@ void loop() {
   // brightnessUp:\n
   // brightnessDown:\n
   // side:top/right/bottom/left:r:g:b\n
-  timer.run();
   if(Serial.available()){
     String cmd = Serial.readStringUntil(':');
     if(cmd.equals("brightness")){
