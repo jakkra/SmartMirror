@@ -7,10 +7,17 @@ const serialHandler = require('./util/serial_handler');
 
 module.exports = (app, mirrorSocket) => {
 
+	app.get('/api/brightness/:val', (req, res) => {
+		console.log(req.params.val);
+		if(req.params.cmd) serialHandler.writeString('brightness:' + req.params.val);
+		res.redirect("/app");
+	});
+
 	app.get('/api/serial/:command', (req, res) => {
 		serialHandler.writeString(req.params.command);
 	  res.redirect("/app");
 	});
+	
 
 	app.post('/api/serial', (req, res) => {
 		if(req.body.mode){

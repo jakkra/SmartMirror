@@ -17,7 +17,7 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
-int brightness = 255;
+float brightness = 0.5;
 uint32_t topColor = strip.Color(20, 10, 10);
 uint32_t rightColor = strip.Color(20, 10, 10);
 uint32_t bottomColor = strip.Color(20, 10, 10);
@@ -40,7 +40,7 @@ void loop() {
   if(Serial.available()){
     String cmd = Serial.readStringUntil(':');
     if(cmd.equals("brightness")){
-      int brightness = Serial.readStringUntil('\n').toInt();
+      float brightness = Serial.readStringUntil('\n').toFloat();
       setBrightness(brightness);
     } else if(cmd.equals("rgb")){
       setColor(parseRGB());
@@ -73,11 +73,12 @@ uint32_t parseRGB(){
   int r = Serial.readStringUntil(':').toInt();
   int g = Serial.readStringUntil(':').toInt();
   int b = Serial.readStringUntil(':').toInt();
-  return strip.Color(r, g, b);
+  return strip.Color(r*brightness, g*brightness, b*brightness);
 }
 
-void setBrightness(int bri){
+void setBrightness(float bri){
   brightness = bri;
+  colorWhipe();
 }
 
 void setColor(uint32_t c){
@@ -99,7 +100,7 @@ void setMode(String mode, int speed){
 }
 
 void setPixelColor( uint16_t n, uint32_t c) {
-   strip.setPixelColor(n, (brightness*c/255)); //TODO, I think I must multiply each color seperately?
+   strip.setPixelColor(n, c); //TODO, I think I must multiply each color seperately?
 }
 
 void colorWipe() {
@@ -191,12 +192,12 @@ void theaterChaseRainbow(uint8_t wait) {
 uint32_t Wheel(byte WheelPos) {
   WheelPos = 255 - WheelPos;
   if(WheelPos < 85) {
-    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+    return strip.Color((255 - WheelPos * 3), 0, (WheelPos * 3));
   }
   if(WheelPos < 170) {
     WheelPos -= 85;
-    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+    return strip.Color(0, (WheelPos * 3), (255 - WheelPos * 3));
   }
   WheelPos -= 170;
-  return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  return strip.Color((WheelPos * 3), (255 - WheelPos * 3), 0);
 }

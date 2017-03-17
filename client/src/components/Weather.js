@@ -76,7 +76,7 @@ export default class Weather extends React.Component {
           <Col xs={8}>
             <p style={styles.weather}>{this.state.weather.temp} °C</p>
             <p style={styles.weather}>Känns som {this.state.weather.windChill} °C</p>
-            <p style={styles.weather}>Vind hastighet {this.state.weather.windVelocity} m/s</p>
+            <p style={styles.weather}>Vindhastighet {this.state.weather.windVelocity} m/s</p>
             {windDirectionSymbol}
           </Col>
           <Col style={{ textAlign: 'center', paddingLeft: 0 }} xs={4}>

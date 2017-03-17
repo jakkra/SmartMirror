@@ -119,10 +119,10 @@ export default class Forecast extends React.Component {
   	       <p style={styles.locationLabel}> Lund </p>
         <Row>
           <Col xs={6}>
-            <i style={styles.sunIcon} className='wi wi-sunrise'> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</i>
+            <p style={styles.sunIcon} className='wi wi-sunrise'> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</p>
           </Col>
           <Col style={{ textAlign: 'right' }} xs={6}>
-            <i style={styles.sunIcon} className='wi wi-sunset'> {moment(this.state.weather.sunset, ["h:mm A"]).format("HH:mm")}</i>
+            <p style={styles.sunIcon} className='wi wi-sunset'> {moment(this.state.weather.sunset, ["h:mm A"]).format("HH:mm")}</p>
           </Col>
         </Row>
         
