@@ -13,6 +13,16 @@ module.exports = (app, mirrorSocket) => {
 		res.redirect("/app");
 	});
 
+	app.get('/api/brightnessUp', (req, res) => {
+                serialHandler.writeString('brightnessUp:');
+                res.redirect("/app");
+        });
+
+	app.get('/api/brightnessDown', (req, res) => {
+                serialHandler.writeString('brightnessDown:');
+                res.redirect("/app");
+        });
+
 	app.get('/api/serial/:command', (req, res) => {
 		serialHandler.writeString(req.params.command);
 	  res.redirect("/app");

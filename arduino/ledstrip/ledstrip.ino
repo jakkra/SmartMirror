@@ -17,16 +17,17 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
-float brightness = 0.5;
-uint32_t topColor = strip.Color(20, 10, 10);
-uint32_t rightColor = strip.Color(20, 10, 10);
-uint32_t bottomColor = strip.Color(20, 10, 10);
-uint32_t leftColor = strip.Color(20, 10, 10);
+int brightness = 50;
+uint32_t topColor = strip.Color(200, 100, 100);
+uint32_t rightColor = strip.Color(200, 100, 100);
+uint32_t bottomColor = strip.Color(200, 100, 100);
+uint32_t leftColor = strip.Color(200, 100, 100);
 
 void setup() {
   Serial.begin(9600);
 
   strip.begin();
+  strip.setBrightness(brightness);
   strip.show();
   colorWipe();
 }
@@ -36,11 +37,13 @@ void loop() {
   // rgb:r:g:b\n
   // mode:rainbow\n
   // brightness:value\n
+  // brightnessUp:\n
+  // brightnessDown:\n
   // side:top/right/bottom/left:r:g:b\n
   if(Serial.available()){
     String cmd = Serial.readStringUntil(':');
     if(cmd.equals("brightness")){
-      float brightness = Serial.readStringUntil('\n').toFloat();
+      int brightness = Serial.readStringUntil('\n').toInt();
       setBrightness(brightness);
     } else if(cmd.equals("rgb")){
       setColor(parseRGB());
@@ -51,6 +54,10 @@ void loop() {
     } else if(cmd.equals("side")){
       String side = Serial.readStringUntil(':');
       setSideColor(side, parseRGB());
+    } else if(cmd.equals("brightnessUp")){
+      setBrightness(brightness + 25); 
+    } else if(cmd.equals("brightnessDown")){
+      setBrightness(brightness - 25);
     }
   }
 }
@@ -73,13 +80,22 @@ uint32_t parseRGB(){
   int r = Serial.readStringUntil(':').toInt();
   int g = Serial.readStringUntil(':').toInt();
   int b = Serial.readStringUntil(':').toInt();
-  return strip.Color(r*brightness, g*brightness, b*brightness);
+  return strip.Color(r, g, b);
 }
 
-void setBrightness(float bri){
+void setBrightness(int b){
+  int bri = b;
+  if(bri > 255){
+    bri = 255;
+  } else if(bri < 0){
+    bri = 0;
+  }
   brightness = bri;
-  colorWhipe();
+  strip.setBrightness(bri);
+  strip.show();
 }
+
+
 
 void setColor(uint32_t c){
   topColor = c;

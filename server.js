@@ -58,6 +58,7 @@ app.get('/api/parse/:command', (req, res) => {
 
 
 hotword.initCallback(() => {
+  return;
   mirrorSocket.sendToClient('recording', {isRecording: true});
   speech.listen((param) => {
     console.log(param);
