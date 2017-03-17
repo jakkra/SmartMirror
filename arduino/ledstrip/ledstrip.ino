@@ -3,6 +3,7 @@
   #include <avr/power.h>
 #endif
 
+#include <MsTimer2.h>
 
 #define PIN 6
 #define NUM_LEDS 77
@@ -26,7 +27,6 @@ uint32_t rightColor = strip.Color(200, 100, 100);
 uint32_t bottomColor = strip.Color(200, 100, 100);
 uint32_t leftColor = strip.Color(200, 100, 100);
 
-#include <MsTimer2.h>
 
 void setup() {
   Serial.begin(9600);

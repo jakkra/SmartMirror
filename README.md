@@ -149,6 +149,10 @@ $ sudo apt-get install -y fonts-tlwg-sawasdee # Installs the font I use.
 $ sudo iptables -t nat -I PREROUTING --source 0/0 --destination 0/0 -p tcp --dport 80 -j REDIRECT --to-ports 3001 # Redirect traffic on port 80 to our server at 3001. Allows access on local network to web app on url <hostname>/app.
 $ sudo apt-get install iptables-persistent # Keep iptables after reboots
 # Flashing new software to the arduino from the terminal
+# Install libraries
+$ arduino --install-library "Adafruit NeoPixel"
+$ arduino --install-library "MsTimer2"
+
 $ arduino --board arduino:avr:uno --port /dev/ttyACM0 --save-prefs # store config
 $ arduino --upload $(pwd)/ledstrip.ino # Flashes the new software
 ```
