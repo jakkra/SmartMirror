@@ -97,8 +97,8 @@ void setBrightness(int b){
   int bri = b;
   if(bri > 255){
     bri = 255;
-  } else if(bri < 0){
-    bri = 0;
+  } else if(bri < 1){
+    bri = 10;
   }
   brightness = bri;
   strip.setBrightness(bri);
