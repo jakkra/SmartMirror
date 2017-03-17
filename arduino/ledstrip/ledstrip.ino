@@ -2,6 +2,7 @@
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
+#include <SimpleTimer.h>
 
 #define PIN 6
 #define NUM_LEDS 77
@@ -23,9 +24,11 @@ uint32_t rightColor = strip.Color(200, 100, 100);
 uint32_t bottomColor = strip.Color(200, 100, 100);
 uint32_t leftColor = strip.Color(200, 100, 100);
 
+SimpleTimer timer;
+
 void setup() {
   Serial.begin(9600);
-
+  timer.setInterval(1000 * 60 * 20, reUpdateColors); // Sometimes the mirror spontainiously changes some leds color :/ , quick fix for that.
   strip.begin();
   strip.setBrightness(brightness);
   strip.show();
@@ -40,6 +43,7 @@ void loop() {
   // brightnessUp:\n
   // brightnessDown:\n
   // side:top/right/bottom/left:r:g:b\n
+  timer.run();
   if(Serial.available()){
     String cmd = Serial.readStringUntil(':');
     if(cmd.equals("brightness")){
@@ -60,6 +64,10 @@ void loop() {
       setBrightness(brightness - 25);
     }
   }
+}
+
+void reUpdateColors() {
+  colorWipe();
 }
 
 void setSideColor(String side, uint32_t c){
@@ -116,7 +124,7 @@ void setMode(String mode, int speed){
 }
 
 void setPixelColor( uint16_t n, uint32_t c) {
-   strip.setPixelColor(n, c); //TODO, I think I must multiply each color seperately?
+   strip.setPixelColor(n, c);
 }
 
 void colorWipe() {
