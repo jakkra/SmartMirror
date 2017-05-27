@@ -38,3 +38,14 @@ export function getForecast(callback) {
   .then(res => res.json())
   .then(res => res.forecast)
 }
+
+export function getTemperaturesSevenDays(callback) {
+  const url = config.serverBaseURL + '/api/temperatures7days';
+
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.temperatures)
+}
+
+
