@@ -56,7 +56,6 @@ app.get('/api/parse/:command', (req, res) => {
   res.redirect("/app");
 });
 
-
 hotword.initCallback(hotwordDetectedCallback);
 
 hotword.listenForHotword();
