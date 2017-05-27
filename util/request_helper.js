@@ -115,5 +115,36 @@ module.exports = {
 		    callback(forecast);
 		  }
 		})
+	},
+
+	getTemperatures(callback) {
+		request
+	  .get('http://207.154.239.115' + '/api/temperature/?unit=days&count=7&limit=168&token=' + process.env.RuleThemAllBackendAccessToken, function (error, response, body) {
+	  	if (!error && response.statusCode == 200) {
+		  	let temps = JSON.parse(body);
+		    callback(temps.temperatures);
+		  }
+		})
+	},
+
+	/*fetchLimitedTemperatures(token, endDate, unit, count, limit) {
+	  let url = 'http://207.154.239.115' + '/api/temperature/?token=' + process.env.RuleThemAllBackendAccessToken;
+	  if (endDate) url = url + '&endDate=' + endDate;
+	  if (unit) url = url + '&unit=' + unit;
+	  if (count) url = url + '&count=' + count;
+	  if (limit) url = url + '&limit=' + limit;
+
+	  fetch(url)
+	  .then(response => checkStatus(response))
+	  .then(response => response.json())
+	  .then(json => {
+	    if (json.success === true) {
+	      dispatch(fetchLimitTemperatureSuccess(json));
+	    } else {
+	      dispatch(fetchLimitTemperatureFailure(json));
+	    }
+	  })
+	  .catch(error => dispatch(fetchLimitTemperatureFailure(error)));
 	}
+	*/
 }

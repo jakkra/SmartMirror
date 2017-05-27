@@ -41,6 +41,7 @@
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
     "reactstrap": "^3.9.5",
+    "recharts": "^1.0.0-alpha.0",
     "request": "^2.79.0",
     "serialport": "^4.0.7",
     "snowboy": "^1.1.0",

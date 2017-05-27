@@ -7,6 +7,7 @@ import RecordingStatus from '../components/RecordingStatus';
 import Message from '../components/Message';
 import Tasks from '../components/Tasks';
 import Article from '../components/Article';
+import TemperatureGraph from '../components/TemperatureGraph';
 
 import { config } from '../config.js';
 
@@ -36,6 +37,7 @@ export default class App extends React.Component {
         tasks: true,
         weather: true,
         clock: true,
+        temperatureGraph: false,
       }
     };
 
@@ -93,6 +95,8 @@ export default class App extends React.Component {
     return (
       <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingLeft: 80, paddingRight: 60, paddingTop: 45}} className='App'>
         <Article ref='article' visible={this.state.visibility.article} />
+        <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
+
         <Row>
           <Col xs={4}>
             <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
