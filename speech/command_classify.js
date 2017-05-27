@@ -14,7 +14,7 @@ const busSynonymsSwedish = ['bussen', 'buss', 'bus'];
 
 const changeSynonymsSwedish = ['ändra', 'byt', 'ändra till'];
 const showSynonymsSwedish = ['visa', 'starta', 'ta fram'];
-const hideSynonymsSwedish = ['dölj', 'stäng av', 'ta bort', 'göm'];
+const hideSynonymsSwedish = ['dölj', 'dölja', 'stäng av', 'ta bort', 'göm', 'gömma'];
 const newsSynonymsSwedish = ['nyheter', 'nyheterna', 'nyhetskälla'];
 const forecastsSynonymsSwedish = ['väder', 'vädret', 'prognos', 'prognoserna'];
 const articleSynonymsSwedish = ['blog', 'bloggar', 'bloggen', 'inlägg', 'inläggen', 'inlägget', 'artiklar', 'artiklarna', 'artikel', 'artikeln'];
@@ -119,7 +119,6 @@ function parseLights(s) {
   } else if (stringContainsItemFromList(s, changeSynonymsSwedish)) {
     return parseLightChange(s);
   } else {
-    console.log('un')
     return SpeechCommand.UNKNOWN;
   }
 }

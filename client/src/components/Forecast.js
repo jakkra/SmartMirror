@@ -38,7 +38,7 @@ const styles = {
   },
   foreacstTemp: {
   	color: 'white',
-    fontSize: '1.6em',
+    fontSize: '1.5em',
     margin: 0,
     padding: 0,
     textAlign: 'right',
