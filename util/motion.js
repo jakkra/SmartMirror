@@ -1,6 +1,5 @@
 const Gpio = require('onoff').Gpio;
 const pir = new Gpio(18, 'in', 'both');
-const buttron = new Gpio(12, 'in', 'both');
 
 let prevValue = 0;
 module.exports = {
@@ -13,13 +12,6 @@ module.exports = {
 		  if(value === 1 && prevValue === 0) {
 		  	callback();
 		  }
-		});
-		button.watch(function (err, value) {
-		  if (err) {
-		  	console.log('error read button from gpio', err);
-		    throw err;
-		  }
-		  console.log('button change', value);
 		});
 	},
 	exit:function() {

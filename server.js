@@ -57,8 +57,16 @@ app.get('/api/parse/:command', (req, res) => {
 });
 
 
-hotword.initCallback(() => {
-  return;
+hotword.initCallback(hotwordDetectedCallback);
+
+hotword.listenForHotword();
+
+function done(){
+  hotword.listenForHotword();
+  mirrorSocket.sendToClient('recording', {isRecording: false});
+}
+
+function hotwordDetectedCallback(){
   mirrorSocket.sendToClient('recording', {isRecording: true});
   speech.listen((param) => {
     console.log(param);
@@ -71,23 +79,22 @@ hotword.initCallback(() => {
     }
   }, done)
 }
-);
 
-hotword.listenForHotword();
-
-function done(){
-  hotword.listenForHotword();
-  mirrorSocket.sendToClient('recording', {isRecording: false});
-}
 
 if(process.env.target ==='PI'){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
+  const buttonListener = require('./util/button');
   tempLogger.start();
   tempLogger.pollTemperature(1000 * 60, sendTemperatureToClient);
+
   motionDetector.start(() => {
     requestHelper.reportMotion();
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
+  });
+
+  buttonListener.start(() => {
+    hotwordDetectedCallback();
   });
 }
 
