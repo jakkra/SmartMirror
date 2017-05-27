@@ -1,5 +1,5 @@
 const Gpio = require('onoff').Gpio;
-const button = new Gpio(12, 'in', 'both');
+const button = new Gpio(12, 'in', 'rising');
 
 module.exports = {
 	start: function(callback) {

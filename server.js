@@ -69,6 +69,7 @@ function done(){
 function hotwordDetectedCallback(){
   mirrorSocket.sendToClient('recording', {isRecording: true});
   speech.listen((param) => {
+    console.log("_______" + new Date() + "_______");
     console.log(param);
     if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
       const result = param.results[0].alternatives[0];
