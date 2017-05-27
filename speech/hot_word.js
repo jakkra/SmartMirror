@@ -12,6 +12,9 @@ console.log('hot_word');
 exports.initCallback = function(cb) {
   callback = cb;
 }
+exports.stopRecord = function() {
+  record.stop();
+}
 
 exports.listenForHotword = function(){
   console.log('Starting HOTWORD');

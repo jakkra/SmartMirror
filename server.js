@@ -95,6 +95,7 @@ if(process.env.target ==='PI'){
   });
 
   buttonListener.start(() => {
+    hotword.stopRecord();
     hotwordDetectedCallback();
   });
 }
