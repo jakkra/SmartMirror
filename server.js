@@ -93,7 +93,7 @@ if(process.env.target ==='PI'){
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
   });
 
-  buttonListener.start(onShortButtonClicked, onLongButtonClicked, onLongLongButtonClicked, 3000);
+  buttonListener.start(onShortButtonClicked, onLongButtonPressed, onLongLongButtonPressed, 3000);
 }
 
 function onShortButtonClicked(){
@@ -101,11 +101,11 @@ function onShortButtonClicked(){
   hotwordDetectedCallback();
 }
 
-function onLongButtonClicked(){
+function onLongButtonPressed(){
   console.log('Long press!');
 }
 
-function onLongLongButtonClicked(){
+function onLongLongButtonPressed(){
   console.log('Long Long press!');
 }
 
