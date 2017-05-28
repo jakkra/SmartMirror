@@ -8,34 +8,9 @@ import {
   Line, XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
 } from 'recharts';
 
 import { getTemperaturesSevenDays } from '../lib/fetch';
-
-
-const styles = {
-  container: {
-    margin: 50,
-    marginLeft: 30,
-    marginTop: 60
-  },
-  taskTitle: {
-    color: 'white',
-    fontSize: '1.7em',
-    margin: 0,
-    padding: 0,
-    textAlign: 'left'
-  },
-  articleText: {
-    color: 'white',
-    fontSize: '1.2em',
-    margin: 0,
-    padding: 0,
-    textAlign: 'left'
-  }
-}
 
 const customModalStyle = {
   overlay: {
@@ -73,7 +48,7 @@ export default class TemperatureGraph extends BaseComponent {
     this.handleNewTemp = this.handleNewTemp.bind(this);
     this.refreshTemps = this.refreshTemps.bind(this);
     this.formatX = this.formatX.bind(this);
-
+    this.formatY = this.formatY.bind(this);
   }
 
   onEvent(event){
@@ -113,21 +88,22 @@ export default class TemperatureGraph extends BaseComponent {
     if (this.days.indexOf(moment(new Date(x)).format('dddd')) > -1){
       return '';
     } else {
-      console.log(x);
       this.days.push(moment(new Date(x)).format('dddd'));
       return moment(new Date(x)).format('dddd')
     }
   }
 
+  formatY(y) {
+    return y + ' °C';
+  }
+
   renderTemp(temps) {
-    console.log(this.state.temperatures)
   	return (
   		<LineChart width={800} height={500} data={this.state.temperatures} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-        <XAxis interval={50} tickFormatter={this.formatX} dataKey="createdAt"/>
-        <YAxis type="number" domain={['dataMin - 1', 'dataMax + 1']}/>
-        <CartesianGrid horizontal={false} strokeDasharray="3 3"/>
-        <Legend />
-        <Line dot={false} type="monotone" dataKey="temperature" stroke="#FFA500" activeDot={{r: 8}}/>
+        <XAxis margin={20} strokeWidth="2" tick={{stroke: 'white', fontSize: 18}} interval={Math.round(this.state.temperatures.length/7)} tickFormatter={this.formatX} dataKey="createdAt"/>
+        <YAxis tick={{stroke: 'white', fontSize: 18}} type="number" domain={['dataMin - 1', 'dataMax + 1']} tickFormatter={this.formatY}/>
+        <CartesianGrid horizontal={false} strokeWidth="2" strokeDasharray="3 3"/>
+        <Line name="Temperatur" dot={false} width={200} type="monotone" dataKey="temperature" strokeWidth="4" stroke="#FFA500" activeDot={{r: 8}}/>
       </LineChart>
   	);
   }
