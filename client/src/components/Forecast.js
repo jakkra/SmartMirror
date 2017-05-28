@@ -37,8 +37,9 @@ const styles = {
     lineHeight: 2
   },
   foreacstTemp: {
+    whiteSpace: 'nowrap',
   	color: 'white',
-    fontSize: '1.4em',
+    fontSize: '1.6em',
     margin: 0,
     padding: 0,
     textAlign: 'right',

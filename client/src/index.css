@@ -66,3 +66,7 @@ html {
 .offline {
   background-color: hsl(0, 50%, 50%);
 }
+
+.recharts-wrapper .recharts-y-axis .recharts-cartesian-axis-ticks .recharts-cartesian-axis-tick:first-child {
+  display: none;
+}
