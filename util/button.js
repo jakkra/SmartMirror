@@ -21,19 +21,19 @@ module.exports = {
 		  	clearTimeout(longTimer);
 		  	clearTimeout(longLongTimer);
 		  	setTimeout(() => {
-		  		if (waitingLong) {
+		  		if (waitingLong === true) {
 		  			waitingLong = false;
 		  			callbackLong();
 		  		}
 		  	}, longPressTime);
 				longLongTimer = setTimeout(() => {
-		  		if (waitingLongLong) {
+		  		if (waitingLongLong === true) {
 		 				waitingLongLong = false;
 		 				callbackLongLong();
 		  		}
 		  	}, longPressTime * 2);
 		  } else {
-		  	if (waitingLong && waitingLongLong) {
+		  	if (waitingLong === true && waitingLongLong === true) {
 		  		waitingLong = false;
 		  		callbackShort();
 		  	}
