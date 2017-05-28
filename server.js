@@ -93,7 +93,7 @@ if(process.env.target ==='PI'){
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
   });
 
-  buttonListener.start(onShortButtonPress, onLongButtonPress, onLongLongButtonClicked, 3000);
+  buttonListener.start(onShortButtonClicked, onLongButtonClicked, onLongLongButtonClicked, 3000);
 }
 
 function onShortButtonClicked(){

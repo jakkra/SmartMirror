@@ -29,6 +29,10 @@ module.exports = {
 		  		}
 		  	}, longPressTime * 2);
 		  } else {
+		  	if (waitingLong) {
+		  		waitingLong = false;
+		  		callbackShort();
+		  	}
 		  	currentValue = 0;
 		  	waitingLong = false;
 		  	clearTimeout(longLongTimer);
