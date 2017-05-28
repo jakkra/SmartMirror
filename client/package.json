@@ -19,6 +19,7 @@
     "react-forecast": "0.0.7",
     "react-modal": "^1.6.5",
     "react-skycons": "^0.3.0",
+    "recharts": "^1.0.0-alpha.0",
     "smhi-node": "0.0.7",
     "weather-icons": "^1.3.2",
     "wunderlist": "^0.1.3"
