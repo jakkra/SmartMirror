@@ -93,10 +93,20 @@ if(process.env.target ==='PI'){
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
   });
 
-  buttonListener.start(() => {
-    hotword.stopRecord();
-    hotwordDetectedCallback();
-  });
+  buttonListener.start(onShortButtonPress, onLongButtonPress, onLongLongButtonClicked, 3000);
+}
+
+function onShortButtonClicked(){
+  hotword.stopRecord();
+  hotwordDetectedCallback();
+}
+
+function onLongButtonClicked(){
+  console.log('Long press!');
+}
+
+function onLongLongButtonClicked(){
+  console.log('Long Long press!');
 }
 
 function sendTemperatureToClient(readTemperature){
