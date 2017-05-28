@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const exec = require('child_process').exec;
+
 var express = require('express');
 var app = express();
 var expressWs = require('express-ws')(app);
@@ -80,7 +82,6 @@ function hotwordDetectedCallback(){
   }, done)
 }
 
-
 if(process.env.target ==='PI'){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
@@ -103,10 +104,12 @@ function onShortButtonClicked(){
 
 function onLongButtonPressed(){
   console.log('Long press!');
+  exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
 }
 
 function onLongLongButtonPressed(){
   console.log('Long Long press!');
+  exec("sudo reboot");
 }
 
 function sendTemperatureToClient(readTemperature){
