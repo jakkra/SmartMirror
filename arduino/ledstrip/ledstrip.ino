@@ -157,14 +157,31 @@ void colorWipe(uint32_t c, uint8_t wait) {
   }
 }
 
-
 void middleFill(uint8_t wait) {
-  clearStrip();
+  for(uint16_t j=0; !Serial.available(); j++) {
+  uint32_t c = strip.Color(random(0, 255), random(0, 255), random(0, 255));
+  for(uint16_t i=0; i<(strip.numPixels()/2); i++) { // start from the middle, lighting an LED on each side
+    strip.setPixelColor(strip.numPixels()/2 + i, c);
+    strip.setPixelColor(strip.numPixels()/2 - i, c);
+    strip.show();
+    delay(wait);
+  }
+ 
+  for(uint16_t i=0; i<(strip.numPixels()/2); i++) { // reverse
+    strip.setPixelColor(i, strip.Color(0, 0, 0));
+    strip.setPixelColor(strip.numPixels() - i, strip.Color(0, 0, 0));
+    strip.show();
+    delay(wait);
+  }
+  }
+}
 
-  for(j=0; !Serial.available(); j++) {
-    uint32 c = Wheel((j + 10) % 255)
 
+void middleFill1(uint8_t wait) {
+  for(uint16_t j=0; !Serial.available(); j++) {
+    
     for(uint16_t i=0; i<(strip.numPixels()/2) && !Serial.available(); i++) { // start from the middle, lighting an LED on each side
+      uint32_t c = strip.Color(random(0, 255), random(0, 255), random(0, 255));
       strip.setPixelColor(strip.numPixels()/2 + i, c);
       strip.setPixelColor(strip.numPixels()/2 - i, c);
       strip.show();
@@ -172,6 +189,7 @@ void middleFill(uint8_t wait) {
     }
 
     for(uint16_t i=0; i<(strip.numPixels()/2) && !Serial.available(); i++) { // reverse
+      uint32_t c = strip.Color(random(0, 255), random(0, 255), random(0, 255));
       strip.setPixelColor(i, strip.Color(0, 0, 0));
       strip.setPixelColor(strip.numPixels() - i, strip.Color(0, 0, 0));
       strip.show();
