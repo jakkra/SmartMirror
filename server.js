@@ -104,7 +104,7 @@ function onShortButtonClicked(){
 
 function onLongButtonPressed(){
   console.log('Long press!');
-  exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
+  exec("sudo tvservice -o");
 }
 
 function onLongLongButtonPressed(){

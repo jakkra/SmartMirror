@@ -122,6 +122,8 @@ void setMode(String mode, int speed){
     rainbowCycle(speed);
   } else if(mode.equals("theaterChaseRainbow")){
     theaterChaseRainbow(speed);
+  } else if(mode.equals("middleFill")) {
+    middleFill(speed);
   }
 }
 
@@ -154,6 +156,30 @@ void colorWipe(uint32_t c, uint8_t wait) {
     delay(wait);
   }
 }
+
+
+void middleFill(uint8_t wait) {
+  clearStrip();
+
+  for(j=0; !Serial.available(); j++) {
+    uint32 c = Wheel((j + 10) % 255)
+
+    for(uint16_t i=0; i<(strip.numPixels()/2) && !Serial.available(); i++) { // start from the middle, lighting an LED on each side
+      strip.setPixelColor(strip.numPixels()/2 + i, c);
+      strip.setPixelColor(strip.numPixels()/2 - i, c);
+      strip.show();
+      delay(wait);
+    }
+
+    for(uint16_t i=0; i<(strip.numPixels()/2) && !Serial.available(); i++) { // reverse
+      strip.setPixelColor(i, strip.Color(0, 0, 0));
+      strip.setPixelColor(strip.numPixels() - i, strip.Color(0, 0, 0));
+      strip.show();
+      delay(wait);
+    }
+  }
+}
+
 
 void rainbow(uint8_t wait) {
   uint16_t i, j;
