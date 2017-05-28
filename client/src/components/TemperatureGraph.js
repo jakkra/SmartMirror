@@ -100,9 +100,9 @@ export default class TemperatureGraph extends BaseComponent {
   renderTemp(temps) {
   	return (
   		<LineChart width={800} height={500} data={this.state.temperatures} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-        <XAxis margin={20} strokeWidth="2" tick={{stroke: 'white', fontSize: 18}} interval={Math.round(this.state.temperatures.length/7)} tickFormatter={this.formatX} dataKey="createdAt"/>
+        <XAxis axisLine={false} mirror={true} strokeWidth="2" tick={{stroke: 'white', fontSize: 18}} interval={Math.round(this.state.temperatures.length/7)} tickFormatter={this.formatX} dataKey="createdAt"/>
         <YAxis tick={{stroke: 'white', fontSize: 18}} type="number" domain={['dataMin - 1', 'dataMax + 1']} tickFormatter={this.formatY}/>
-        <CartesianGrid horizontal={false} strokeWidth="2" strokeDasharray="3 3"/>
+        <CartesianGrid horizontal={false} strokeWidth="2" strokeDasharray="10 10"/>
         <Line name="Temperatur" dot={false} width={200} type="monotone" dataKey="temperature" strokeWidth="4" stroke="#FFA500" activeDot={{r: 8}}/>
       </LineChart>
   	);
