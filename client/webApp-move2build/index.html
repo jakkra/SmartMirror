@@ -162,11 +162,15 @@
         });
     });
     $(document).ready(function() {
+        $("#clockColors").click(function() {
+            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        });
+    });
+		$(document).ready(function() {
         $("#colorLabel").click(function() {
             $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         });
     });
-
     $('a').click(function (event){ 
      event.preventDefault();
      console.log("hehehe");
