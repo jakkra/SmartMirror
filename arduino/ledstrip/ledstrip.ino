@@ -64,6 +64,10 @@ void loop() {
       setBrightness(brightness + 25); 
     } else if(cmd.equals("brightnessDown")){
       setBrightness(brightness - 25);
+    } else if(cmd.equals("setLedOff")){
+      int ledNbr = Serial.readStringUntil('\n').toInt();
+      setPixelColor(ledNbr, strip.Color(0, 0, 0));
+      strip.show();
     }
   }
 }

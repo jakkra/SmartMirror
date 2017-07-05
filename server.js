@@ -5,6 +5,8 @@ const exec = require('child_process').exec;
 var express = require('express');
 var app = express();
 var expressWs = require('express-ws')(app);
+var app = expressWs.app;
+
 
 const mirrorSocket = require('./util/mirror_socket')(expressWs);
 const commandHandler = require('./speech/command_handler')(mirrorSocket);
@@ -16,6 +18,8 @@ const hue = require('./util/hue.js');
 const commands = require('./speech/command_classify')
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
+const serialHandler = require('./util/serial_handler');
+const bounceGame = require('./util/BounceGame')(mirrorSocket, serialHandler);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -29,10 +33,15 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
-require('./routes')(app, mirrorSocket);
+require('./routes')(app, mirrorSocket, serialHandler);
 
-app.ws('/', function(ws, req) {
+expressWs.app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
+      const obj = JSON.parse(msg);
+      if (obj.event === 'bounce'){
+        bounceGame.handleBounce(obj.data);
+      }
+
       if(process.env.target ==='PI'){ // Send current temperature when a client connects
         const tempLogger = require('./util/temp_logger');
         const temperature = tempLogger.getTemperature();

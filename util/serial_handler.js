@@ -1,6 +1,6 @@
 
 const SerialPort = require('serialport');
-let openedPort;
+let openedPort = null;
 
 SerialPort.list(function (err, ports) {
   ports.forEach((port) => {
@@ -8,6 +8,7 @@ SerialPort.list(function (err, ports) {
     	console.log(port);
     	openedPort = new SerialPort(port.comName, (err) => {
 			  if (err) {
+			  	openedPort = null;
 			    return console.log('Error: ', err.message);
 			  }
 
@@ -18,6 +19,7 @@ SerialPort.list(function (err, ports) {
 
 module.exports = {
 	writeString: function(text) {
+		console.log('Sending serial: ' + text);
 		if(openedPort !== null){
 			openedPort.write(text, function(err) {
 		    if (err) {

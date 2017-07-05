@@ -17,12 +17,12 @@ import { Col, Row } from 'react-bootstrap';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    let s = new WebSocket('ws://' + config.wsServerBaseURL);
-    s.onmessage = this.handleMessage.bind(this);
-    s.addEventListener('error', m => console.log(m));
-    s.addEventListener('open', m => {
+    this.s = new WebSocket('ws://' + config.wsServerBaseURL);
+    this.s.onmessage = this.handleMessage.bind(this);
+    this.s.addEventListener('error', m => console.log(m));
+    this.s.addEventListener('open', m => {
       console.log(m);
-      s.send({event: 'connect', data: 'Hey there'});
+      this.s.send(JSON.stringify({event: 'connect', data: 'Hey there'}));
     });
     this.state = {
       temperature: '22.6',
@@ -39,14 +39,15 @@ export default class App extends React.Component {
         weather: true,
         clock: true,
         temperatureGraph: false,
+        BounceGame: true,
       }
     };
-
+    this.ballBounce = this.ballBounce.bind(this);
   }
 
   handleMessage(message) {
     message = JSON.parse(message.data);
-    console.log('new message', message);
+    console.log('new message', message.data);
     const data = message.data;
     switch(message.event){
       case 'temperature':
@@ -92,12 +93,15 @@ export default class App extends React.Component {
     }
   }
 
+  ballBounce(message) {
+    this.s.send(JSON.stringify(message));
+  }
+
   render() {
-    console.log('redniging app')
     return (
       <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
-        <BounceGame/>
-        <div style={{position: 'absolute', top: 0, width: '100%', height: '100%', paddingLeft: 80, paddingRight: 60, paddingTop: 45}}>
+        <BounceGame ref='bounceGame' ballBounce={this.ballBounce} visible={this.state.visibility.BounceGame} />
+        <div style={{position: 'absolute', top: 50, width: '100%', height: '100%', paddingLeft: 80, paddingRight: 60, paddingTop: 45}}>
           <Article ref='article' visible={this.state.visibility.article} />
           <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
           <Row>

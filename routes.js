@@ -3,9 +3,8 @@ const exec = require('child_process').exec;
 const speaker = require('./speech/amazon-polly-speaker');
 const requestHelper = require('./util/request_helper');
 const articleExtractor = require('./util/article_extractor');
-const serialHandler = require('./util/serial_handler');
 
-module.exports = (app, mirrorSocket) => {
+module.exports = (app, mirrorSocket, serialHandler) => {
 
 	app.get('/api/brightness/:val', (req, res) => {
 		console.log(req.params.val);
@@ -14,14 +13,14 @@ module.exports = (app, mirrorSocket) => {
 	});
 
 	app.get('/api/brightnessUp', (req, res) => {
-                serialHandler.writeString('brightnessUp:');
-                res.redirect("/app");
-        });
+    serialHandler.writeString('brightnessUp:');
+    res.redirect("/app");
+  });
 
 	app.get('/api/brightnessDown', (req, res) => {
-                serialHandler.writeString('brightnessDown:');
-                res.redirect("/app");
-        });
+    serialHandler.writeString('brightnessDown:');
+    res.redirect("/app");
+  });
 
 	app.get('/api/serial/:command', (req, res) => {
 		serialHandler.writeString(req.params.command);
@@ -66,8 +65,7 @@ module.exports = (app, mirrorSocket) => {
 	app.get('/api/hide/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: false});
 	
-	  	   res.redirect("/app");
-
+		res.redirect("/app");
 	});
 
 	app.get('/api/show/:component', (req, res) => {
@@ -75,6 +73,13 @@ module.exports = (app, mirrorSocket) => {
 
 	  res.redirect("/app");
 
+	});
+
+	app.get('/api/game/:mode', (req, res) => {
+		console.log(req.params.mode);
+	  mirrorSocket.sendToClient('command', {component: 'bounceGame', action: req.params.mode});
+
+		res.sendStatus(200)
 	});
 
 
