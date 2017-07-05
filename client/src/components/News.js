@@ -101,6 +101,7 @@ export default class News extends React.Component {
   }
 
   render() {
+    console.log('rendering News');
     return (
       <div hidden={!this.props.visible} style={styles.container}>
         <FlipMove 

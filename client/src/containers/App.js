@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import Tasks from '../components/Tasks';
 import Article from '../components/Article';
 import TemperatureGraph from '../components/TemperatureGraph';
+import BounceGame from '../components/BounceGame';
 
 import { config } from '../config.js';
 
@@ -92,35 +93,38 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log('redniging app')
     return (
-      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingLeft: 80, paddingRight: 60, paddingTop: 45}} className='App'>
-        <Article ref='article' visible={this.state.visibility.article} />
-        <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
+      <div style={{fontFamily: 'Sawasdee', fontWeight: 500}} className='App'>
+        <BounceGame/>
+        <div style={{position: 'absolute', top: 0, width: '100%', height: '100%', paddingLeft: 80, paddingRight: 60, paddingTop: 45}}>
+          <Article ref='article' visible={this.state.visibility.article} />
+          <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
+          <Row>
+            <Col xs={4}>
+              <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
+              <RecordingStatus isRecording={this.state.isRecording} />
+              <Tasks visible={this.state.visibility.tasks} />
 
-        <Row>
-          <Col xs={4}>
-            <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
-            <RecordingStatus isRecording={this.state.isRecording} />
-            <Tasks visible={this.state.visibility.tasks} />
-
-          </Col>
-          <Col xs={4} />
-          <Col xs={4}>
-            <Row>
-              <Weather visible={this.state.visibility.weather} />
-            </Row>
-            <Row style={{marginTop: 50}}>
-              <Forecast visible={this.state.visibility.forecasts} />
-            </Row>
-          </Col>
-        </Row>
-        <Row style={{height: '1%'}}/>
-        <Row style={{marginBottom: 100, marginTop: 50}}>
-          <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
-        </Row>
-        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60, paddingBottom: 0}}>
-          <News visible={this.state.visibility.news} />
-        </Row>
+            </Col>
+            <Col xs={4} />
+            <Col xs={4}>
+              <Row>
+                <Weather visible={this.state.visibility.weather} />
+              </Row>
+              <Row style={{marginTop: 50}}>
+                <Forecast visible={this.state.visibility.forecasts} />
+              </Row>
+            </Col>
+          </Row>
+          <Row style={{height: '1%'}}/>
+          <Row style={{marginBottom: 100, marginTop: 50}}>
+            <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
+          </Row>
+          <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60, paddingBottom: 0}}>
+            <News visible={this.state.visibility.news} />
+          </Row>
+        </div>
       </div>
     );
   }
