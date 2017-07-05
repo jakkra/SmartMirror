@@ -171,8 +171,19 @@ void oneTwoThree(uint8_t wait) {
         strip.setPixelColor(ii + 1, strip.Color(0, 0, 0));
         strip.show();
         delay(wait);
+        if (ii == i + 1 && i + 2 < strip.numPixels()) // Before last
+        {
+          strip.setPixelColor(i + 2, strip.Color(125, 125, 0));
+          strip.setPixelColor(i + 1, strip.Color(255, 255, 0));
+          strip.show();
+          delay(2 * wait);
+        }
+        strip.setPixelColor(ii, c);
+        strip.setPixelColor(ii + 1, strip.Color(0, 0, 0));
+        strip.show();
+        delay(wait);
       }
-      strip.setPixelColor(i, c);
+
       strip.show();
       delay(wait);
      }
