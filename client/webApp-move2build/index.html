@@ -103,6 +103,9 @@
 						</div>
 						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.4/setMode/none">Static Light</a>
 						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.4/setMode/count">Tick Mode</a>
+						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.4/setMode/rainbow">Rainbow</a>
+						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.4/setMode/rainbow_cycle">Rainbow Cycle</a>
+						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.4/setMode/chase_rainbow">Chase Rainbow</a>
 					</div>
 				</div>
 			</div>
@@ -139,12 +142,36 @@
 				</div>
 			</div>
 		</div>
+		<div class="container">
+			<section class="testimonials">
+				<h2 id="gameLabel" class="text-center" data-toggle="collapse" data-target="#game">Game 
+					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
+				</h2>
+			</section>
+			<div class="row">
+				<div id="game" class="col-md-6 col-md-pull-3 get-it collapse">
+					<p>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/left">Left </a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/right">Right </a>
+					</p>
+					<p>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/bounceGame">Show </a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/bounceGame">Hide </a>
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
     $(document).ready(function() {
         $("#tempLabel").click(function() {
+            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        });
+    });
+    $(document).ready(function() {
+        $("#gameLabel").click(function() {
             $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         });
     });
