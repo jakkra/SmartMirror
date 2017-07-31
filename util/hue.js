@@ -28,15 +28,17 @@ api.groups(function(err, result) {
 });
 
 function initAutoOffBathroom() {
-	setInterval(() => {
+	const timer = setInterval(() => {
 		api.lightStatus(closet.id, function(err, result) {
 	    if (err) throw err;
 	    if (result.state.reachable === true) {
-			setTimeout(() => {
-				api.setLightState(closet.id, { "on": false })
-		    .fail(displayError)
-		    .done();
-			}, 60 * 5 * 1000);
+	    	clearInterval(timer);
+				setTimeout(() => {
+					api.setLightState(closet.id, { "on": false })
+			    .fail(displayError)
+			    .done();
+			  initAutoOffBathroom();
+				}, 60 * 6 * 1000);
 	    }
 		});
 	}, 1000 * 60);
