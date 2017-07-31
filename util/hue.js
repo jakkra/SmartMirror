@@ -1,6 +1,6 @@
 var hue = require("node-hue-api"),
-    HueApi = hue.HueApi,
-    lightState = hue.lightState;
+  HueApi = hue.HueApi,
+  lightState = hue.lightState;
 
 let lights, groups = [];
 let bedroom, diningTable, closet, groupAll;
@@ -11,18 +11,36 @@ const hostname = process.env.HUE_HOSTNAME,
 const api = new HueApi(hostname, username);
 
 api.lights(function(err, result) {
-    if (err) throw err;
-    lights = result.lights;
-		bedroom = lights.find((light) => light.name === 'Bedroom');
-		diningTable = lights.find((light) => light.name === 'Dining Table');
-		closet = lights.find((light) => light.name === 'Closet');
+  if (err) throw err;
+  lights = result.lights;
+	bedroom = lights.find((light) => light.name === 'Bedroom');
+	diningTable = lights.find((light) => light.name === 'Dining Table');
+	closet = lights.find((light) => light.name === 'Closet');
+
+	initAutoOffBathroom();
 });
 
+
 api.groups(function(err, result) {
-    if (err) throw err;
-    groups = result;
-    groupAll = groups.find((group) => group.name === 'All');
+  if (err) throw err;
+  groups = result;
+  groupAll = groups.find((group) => group.name === 'All');
 });
+
+function initAutoOffBathroom() {
+	setInterval(() => {
+		api.lightStatus(closet.id, function(err, result) {
+	    if (err) throw err;
+	    if (result.state.reachable === true) {
+			setTimeout(() => {
+				api.setLightState(closet.id, { "on": false })
+		    .fail(displayError)
+		    .done();
+			}, 60 * 5 * 1000);
+	    }
+		});
+	}, 1000 * 60);
+}
 
 module.exports = {
 	allLights: function(options) {
@@ -49,7 +67,6 @@ module.exports = {
 
 function displayResult(result) {
   console.log(JSON.stringify(result, null, 2));
-
 };
 
 function displayError(err) {

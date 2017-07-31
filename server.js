@@ -12,7 +12,7 @@ const commandHandler = require('./speech/command_handler')(mirrorSocket);
 const speech = require('./speech/stream.js');
 const hotword = require('./speech/hot_word.js');
 
-const hue = require('./util/hue.js');
+// const hue = require('./util/hue.js');
 const commands = require('./speech/command_classify')
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
