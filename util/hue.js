@@ -4,6 +4,8 @@ var hue = require("node-hue-api"),
 
 let lights, groups = [];
 let bedroom, diningTable, closet, groupAll;
+let waitingToTurnOff = false;
+let timeoutTimer;
 
 const hostname = process.env.HUE_HOSTNAME,
   username = process.env.HUE_USERNAME;
@@ -28,20 +30,23 @@ api.groups(function(err, result) {
 });
 
 function initAutoOffBathroom() {
-	const timer = setInterval(() => {
+	setInterval(() => {
 		api.lightStatus(closet.id, function(err, result) {
 	    if (err) throw err;
-	    if (result.state.reachable === true) {
-	    	clearInterval(timer);
-				setTimeout(() => {
+	    if (result.state.reachable === true && result.state.on === true && waitingToTurnOff === false) {
+	    	waitingToTurnOff = true;
+	    	clearTimeout(timeoutTimer);
+				timeoutTimer = setTimeout(() => {
 					api.setLightState(closet.id, { "on": false })
 			    .fail(displayError)
-			    .done();
-			  initAutoOffBathroom();
-				}, 60 * 6 * 1000);
+			    .done(() => waitingToTurnOff = false);
+				}, 60 * 10 * 1000);
+	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
+	    	waitingToTurnOff = false;
+	    	clearTimeout(timeoutTimer);
 	    }
 		});
-	}, 1000 * 60);
+	}, 1000 * 30);
 }
 
 module.exports = {
