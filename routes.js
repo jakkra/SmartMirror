@@ -4,6 +4,7 @@ const speaker = require('./speech/amazon-polly-speaker');
 const requestHelper = require('./util/request_helper');
 const articleExtractor = require('./util/article_extractor');
 const serialHandler = require('./util/serial_handler');
+var nodeSkanetraiken = require('node-skanetrafiken');
 
 module.exports = (app, mirrorSocket) => {
 
@@ -163,5 +164,31 @@ module.exports = (app, mirrorSocket) => {
 	    });
 		return;
 	  })
+	});
+
+	app.get('/api/journey', (req, res) => {
+		const lundC = {
+		  id: '81216' ,
+		  name: 'Lund C' ,
+		  type: '0' ,
+		};
+
+		const malmoC = {
+		  id: '80000',
+		  name: 'Malmö C',
+		  type: '0',
+		}
+
+		nodeSkanetraiken.getJourneys({ from: lundC, to: malmoC, limit: 5, action: 'next' }, function(results, err) {
+			console.log("called")
+	    if (!err) {
+        results.forEach((r) => console.log(r));
+        return res.json({
+        	routes: results
+        });
+	    } else {
+	    	return res.json({ error: 'Could not featch bus/trains' });
+	    }
+		});
 	});
 }

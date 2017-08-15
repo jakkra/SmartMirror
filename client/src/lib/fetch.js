@@ -39,6 +39,14 @@ export function getForecast(callback) {
   .then(res => res.forecast)
 }
 
+export function getJourney(callback) {
+  const url = config.serverBaseURL + '/api/journey';
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.routes)
+}
+
 export function getTemperaturesSevenDays(callback) {
   const url = config.serverBaseURL + '/api/temperatures7days';
 
