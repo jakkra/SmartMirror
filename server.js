@@ -82,7 +82,7 @@ function hotwordDetectedCallback(){
   }, done)
 }
 
-if(process.env.target ==='PI'){
+if (process.env.target ==='PI'){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
   const buttonListener = require('./util/button');
@@ -94,7 +94,7 @@ if(process.env.target ==='PI'){
     mirrorSocket.sendToClient('motion', {message: messages.getMessage()});
   });
 
-  buttonListener.start(onShortButtonClicked, onLongButtonPressed, onLongLongButtonPressed, 3000);
+  buttonListener.start(onShortButtonClicked, onLongButtonPressed, onLongLongButtonPressed, onDoubleClick, 3000);
 }
 
 function onShortButtonClicked(){
@@ -110,6 +110,11 @@ function onLongButtonPressed(){
 function onLongLongButtonPressed(){
   console.log('Long Long press!');
   exec("sudo reboot");
+}
+
+function onDoubleClick() {
+  console.log('Double click');
+  exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
 }
 
 function sendTemperatureToClient(readTemperature){
