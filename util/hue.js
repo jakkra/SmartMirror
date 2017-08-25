@@ -13,7 +13,7 @@ const hostname = process.env.HUE_HOSTNAME,
 const api = new HueApi(hostname, username);
 
 api.lights(function(err, result) {
-  if (err) throw err;
+  if (err) return;
   lights = result.lights;
 	bedroom = lights.find((light) => light.name === 'Bedroom');
 	diningTable = lights.find((light) => light.name === 'Dining Table');
@@ -40,7 +40,7 @@ function initAutoOffBathroom() {
 					api.setLightState(closet.id, { "on": false })
 			    .fail(displayError)
 			    .done(() => waitingToTurnOff = false);
-				}, 60 * 10 * 1000);
+				}, 60 * 20 * 1000);
 	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
 	    	waitingToTurnOff = false;
 	    	clearTimeout(timeoutTimer);
