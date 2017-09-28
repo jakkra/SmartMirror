@@ -7,23 +7,19 @@ import FA from 'react-fontawesome';
 
 const styles = {
   container: {
-    margin: 50,
-    marginLeft: 30,
-    marginTop: 60
+    marginLeft: -15,
+    marginTop: '10%',
   },
   taskTitle: {
     color: 'white',
     fontSize: '1.7em',
-    margin: 0,
-    padding: 0,
-    textAlign: 'left'
+    textAlign: 'left',
+    paddingLeft: 15,
   },
   listName: {
     color: 'white',
     fontSize: '2.4em',
-    margin: 0,
-    padding: 0,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   shoppingIcon: {
     color: 'white',
@@ -101,7 +97,7 @@ export default class Tasks extends BaseComponent {
   }
 
   render() {
-    if(this.state.tasks.length < 1) return null;
+    if (this.state.tasks.length < 1) return null;
     return (
       <div hidden={!this.props.visible} style={styles.container}>
       	<div style={styles.listName}>
@@ -116,7 +112,7 @@ export default class Tasks extends BaseComponent {
           duration={500}
           enterAnimation='accordianVertical'
           leaveAnimation='accordianVertical'
-          typeName="ul"
+          typeName="div"
         >
           { this.renderToptasks() }
         </FlipMove>

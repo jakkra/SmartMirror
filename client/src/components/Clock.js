@@ -6,33 +6,25 @@ moment.locale('sv');
 
 const styles = {
   container: {
-    marginLeft: 40,
-    marginTop: 40
+
   },
   clock: {
     color: 'white',
     fontSize: '6.3em',
-    marginLeft: 20,
-    margin: 0,
-    padding: 0,
     lineHeight: 1,
     lineWidth: 1,
+    marginLeft: -30
   },
   clockSeconds: {
     color: 'white',
     fontSize: '2.4em',
-    margin: 0,
-    marginLeft: 60,
-    padding: 0,
     lineHeight: 1,
-    paddingTop: 7
+    paddingLeft: 10,
+    textAlign: 'left',
   },
   smallText: {
     color: 'white',
     fontSize: '2.7em',
-    marginLeft: 30,
-    margin: 0,
-    padding: 0
   },
 }
 
@@ -76,13 +68,13 @@ export default class Clock extends React.Component {
       <div hidden={!this.props.visible} style={styles.container}>
         <Row>
           <Col xs={12}/>
-            <p style={styles.smallText}> {day}</p>
+            <div style={styles.smallText}> {day}</div>
           <Col/>
         </Row>
         <Row>
           <Col xs={12}>
             <Row>
-              <Col style={{padding: 0}} xs={4}>
+              <Col xs={4}>
                 <div style={styles.clock}>
                   {this.state.date.format('HH:mm')}
                 </div>

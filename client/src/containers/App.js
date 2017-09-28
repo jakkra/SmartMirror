@@ -42,12 +42,10 @@ export default class App extends React.Component {
         transfers: true,
       }
     };
-
   }
 
   handleMessage(message) {
     message = JSON.parse(message.data);
-    console.log('new message', message);
     const data = message.data;
     switch(message.event){
       case 'temperature':
@@ -95,11 +93,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingLeft: 80, paddingRight: 60, paddingTop: 45}} className='App'>
+      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: '0%' }} className='App'>
         <Article ref='article' visible={this.state.visibility.article} />
         <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
 
-        <Row>
+        <Row >
           <Col xs={4}>
             <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
             <RecordingStatus isRecording={this.state.isRecording} />

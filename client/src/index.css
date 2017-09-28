@@ -15,11 +15,18 @@ body {
 
 .Clock {
 	background-color: black;
-	margin-top: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
   color: white;
   font-size: 6em;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.Row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .Date {
@@ -33,7 +40,6 @@ body {
   background-color: black;
   color: white;
   font-size: 3em;
-  margin-left: 2em;
 }
 
 html {

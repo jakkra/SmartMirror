@@ -5,22 +5,15 @@ import { getArticles } from '../lib/fetch';
 
 const styles = {
   container: {
-    margin: 50,
-    marginLeft: 30,
-    marginTop: 60
   },
   taskTitle: {
     color: 'white',
     fontSize: '1.7em',
-    margin: 0,
-    padding: 0,
     textAlign: 'left'
   },
   articleText: {
     color: 'white',
     fontSize: '1.2em',
-    margin: 0,
-    padding: 0,
     textAlign: 'left'
   }
 }
