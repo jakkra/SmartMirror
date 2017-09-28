@@ -31,11 +31,13 @@ const styles = {
 export default class Clock extends React.Component {
 
   static propTypes = {
-    visible: React.PropTypes.bool
+    visible: React.PropTypes.bool,
+    showTemperature: React.PropTypes.bool
   };
 
   static defaultProps = {
-    visible: true
+    visible: true,
+    showTemperature: true,
   };
   constructor(props) {
     super(props);
@@ -89,7 +91,7 @@ export default class Clock extends React.Component {
         </Row>
         <Row>
           <Col xs={12}/>
-            <p style={styles.smallText}>{this.props.temperature} °C</p>
+            <p hidden={!this.props.showTemperature} style={styles.smallText}>{this.props.temperature} °C</p>
           <Col/>
         </Row>
       </div>

@@ -1,3 +1,5 @@
+import { config } from '../config.js';
+
 const checkStatus = (res) => {
     return new Promise((resolve, reject) => {
         if (res.status >= 200 && res.status < 299) {
@@ -11,7 +13,7 @@ const checkStatus = (res) => {
 
 
 export function getLatestNews(callback) {
-	const url = 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fwww.svt.se%2Fnyheter%2Frss.xml';
+	const url = config.svtNewsUrl;
 
 	return fetch(url)
   .then(checkStatus)

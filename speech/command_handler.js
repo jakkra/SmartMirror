@@ -1,6 +1,13 @@
 module.exports = (mirrorSocket) => {
+  const config = require('../config');
+
+  let hue = null;
+
+  if (config.modules.philipsHue === true) {
+    hue = require('../util/hue');
+  }
+
   const SpeechCommand = require('./speech_command');
-  const hue = require('../util/hue');
   const exec = require('child_process').exec;
 
   return {

@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 const exec = require('child_process').exec;
-
 var express = require('express');
 var app = express();
 var expressWs = require('express-ws')(app);
@@ -9,11 +8,15 @@ var expressWs = require('express-ws')(app);
 const mirrorSocket = require('./util/mirror_socket')(expressWs);
 const commandHandler = require('./speech/command_handler')(mirrorSocket);
 
-const speech = require('./speech/stream.js');
-const hotword = require('./speech/hot_word.js');
+const config = require('./config');
+let speech, hotword, commands, hue = null;
 
-// const hue = require('./util/hue.js');
-const commands = require('./speech/command_classify')
+if (config.modules.googleCloudSpeech === true) {
+  speech = require('./speech/stream.js');
+  hotword = require('./speech/hot_word.js');
+  commands = require('./speech/command_classify')
+} 
+
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
 
@@ -58,31 +61,34 @@ app.get('/api/parse/:command', (req, res) => {
   res.redirect("/app");
 });
 
-hotword.initCallback(hotwordDetectedCallback);
+if (config.modules.googleCloudSpeech === true) {
+  hotword.initCallback(hotwordDetectedCallback);
 
-hotword.listenForHotword();
-
-function done(){
   hotword.listenForHotword();
-  mirrorSocket.sendToClient('recording', {isRecording: false});
+
+  function done(){
+    hotword.listenForHotword();
+    mirrorSocket.sendToClient('recording', {isRecording: false});
+  }
+
+  function hotwordDetectedCallback(){
+    mirrorSocket.sendToClient('recording', {isRecording: true});
+    speech.listen((param) => {
+      console.log("_______" + new Date() + "_______");
+      console.log(param);
+      if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
+        const result = param.results[0].alternatives[0];
+        console.log(result.transcript);
+        const command = commands.classifyCommand(result.transcript.toLowerCase());
+        console.log(command);
+        commandHandler.handle(command);
+      }
+    }, done)
+  }  
 }
 
-function hotwordDetectedCallback(){
-  mirrorSocket.sendToClient('recording', {isRecording: true});
-  speech.listen((param) => {
-    console.log("_______" + new Date() + "_______");
-    console.log(param);
-    if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
-      const result = param.results[0].alternatives[0];
-      console.log(result.transcript);
-      const command = commands.classifyCommand(result.transcript.toLowerCase());
-      console.log(command);
-      commandHandler.handle(command);
-    }
-  }, done)
-}
 
-if (process.env.target ==='PI'){
+if (process.env.target ==='PI' && config.modules.tempPirSensors === true){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
   const buttonListener = require('./util/button');
@@ -95,27 +101,29 @@ if (process.env.target ==='PI'){
   });
 
   buttonListener.start(onShortButtonClicked, onLongButtonPressed, onLongLongButtonPressed, onDoubleClick, 3000);
+  
+  function onShortButtonClicked(){
+    hotword.stopRecord();
+    hotwordDetectedCallback();
+  }
+
+  function onLongButtonPressed(){
+    console.log('Long press!');
+    exec("sudo tvservice -o");
+  }
+
+  function onLongLongButtonPressed(){
+    console.log('Long Long press!');
+    exec("sudo reboot");
+  }
+
+  function onDoubleClick() {
+    console.log('Double click');
+    exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
+  }
 }
 
-function onShortButtonClicked(){
-  hotword.stopRecord();
-  hotwordDetectedCallback();
-}
 
-function onLongButtonPressed(){
-  console.log('Long press!');
-  exec("sudo tvservice -o");
-}
-
-function onLongLongButtonPressed(){
-  console.log('Long Long press!');
-  exec("sudo reboot");
-}
-
-function onDoubleClick() {
-  console.log('Double click');
-  exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
-}
 
 function sendTemperatureToClient(readTemperature){
   mirrorSocket.sendToClient('temperature', { temperature: readTemperature });

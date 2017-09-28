@@ -1,4 +1,4 @@
-export const config = {
+const config = {
 
   padding: '5%', // or something
 
@@ -27,3 +27,5 @@ export const config = {
   }
 
 };
+
+module.exports = config;

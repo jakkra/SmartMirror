@@ -57,8 +57,8 @@ export default class Transfers extends BaseComponent {
   getMinutesDiff(date){
     const today = new Date();
     const diffMs = (date - today);
-    const diffDays = Math.floor(diffMs / 86400000);
-    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+    // const diffDays = Math.floor(diffMs / 86400000);
+    // const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
     return diffMins;
   }

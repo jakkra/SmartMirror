@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { config } from '../config.js';
 import Clock from '../components/Clock';
 import Weather from '../components/Weather';
 import Forecast from '../components/Forecast'
@@ -10,7 +12,6 @@ import Article from '../components/Article';
 import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
 
-import { config } from '../config.js';
 
 import { Col, Row } from 'react-bootstrap';
 
@@ -92,26 +93,51 @@ export default class App extends React.Component {
   }
 
   render() {
+    let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles = null;
+    if (config.modules.dateTime === true) {
+      dateTime = (<Clock temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
+    }
+    if (config.modules.transfer === true) {
+      transfers = (<Transfers visible={this.state.visibility.transfers} />);
+    }            
+    if (config.modules.news === true) {
+      news = (<News visible={this.state.visibility.news} />)
+    }
+    if (config.modules.wunderlistTasks === true) {
+      tasks = (<Tasks visible={this.state.visibility.tasks} />)
+    }
+    if (config.modules.weather === true) {
+      weather = (<Weather visible={this.state.visibility.weather} />)
+    }
+    if (config.modules.forecast === true) {
+      forecast = (<Forecast visible={this.state.visibility.forecasts} />)
+    }
+    if (config.modules.temperatureGraph === true) {
+      temperatureGraph = (<TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />)
+    }
+    if (config.modules.articles === true) {
+      articles = (<Article ref='article' visible={this.state.visibility.article} />)
+    }
     return (
       <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: '0%' }} className='App'>
-        <Article ref='article' visible={this.state.visibility.article} />
-        <TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />
+        {articles}
+        {temperatureGraph}
 
         <Row >
           <Col xs={4}>
-            <Clock temperature={this.state.temperature} visible={this.state.visibility.clock}/>
+            {dateTime}
             <RecordingStatus isRecording={this.state.isRecording} />
-            <Tasks visible={this.state.visibility.tasks} />
-            <Transfers visible={this.state.visibility.transfers} />
+            {tasks}
+            {transfers}
 
           </Col>
           <Col xs={4} />
           <Col xs={4}>
             <Row>
-              <Weather visible={this.state.visibility.weather} />
+              {weather}
             </Row>
             <Row style={{marginTop: 50}}>
-              <Forecast visible={this.state.visibility.forecasts} />
+              {forecast}
             </Row>
           </Col>
         </Row>
@@ -120,7 +146,7 @@ export default class App extends React.Component {
           <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
         </Row>
         <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60, paddingBottom: 0}}>
-          <News visible={this.state.visibility.news} />
+          {news}
         </Row>
       </div>
     );
