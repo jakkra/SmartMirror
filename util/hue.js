@@ -40,7 +40,7 @@ function initAutoOffBathroom() {
 					api.setLightState(closet.id, { "on": false })
 			    .fail(displayError)
 			    .done(() => waitingToTurnOff = false);
-				}, 60 * 20 * 1000);
+				}, 60 * 15 * 1000);
 	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
 	    	waitingToTurnOff = false;
 	    	clearTimeout(timeoutTimer);
