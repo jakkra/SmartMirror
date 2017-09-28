@@ -13,13 +13,13 @@ const hostname = process.env.HUE_HOSTNAME,
 const api = new HueApi(hostname, username);
 
 api.lights(function(err, result) {
-  if (err) throw err;
+  if (err) return;
   lights = result.lights;
 	bedroom = lights.find((light) => light.name === 'Bedroom');
 	diningTable = lights.find((light) => light.name === 'Dining Table');
 	closet = lights.find((light) => light.name === 'Closet');
 
-	initAutoOffBathroom();
+	initAutoOffBathroom(1000 * 60 * 10);
 });
 
 
@@ -29,7 +29,7 @@ api.groups(function(err, result) {
   groupAll = groups.find((group) => group.name === 'All');
 });
 
-function initAutoOffBathroom() {
+function initAutoOffBathroom(ttl) {
 	setInterval(() => {
 		api.lightStatus(closet.id, function(err, result) {
 	    if (err) throw err;
@@ -40,7 +40,7 @@ function initAutoOffBathroom() {
 					api.setLightState(closet.id, { "on": false })
 			    .fail(displayError)
 			    .done(() => waitingToTurnOff = false);
-				}, 60 * 10 * 1000);
+				}, ttl);
 	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
 	    	waitingToTurnOff = false;
 	    	clearTimeout(timeoutTimer);
