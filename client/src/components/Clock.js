@@ -17,8 +17,8 @@ const styles = {
   },
   clockSeconds: {
     color: 'white',
-    fontSize: '2.4em',
-    lineHeight: 1,
+    fontSize: '0.4em',
+    verticalAlign: 'top',
     paddingLeft: 18,
     textAlign: 'left',
   },
@@ -76,14 +76,12 @@ export default class Clock extends React.Component {
         <Row>
           <Col xs={12}>
             <Row>
-              <Col xs={4}>
+              <Col xs={12}>
                 <div style={styles.clock}>
                   {this.state.date.format('HH:mm')}
-                </div>
-              </Col>
-              <Col xs={8}>
-                <div style={styles.clockSeconds}>
-                  {this.state.date.format('ss')}
+                  <span style={styles.clockSeconds}>
+                    {this.state.date.format('ss')}
+                  </span>
                 </div>
               </Col>
             </Row>
