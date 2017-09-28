@@ -1,32 +1,35 @@
-import React from "react";
+import React from 'react';
 
-import moment from "moment";
-import { Col, Row } from "react-bootstrap";
-moment.locale("sv");
+import moment from 'moment'
+import { Col, Row } from 'react-bootstrap';
+moment.locale('sv');
 
 const styles = {
-  container: {},
+  container: {
+
+  },
   clock: {
-    color: "white",
-    fontSize: "6.3em",
+    color: 'white',
+    fontSize: '6.3em',
     lineHeight: 1,
     lineWidth: 1,
     marginLeft: -30
   },
   clockSeconds: {
-    color: "white",
-    fontSize: "0.4em",
-    verticalAlign: "top",
+    color: 'white',
+    fontSize: '0.4em',
+    verticalAlign: 'top',
     paddingLeft: 18,
-    textAlign: "left"
+    textAlign: 'left',
   },
   smallText: {
-    color: "white",
-    fontSize: "2.7em"
-  }
-};
+    color: 'white',
+    fontSize: '2.7em',
+  },
+}
 
 export default class Clock extends React.Component {
+
   static propTypes = {
     visible: React.PropTypes.bool,
     showTemperature: React.PropTypes.bool
@@ -34,17 +37,20 @@ export default class Clock extends React.Component {
 
   static defaultProps = {
     visible: true,
-    showTemperature: true
+    showTemperature: true,
   };
   constructor(props) {
     super(props);
     this.state = {
-      date: new moment()
+      date: new moment(),
     };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
   }
 
   componentWillUnmount() {
@@ -58,23 +64,23 @@ export default class Clock extends React.Component {
   }
 
   render() {
-    let day = this.state.date.format("dddd, LL");
+    let day = this.state.date.format('dddd, LL');
     day = day.charAt(0).toUpperCase() + day.slice(1);
     return (
       <div hidden={!this.props.visible} style={styles.container}>
         <Row>
-          <Col xs={12} />
-          <div style={styles.smallText}> {day}</div>
-          <Col />
+          <Col xs={12}/>
+            <div style={styles.smallText}> {day}</div>
+          <Col/>
         </Row>
         <Row>
           <Col xs={12}>
             <Row>
               <Col xs={12}>
                 <div style={styles.clock}>
-                  {this.state.date.format("HH:mm")}
+                  {this.state.date.format('HH:mm')}
                   <span style={styles.clockSeconds}>
-                    {this.state.date.format("ss")}
+                    {this.state.date.format('ss')}
                   </span>
                 </div>
               </Col>
@@ -82,11 +88,9 @@ export default class Clock extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} />
-          <p hidden={!this.props.showTemperature} style={styles.smallText}>
-            {this.props.temperature} °C
-          </p>
-          <Col />
+          <Col xs={12}/>
+            <p hidden={!this.props.showTemperature} style={styles.smallText}>{this.props.temperature} °C</p>
+          <Col/>
         </Row>
       </div>
     );
