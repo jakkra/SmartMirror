@@ -169,5 +169,5 @@ export DISPLAY=:0.0
 sudo -u pi chromium-browser --kiosk --incognito http://localhost:3001 # Chromium must not be ran as root.
 ```
 
-Add @/home/pi/start.sh to ~/.config/lxsession/LXDE-pi/autostart
+Add `@/home/pi/start.sh to ~/.config/lxsession/LXDE-pi/autostart`
 
