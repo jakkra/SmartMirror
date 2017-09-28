@@ -119,7 +119,7 @@ export default class App extends React.Component {
       articles = (<Article ref='article' visible={this.state.visibility.article} />)
     }
     return (
-      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: '0%' }} className='App'>
+      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '10%', paddingRight: '9%', paddingBottom: '0%' }} className='App'>
         {articles}
         {temperatureGraph}
 

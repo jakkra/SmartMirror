@@ -19,7 +19,7 @@ const styles = {
     color: 'white',
     fontSize: '2.4em',
     lineHeight: 1,
-    paddingLeft: 10,
+    paddingLeft: 18,
     textAlign: 'left',
   },
   smallText: {
