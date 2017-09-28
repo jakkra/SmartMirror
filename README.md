@@ -70,7 +70,41 @@ Headlines and short descriptions are changing in the bottom of the Mirror every 
 
 ## Running locally
 
-### Create and fill in a .env file.
+### Fill in config.js and client/config.js
+Unfortunately at the moment you need to mirror the config between the two files.
+Select which modules/functions you want to enable.
+```
+export const config = {
+  YAHOO_WOEID: '897819',
+  SMHI_COORD: {
+    longitude: '13',
+    latitude: '55.6'
+  },
+  svtNewsUrl: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fwww.svt.se%2Fnyheter%2Frss.xml',
+
+  serverBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000',
+  wsServerBaseURL: process.env.NODE_ENV === 'production' ? 'localhost:3001/' : 'localhost:3001/',
+
+  modules: {
+    dateTime: true,
+    wunderlistTasks: false,
+    transfer: false,
+    weather: true,
+    forecast: true,
+    news: true,
+    tempPirSensor: false,
+    googleCloudSpeech: false,
+    philipsHue: false,
+    temperatureGraph: false,
+    articles: false,
+  }
+
+};
+
+```
+
+### Create and fill in a .env file depends on the config files.
+Can be empty if you don't use those functions. But the file is required.
 ```
 RuleThemAllBackendAccessToken=''
 wunderlistAccessToken=''
@@ -86,18 +120,6 @@ HUE_USERNAME='username' // See https://github.com/peter-murray/node-hue-api
 target='Krantz-Ubuntu' // Set to 'PI' on your Raspberry Pi. Avoids errors initializing gpio when not on Pi.
 ```
 
-### Fill in client/config.js
-```
-export const config = {
-	YAHOO_WOEID: '897819',
-	SMHI_COORD: {
-		longitude: '13.19',
-		latitude: '55.7'
-	},
-	serverBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000',
-	wsServerBaseURL: process.env.NODE_ENV === 'production' ? 'localhost:3001/' : 'localhost:3001/'
-};
-```
 
 ### 
 
