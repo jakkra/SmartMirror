@@ -180,9 +180,9 @@ module.exports = (app, mirrorSocket) => {
 		}
 
 		nodeSkanetraiken.getJourneys({ from: lundC, to: malmoC, limit: 5, action: 'next' }, function(results, err) {
-			console.log("called")
+			//console.log("called")
 	    if (!err) {
-        results.forEach((r) => console.log(r));
+        //results.forEach((r) => console.log(r));
         return res.json({
         	routes: results
         });

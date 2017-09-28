@@ -32,6 +32,7 @@
     "moment": "^2.17.1",
     "node-hue-api": "^2.3.0",
     "node-record-lpcm16": "^0.1.8",
+    "node-skanetrafiken": "0.0.3",
     "node-uuid": "^1.4.7",
     "npm": "^4.0.5",
     "onoff": "^1.1.1",
