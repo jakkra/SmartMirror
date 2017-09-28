@@ -5,23 +5,16 @@ import FlipMove from 'react-flip-move';
 
 const styles = {
   container: {
-    marginLeft: 50,
-    marginRight: 50,
-    marginTop: 60,
-    marginBottom: 0,
+
   },
   articleTitle: {
     color: 'white',
     fontSize: '2.5em',
-    margin: 0,
-    padding: 0,
     textAlign: 'center'
   },
   article: {
     color: 'white',
     fontSize: '1.4em',
-    margin: 0,
-    padding: 0,
     textAlign: 'center'
   },
 }

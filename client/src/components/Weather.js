@@ -5,15 +5,11 @@ import { getCurrentWeather, fileFromInt } from '../lib/smhi';
 
 const styles = {
   container: {
-    margin: 50,
-    marginLeft: 0,
-    marginTop: 60
   },
   weather: {
     color: 'white',
     fontSize: '1.4em',
     margin: 0,
-    padding: 0,
     textAlign: 'right'
   },
   weatherImg: {

@@ -2,7 +2,6 @@ import React from 'react';
 
 const styles = {
   message: {
-    marginLeft: 40,
     color: 'white',
     fontSize: '3.5em',
     textAlign: 'center'

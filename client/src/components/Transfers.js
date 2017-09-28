@@ -6,23 +6,17 @@ import FA from 'react-fontawesome';
 
 const styles = {
   container: {
-    margin: 50,
-    marginLeft: 30,
-    marginTop: 150
+    marginLeft: -15,
+    marginTop: '10%',
   },
   route: {
     color: 'white',
     fontSize: '1.7em',
-    margin: 0,
-    padding: 0,
     textAlign: 'left',
-    marginLeft: 20,
   },
   listName: {
     color: 'white',
     fontSize: '2.4em',
-    margin: 0,
-    padding: 0,
     textAlign: 'left'
   },
   trainIcon: {

@@ -7,32 +7,24 @@ import Skycons from 'react-skycons';
 
 const styles = {
   container: {
-    marginLeft: 200,
-    marginRight: 50
+
   },
   weatherImg: {
-  	position: 'absolute',
-  	right: '40px'
+  	
   },
   forecastText: {
   	color: 'white',
     fontSize: '1.7em',
-    margin: 0,
-    padding: 0
   },
   foreacstIcon: {
     height: '40px',
   	color: 'white',
     fontSize: '1.8em',
-    margin: 0,
-    padding: 0,
     textAlign: 'center'
   },
   sunIcon: {
     color: 'white',
     fontSize: '1.8em',
-    margin: 0,
-    padding: 0,
     textAlign: 'right',
     lineHeight: 2
   },
@@ -40,16 +32,11 @@ const styles = {
     whiteSpace: 'nowrap',
   	color: 'white',
     fontSize: '1.6em',
-    margin: 0,
-    padding: 0,
     textAlign: 'right',
-    marginRight: 0
   },
   locationLabel: {
   	color: 'white',
     fontSize: '2.9em',
-    margin: 0,
-    padding: 0,
     lineHeight: 1,
     marginBottom: 10
   }
@@ -116,7 +103,7 @@ export default class Forecast extends React.Component {
 
   render() {
     return (
-      <div hidden={!this.props.visible} style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container} className="pull-right">
   	       <p style={styles.locationLabel}> Lund </p>
         <Row>
           <Col xs={6}>
