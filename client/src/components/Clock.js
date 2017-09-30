@@ -13,13 +13,14 @@ const styles = {
     fontSize: '6.3em',
     lineHeight: 1,
     lineWidth: 1,
-    marginLeft: -30
+    marginLeft: -30,
+    paddingLeft: 20,
   },
   clockSeconds: {
     color: 'white',
     fontSize: '0.4em',
     verticalAlign: 'top',
-    paddingLeft: 18,
+    paddingLeft: 1,
     textAlign: 'left',
   },
   smallText: {

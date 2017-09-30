@@ -119,11 +119,11 @@ export default class App extends React.Component {
       articles = (<Article ref='article' visible={this.state.visibility.article} />)
     }
     return (
-      <div style={{fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '10%', paddingRight: '9%', paddingBottom: '0%' }} className='App'>
+      <div style={{ fontSize: config.textScale, fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '7%', paddingRight: '6%', paddingBottom: '0%' }} className='App'>
         {articles}
         {temperatureGraph}
 
-        <Row >
+        <Row className='Container'>
           <Col xs={4}>
             {dateTime}
             <RecordingStatus isRecording={this.state.isRecording} />

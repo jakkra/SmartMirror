@@ -1,6 +1,7 @@
 const config = {
 
   padding: '5%', // or something
+  textScale: '0.8em',
 
   YAHOO_WOEID: '897819',
   SMHI_COORD: {
@@ -14,16 +15,16 @@ const config = {
 
   modules: {
     dateTime: true,
-    wunderlistTasks: false,
-    transfer: false,
+    wunderlistTasks: true,
+    transfer: true,
     weather: true,
     forecast: true,
     news: true,
-    tempPirSensor: false,
-    googleCloudSpeech: false,
-    philipsHue: false,
-    temperatureGraph: false,
-    articles: false,
+    tempPirSensor: true,
+    googleCloudSpeech: true,
+    philipsHue: true,
+    temperatureGraph: true,
+    articles: true,
   }
 
 };

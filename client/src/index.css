@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sawasdee;
-  background-color: black
+  background-color: black;
 }
 
 .App {
@@ -10,7 +10,6 @@ body {
   height: 100vh;
   width: 100vw;
   float: left;
-
 }
 
 .Clock {

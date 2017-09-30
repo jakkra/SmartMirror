@@ -7,7 +7,7 @@ import FA from 'react-fontawesome';
 const styles = {
   container: {
     marginLeft: -15,
-    marginTop: '10%',
+    marginTop: '30%',
   },
   route: {
     color: 'white',
