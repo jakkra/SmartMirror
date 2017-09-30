@@ -11,5 +11,8 @@ coverage
 .env
 npm-debug.log
 
+# config file
+src/config.js
+
 # build
 # build
