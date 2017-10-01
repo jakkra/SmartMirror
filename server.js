@@ -88,7 +88,7 @@ if (config.modules.googleCloudSpeech === true) {
 }
 
 
-if (process.env.target ==='PI' && config.modules.tempPirSensors === true){
+if (process.env.target ==='PI' && config.modules.tempPirSensor === true){
   const tempLogger = require('./util/temp_logger');
   const motionDetector = require('./util/motion');
   const buttonListener = require('./util/button');
