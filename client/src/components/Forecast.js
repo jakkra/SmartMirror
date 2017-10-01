@@ -22,7 +22,7 @@ const styles = {
     fontSize: '1.8em',
     textAlign: 'center'
   },
-  sunIcon: {
+  daytimeHours: {
     color: 'white',
     fontSize: '1.8em',
     textAlign: 'right',
@@ -105,12 +105,12 @@ export default class Forecast extends React.Component {
     return (
       <div hidden={!this.props.visible} style={styles.container} className="pull-right">
   	       <p style={styles.locationLabel}> Lund </p>
-        <Row>
+        <Row style={styles.daytimeHours}>
           <Col xs={6}>
-            <p style={styles.sunIcon} className='wi wi-sunrise'> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</p>
+            <p><span className='wi wi-sunrise'></span> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</p>
           </Col>
           <Col style={{ textAlign: 'right' }} xs={6}>
-            <p style={styles.sunIcon} className='wi wi-sunset'> {moment(this.state.weather.sunset, ["h:mm A"]).format("HH:mm")}</p>
+            <p><span className='wi wi-sunset'></span> {moment(this.state.weather.sunset, ["h:mm A"]).format("HH:mm")}</p>
           </Col>
         </Row>
         
