@@ -161,6 +161,7 @@ void colorWipe(uint32_t c, uint8_t wait) {
 
 void oneTwoThree(uint8_t wait) {
   colorWipe(strip.Color(0, 0, 0), 5);
+  uint32_t prevColor = strip.Color(0, 0, 0);
   for(uint16_t j=0; !Serial.available(); j++) {
     
     uint32_t c = strip.Color(random(0, 255), random(0, 255), random(0, 255));
@@ -168,7 +169,7 @@ void oneTwoThree(uint8_t wait) {
     for(uint16_t i=0; i<strip.numPixels() && !Serial.available(); i++) { // start from the middle, lighting an LED on each side
       for(uint16_t ii = strip.numPixels() - 2; ii > i && !Serial.available(); ii--) { // reverse
         strip.setPixelColor(ii, c);
-        strip.setPixelColor(ii + 1, strip.Color(0, 0, 0));
+        strip.setPixelColor(ii + 1, prevColor);
         strip.show();
         delay(wait);
         if (ii == i + 1 && i + 2 < strip.numPixels()) // Before last
@@ -179,14 +180,15 @@ void oneTwoThree(uint8_t wait) {
           delay(2 * wait);
         }
         strip.setPixelColor(ii, c);
-        strip.setPixelColor(ii + 1, strip.Color(0, 0, 0));
+        strip.setPixelColor(ii + 1, prevColor);
         strip.show();
         delay(wait);
       }
 
       strip.show();
       delay(wait);
-     }
+    }
+    prevColor = c;
   }
 }
 
