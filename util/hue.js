@@ -4,8 +4,7 @@ var hue = require("node-hue-api"),
 
 let lights, groups = [];
 let bedroom, diningTable, closet, groupAll;
-let waitingToTurnOff = false;
-let timeoutTimer;
+let closetTimer, bedroomTimer;
 
 const hostname = process.env.HUE_HOSTNAME,
   username = process.env.HUE_USERNAME;
@@ -19,7 +18,9 @@ api.lights(function(err, result) {
 	diningTable = lights.find((light) => light.name === 'Dining Table');
 	closet = lights.find((light) => light.name === 'Closet');
 
-	initAutoOffBathroom(1000 * 60 * 10);
+	initAutoOff(closet, closetTimer, 1000 * 60 * 20);
+	initAutoOff(bedroom, bedroomTimer, 1000 * 60 * 20);
+
 });
 
 
@@ -29,25 +30,27 @@ api.groups(function(err, result) {
   groupAll = groups.find((group) => group.name === 'All');
 });
 
-function initAutoOffBathroom(ttl) {
+function initAutoOff(light, timerId, ttl) {
+	let waitingToTurnOff = false;
 	setInterval(() => {
-		api.lightStatus(closet.id, function(err, result) {
+		api.lightStatus(light.id, function(err, result) {
 	    if (err) throw err;
 	    if (result.state.reachable === true && result.state.on === true && waitingToTurnOff === false) {
 	    	waitingToTurnOff = true;
-	    	clearTimeout(timeoutTimer);
-				timeoutTimer = setTimeout(() => {
-					api.setLightState(closet.id, { "on": false })
+	    	clearTimeout(timerId);
+				timerId = setTimeout(() => {
+					api.setLightState(light.id, { "on": false })
 			    .fail(displayError)
 			    .done(() => waitingToTurnOff = false);
 				}, ttl);
 	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
 	    	waitingToTurnOff = false;
-	    	clearTimeout(timeoutTimer);
+	    	clearTimeout(timerId);
 	    }
 		});
 	}, 1000 * 30);
 }
+
 
 module.exports = {
 	allLights: function(options) {
