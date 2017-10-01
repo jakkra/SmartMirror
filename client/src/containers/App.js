@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { config } from '../config.js';
+const config = require('../config');
 import Clock from '../components/Clock';
 import Weather from '../components/Weather';
 import Forecast from '../components/Forecast'

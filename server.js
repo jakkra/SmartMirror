@@ -8,6 +8,8 @@ var expressWs = require('express-ws')(app);
 const mirrorSocket = require('./util/mirror_socket')(expressWs);
 const commandHandler = require('./speech/command_handler')(mirrorSocket);
 
+mirrorConfigFiles();
+
 const config = require('./config');
 let speech, hotword, commands, hue = null;
 
@@ -127,4 +129,18 @@ if (process.env.target ==='PI' && config.modules.tempPirSensor === true){
 
 function sendTemperatureToClient(readTemperature){
   mirrorSocket.sendToClient('temperature', { temperature: readTemperature });
+}
+
+
+function mirrorConfigFiles(){
+  const fs = require('fs');
+  let serverConfig = __dirname + '/config.js';
+  let clientConfig = __dirname + '/client/src/config.js';
+  // If the client config already exists, either it has been
+  // created manually or already symlinked, so skip trying
+  if(!fs.existsSync(clientConfig)){
+    // Symbolically link the client and server config files to avoid
+    // having to maintain two copies
+    fs.symlinkSync(serverConfig, clientConfig);
+  }
 }
