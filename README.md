@@ -70,11 +70,9 @@ Headlines and short descriptions are changing in the bottom of the Mirror every 
 
 ## Running locally
 
-### Set up config files
-1. Copy and rename config.js.default to config.js and client/src/config.js.default to client/src/config.js
-2. Edit config.js and client/src/config.js. 
-  (Unfortunately at the moment you need to mirror the config between the two files.)
-  Select which modules/functions you want to enable.
+### Set up config file
+1. Copy and rename config.js.default to config.js
+2. Edit config.js and select which modules/functions you want to enable
 
 ```
 export const config = {

@@ -1,4 +1,4 @@
-import { config } from '../config.js';
+const config = require('../config');
 
 const checkStatus = (res) => {
     return new Promise((resolve, reject) => {
