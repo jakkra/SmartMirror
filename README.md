@@ -182,13 +182,18 @@ $ arduino --board arduino:avr:uno --port /dev/ttyACM0 --save-prefs # store confi
 $ arduino --upload $(pwd)/ledstrip.ino # Flashes the new software
 ```
 
-## Autostarting the mirror
+## Starting and updating the mirror on boot
 Save this file somewhere:
 ```
 #!/bin/sh
 
-cd /home/pi/Documents/SmartMirror
-NODE_ENV=production /usr/bin/npm run server &
+cd /home/pi/Documents/SmartMirror # Edit to path of project
+git fetch
+git stash
+git reset --hard origin/master
+cp -r client/webApp-move2build client/build/app # Move app to build folder
+
+NODE_ENV=production /usr/bin/npm run server > mirrorLog.txt  &
 export DISPLAY=:0.0
 /bin/sleep 30 # Let the server startup before trying to access the website, otherwise we get page not found.
 sudo -u pi chromium-browser --kiosk --incognito http://localhost:3001 # Chromium must not be ran as root.
