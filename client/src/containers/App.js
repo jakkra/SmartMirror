@@ -99,7 +99,7 @@ export default class App extends React.Component {
     }
     if (config.modules.transfer === true) {
       transfers = (<Transfers visible={this.state.visibility.transfers} />);
-    }            
+    }
     if (config.modules.news === true) {
       news = (<News visible={this.state.visibility.news} />)
     }
@@ -118,8 +118,19 @@ export default class App extends React.Component {
     if (config.modules.articles === true) {
       articles = (<Article ref='article' visible={this.state.visibility.article} />)
     }
+
+    const AppStyles = {
+      fontSize: config.styles.textScale,
+      fontFamily: config.styles.fontFamily,
+      fontWeight: config.styles.fontWeight,
+      paddingTop: config.styles.paddingTop,
+      paddingLeft: config.styles.paddingLeft,
+      paddingRight: config.styles.paddingRight,
+      paddingBottom: config.styles.paddingBottom
+    };
+
     return (
-      <div style={{ fontSize: config.textScale, fontFamily: 'Sawasdee', fontWeight: 500, paddingTop: '5%', paddingLeft: '7%', paddingRight: '6%', paddingBottom: '0%' }} className='App'>
+      <div style={AppStyles} className='App'>
         {articles}
         {temperatureGraph}
 
