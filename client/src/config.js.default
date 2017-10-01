@@ -15,16 +15,16 @@ export const config = {
 
   modules: {
     dateTime: true,
-    wunderlistTasks: true,
-    transfer: true,
+    wunderlistTasks: false,
+    transfer: false,
     weather: true,
     forecast: true,
     news: true,
-    tempPirSensor: true,
-    googleCloudSpeech: true,
-    philipsHue: true,
-    temperatureGraph: true,
-    articles: true,
+    tempPirSensor: false,
+    googleCloudSpeech: false,
+    philipsHue: false,
+    temperatureGraph: false,
+    articles: false,
   }
 
 };
