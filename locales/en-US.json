@@ -1,0 +1,22 @@
+{
+  "lamp" : ["lamp" , "light", "lamps", "lights", "lit", "in the roof", "in the hall"],
+  "on" : ["turn on", "lit", "light", "start"],
+  "off" : ["turn off", "close", "stop", "extinguishing"],
+  "all" : ["all"],
+  "bedroom" : ["bed", "beds", "bedrooms", "bedroom"],
+  "hallway" : ["hallway", "the hallway", "hall", "the hall"],
+  "livingRoom" : ["living room","the living room", "dining table"],
+  "wardrobe" : ["wardrobe", "closet", "almirah"],
+  "bus" : ["bus", "buses"],
+  "change" : ["change", "change to"],
+  "show"  : ["show", "start"],
+  "hide" : ["hide", "turn off"],
+  "news" : ["news", "the news", "news source"],
+  "forecasts" : ["forecast", "forecasts"],
+  "article" : ["article", "articles", "blog", "blogs", "post", "posts"],
+  "when" : ["when"],
+  "next" : ["next"],
+  "previous" : ["previous", "before", "preceding"],
+  "remind" : ["remind"],
+  "turnOffMirror" : ["turn off mirror", "switch off mirror"]
+}
