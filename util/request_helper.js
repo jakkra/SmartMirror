@@ -1,6 +1,7 @@
 const request = require('request');
 require('dotenv').config()
 const speaker = require('../speech/amazon-polly-speaker');
+const config = require('../config');
 
 
 module.exports = {
@@ -108,8 +109,11 @@ module.exports = {
 	},
 
 	getForecast(callback){
+		const longitude = config.SMHI_COORD.longitude;
+		const lat = config.SMHI_COORD.latitude;
+		console.log(longitude, lat)
 		request
-		.get('https://api.darksky.net/forecast/e6e170a4d778f0260cedd8d50877457d/55.6,13?lang=sv&units=si', function (error, response, body) {
+		.get('https://api.darksky.net/forecast/e6e170a4d778f0260cedd8d50877457d/'+ lat + ',' + longitude + '?lang=sv&units=si', function (error, response, body) {
 		  if (!error && response.statusCode == 200) {
 		  	let forecast = JSON.parse(body);
 		    callback(forecast);

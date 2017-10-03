@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import { getForecast } from '../lib/fetch';
 import moment from 'moment';
 import Skycons from 'react-skycons';
+const config = require('../config');
 
 const styles = {
   container: {
@@ -104,7 +105,7 @@ export default class Forecast extends React.Component {
   render() {
     return (
       <div hidden={!this.props.visible} style={styles.container} className="pull-right">
-  	   <p style={styles.locationLabel}> Lund </p>
+  	   <p style={styles.locationLabel}> {config.forecastLabelName} </p>
         <Row style={styles.daytimeHours}>
           <Col xs={6}>
             <p className='pull-left'><span className='wi wi-sunrise'></span> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</p>

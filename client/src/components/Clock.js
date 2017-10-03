@@ -2,7 +2,6 @@ import React from 'react';
 
 import moment from 'moment'
 import { Col, Row } from 'react-bootstrap';
-moment.locale('sv');
 
 const styles = {
   container: {

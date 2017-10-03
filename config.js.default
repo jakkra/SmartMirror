@@ -15,6 +15,7 @@ const config = {
     longitude: '13',
     latitude: '55.6'
   },
+  forecastLabelName: 'Lund',
   svtNewsUrl: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fwww.svt.se%2Fnyheter%2Frss.xml',
 
   serverBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000',
