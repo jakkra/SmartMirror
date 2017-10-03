@@ -9,6 +9,8 @@ var googleAuth = require('google-auto-auth');
 var Transform = require('stream').Transform;
 var record = require('node-record-lpcm16');
 
+const config = require('../config');
+
 var PROTO_ROOT_DIR = googleProtoFiles('..');
 var protoDescriptor = grpc.load({
   root: PROTO_ROOT_DIR,
@@ -72,7 +74,7 @@ exports.listen = function(callback, done) {
           config: {
             encoding: 'LINEAR16',
             sampleRate: 16000,
-            languageCode: 'sv-SE'
+            languageCode: config.language
           },
           interimResults: false,
           singleUtterance: true,
