@@ -22,6 +22,12 @@ const config = {
 
   language : "sv-SE", // swedish by default
 
+  lights : {
+    "Bedroom" : { autoOff : true},
+    "Dining Table" : {autoOff : false},
+    "Closet" : {autoOff : true}
+  },
+
   modules: {
     dateTime: true,
     wunderlistTasks: false,

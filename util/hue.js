@@ -2,9 +2,8 @@ var hue = require("node-hue-api"),
   HueApi = hue.HueApi,
   lightState = hue.lightState;
 
-let lights, groups = [];
-let bedroom, diningTable, closet, groupAll;
-let closetTimer, bedroomTimer;
+const { lights } = require('../config');
+let rlights, groups = [];
 
 const hostname = process.env.HUE_HOSTNAME,
   username = process.env.HUE_USERNAME;
@@ -13,14 +12,12 @@ const api = new HueApi(hostname, username);
 
 api.lights(function(err, result) {
   if (err) return;
-  lights = result.lights;
-	bedroom = lights.find((light) => light.name === 'Bedroom');
-	diningTable = lights.find((light) => light.name === 'Dining Table');
-	closet = lights.find((light) => light.name === 'Closet');
-
-	initAutoOff(closet, closetTimer, 1000 * 60 * 20);
-	initAutoOff(bedroom, bedroomTimer, 1000 * 60 * 20);
-
+  rlights = result.lights || [];
+  rlights.map((light) => {
+    if (lights[light.name] && lights[light.name].initAutoOff) {
+    initAutoOff(light, undefined, 1000 * 60 * 20);
+    }
+  });
 });
 
 
@@ -53,26 +50,18 @@ function initAutoOff(light, timerId, ttl) {
 
 
 module.exports = {
-	allLights: function(options) {
-		const state = lightState.create(options);
-		api.setGroupLightState(groupAll.id, state).then(displayResult).fail(displayError);
-	},
-	light: function(name, options) {
-		const state = lightState.create(options);
-		switch (name) {
-			case 'Bedroom':
-				api.setLightState(bedroom.id, state);
-				break;
-			case 'Closet':
-				api.setLightState(closet.id, state);
-				break;
-			case 'Dining Table':
-				api.setLightState(diningTable.id, state);
-				break;
-			default:
-				console.log('Light not found: ' + name);
-		}
-	},
+  allLights: function(options) {
+    const state = lightState.create(options);
+    api.setGroupLightState(groupAll.id, state).then(displayResult).fail(displayError);
+  },
+  light: function(name, options) {
+    const state = lightState.create(options);
+    let chosenLight = rlights.find((light) => light.name == name);
+    if (!chosenLight) {
+      return console.log('Light not found: ' + name);
+    }
+    api.setLightState(chosenLight.id, state);
+  }
 }
 
 function displayResult(result) {
