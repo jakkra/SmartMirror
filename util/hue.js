@@ -15,7 +15,7 @@ api.lights(function(err, result) {
   rlights = result.lights || [];
   rlights.map((light) => {
     if (lights[light.name] && lights[light.name].initAutoOff) {
-    initAutoOff(light, undefined, 1000 * 60 * 20);
+      initAutoOff(light, 1000 * 60 * 20);
     }
   });
 });
@@ -27,8 +27,9 @@ api.groups(function(err, result) {
   groupAll = groups.find((group) => group.name === 'All');
 });
 
-function initAutoOff(light, timerId, ttl) {
-	let waitingToTurnOff = false;
+function initAutoOff(light, ttl) {
+  let waitingToTurnOff = false;
+  let timerId;
 	setInterval(() => {
 		api.lightStatus(light.id, function(err, result) {
 	    if (err) throw err;
