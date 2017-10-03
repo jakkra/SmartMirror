@@ -67,27 +67,27 @@ if (config.modules.googleCloudSpeech === true) {
   hotword.initCallback(hotwordDetectedCallback);
 
   hotword.listenForHotword();
-
-  function done(){
-    hotword.listenForHotword();
-    mirrorSocket.sendToClient('recording', {isRecording: false});
-  }
-
-  function hotwordDetectedCallback(){
-    mirrorSocket.sendToClient('recording', {isRecording: true});
-    speech.listen((param) => {
-      console.log("_______" + new Date() + "_______");
-      console.log(param);
-      if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
-        const result = param.results[0].alternatives[0];
-        console.log(result.transcript);
-        const command = commands.classifyCommand(result.transcript.toLowerCase());
-        console.log(command);
-        commandHandler.handle(command);
-      }
-    }, done)
-  }  
 }
+function done(){
+  hotword.listenForHotword();
+  mirrorSocket.sendToClient('recording', {isRecording: false});
+}
+
+function hotwordDetectedCallback(){
+  mirrorSocket.sendToClient('recording', {isRecording: true});
+  speech.listen((param) => {
+    console.log("_______" + new Date() + "_______");
+    console.log(param);
+    if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
+      const result = param.results[0].alternatives[0];
+      console.log(result.transcript);
+      const command = commands.classifyCommand(result.transcript.toLowerCase());
+      console.log(command);
+      commandHandler.handle(command);
+    }
+  }, done)
+}  
+
 
 
 if (process.env.target ==='PI' && config.modules.tempPirSensor === true){
