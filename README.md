@@ -186,10 +186,18 @@ Save this file somewhere:
 #!/bin/sh
 
 cd /home/pi/Documents/SmartMirror # Edit to path of project
+
 git fetch
-git stash
-git reset --hard origin/master
-cp -r client/webApp-move2build client/build/app # Move app to build folder
+
+#if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+  echo "Updating mirror"
+  git stash # Just incase we wanted to save some change
+  git reset --hard origin/master
+  cd client
+  npm run build
+  cd ..
+  cp -r client/webApp-move2build client/build/app
+#fi
 
 NODE_ENV=production /usr/bin/npm run server > mirrorLog.txt  &
 export DISPLAY=:0.0
@@ -198,4 +206,3 @@ sudo -u pi chromium-browser --kiosk --incognito http://localhost:3001 # Chromium
 ```
 
 Add `@/home/pi/start.sh` to `~/.config/lxsession/LXDE-pi/autostart`
-
