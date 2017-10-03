@@ -1,50 +1,24 @@
 const SpeechCommand = require('./speech_command');
 const reminderParser = require('./reminder_parser');
-
-const lampSynonymsSwedish = ['lampa', 'lampan', 'lampor', 'lamporna', 'ljus', 'ljuset', 'ljusen', 'ljuset', 'lyset', 'taket', 'i taket', 'i hallen', 'tänd', 'släck', 'ljus'];
-const onSynonymsSwedish = ['sätt på', 'till', 'tänd', 'tända', 'starta', 'händer'];
-const offSynonymsSwedish = ['stäng av', 'stäng av', 'stänga', 'från', 'släck', 'släcka', 'stoppa', 'fläck', 'fläckt', 'fläkt'];
-const allSynonymsSwedish = ['alla', 'samtliga', 'allt'];
-const bedroomSynonymsSwedish = ['säng', 'sängen', 'sängens', 'sovrum', 'sovrums', 'sovrummet', 'sovrummets'];
-const hallwaySynonymsSwedish = ['hall', 'hallen', 'hallens', 'dörr', 'dörren', 'Halland'];
-const livingRoomSynonymsSwedish = ['vardagsrum', 'vardagsrummet', 'matbord', 'matbordet'];
-const wardrobeSynonymsSwedish = ['garderob', 'garderoben', 'klädkammare', 'klädkammaren'];
-
-const busSynonymsSwedish = ['bussen', 'buss', 'bus'];
-
-const changeSynonymsSwedish = ['ändra', 'byt', 'ändra till'];
-const showSynonymsSwedish = ['visa', 'starta', 'ta fram'];
-const hideSynonymsSwedish = ['dölj', 'dölja', 'stäng av', 'ta bort', 'göm', 'gömma'];
-const newsSynonymsSwedish = ['nyheter', 'nyheterna', 'nyhetskälla'];
-const forecastsSynonymsSwedish = ['väder', 'vädret', 'prognos', 'prognoserna'];
-const articleSynonymsSwedish = ['blog', 'bloggar', 'bloggen', 'inlägg', 'inläggen', 'inlägget', 'artiklar', 'artiklarna', 'artikel', 'artikeln'];
-
-const whenSynonymsSwedish = ['när', 'byt', 'går'];
-const nextSynonymsSwedish = ['nästa', 'efterkommande'];
-const previousSynonymsSwedish = ['förra', 'föregående'];
-
-const remindSynonymsSwedish = ['påminn'];
-
-
-const turnOffMirrorSwedish = ['stäng av spegeln', 'spegel stäng av dig', 'gå och sov spegel'];
+const synonyms = require('./synonyms');
 
 exports.classifyCommand = function(s){
   console.log('classify command');
-  if (stringContainsItemFromList(s, lampSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.lamp)) {
       console.log('lampssss');
       return parseLights(s);
-  } else if (stringContainsItemFromList(s, forecastsSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.forecasts)) {
       return parseForecasts(s);
-  } else if (stringContainsItemFromList(s, newsSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.news)) {
       return parseNews(s);
-  } else if(stringContainsItemFromList(s, articleSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.article)){
       return parseArticle(s);
-  } else if(stringContainsItemFromList(s, busSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.bus)){
       return parseBus(s);
-  } else if(stringContainsItemFromList(s, remindSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.remind)){
       console.log('Parse reminder');
       return reminderParser.parse(s);
-  } else if(stringContainsItemFromList(s, turnOffMirrorSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.turnOffMirror)){
       return SpeechCommand.TURN_OFF;
   } else {
     console.log('it\'s unknown');
@@ -64,13 +38,13 @@ function stringContainsItemFromList(command, list) {
 
 function parseArticle(s) {
   console.log('parse article');
-  if (stringContainsItemFromList(s, showSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.show)) {
     return SpeechCommand.SHOW_ARTICLES;
-  } else if (stringContainsItemFromList(s, hideSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.hide)) {
     return SpeechCommand.HIDE_ARTICLES;
-  } else if(stringContainsItemFromList(s, nextSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.next)){
     return SpeechCommand.NEXT_ARTICLE;
-  } else if(stringContainsItemFromList(s, previousSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.previous)){
     return SpeechCommand.PREVIOUS_ARTICLE;
   } else {
     return SpeechCommand.UNKNOWN;
@@ -79,7 +53,7 @@ function parseArticle(s) {
 
 function parseBus(s) {
   console.log('parse bus');
-  if (stringContainsItemFromList(s, whenSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.when)) {
     return SpeechCommand.NEXT_BUS;
   } else {
     return SpeechCommand.UNKNOWN;
@@ -88,11 +62,11 @@ function parseBus(s) {
 
 function parseNews(s) {
   console.log('parse news');
-  if (stringContainsItemFromList(s, showSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.show)) {
     return SpeechCommand.SHOW_NEWS;
-  } else if (stringContainsItemFromList(s, hideSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.hide)) {
     return SpeechCommand.HIDE_NEWS;
-  } else if(stringContainsItemFromList(s, changeSynonymsSwedish)){
+  } else if(stringContainsItemFromList(s, synonyms.change)){
     return SpeechCommand.CHANGE_NEWS_SOURCE;
   } else {
     return SpeechCommand.UNKNOWN;
@@ -101,9 +75,9 @@ function parseNews(s) {
 
 function parseForecasts(s) {
   console.log('parse forecats');
-  if (stringContainsItemFromList(s, showSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.show)) {
     return SpeechCommand.SHOW_FORECASTS;
-  } else if (stringContainsItemFromList(s, hideSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.hide)) {
     return SpeechCommand.HIDE_FORECASTS;
   } else {
     return SpeechCommand.UNKNOWN;
@@ -111,12 +85,12 @@ function parseForecasts(s) {
 }
 
 function parseLights(s) {
-  console.log('parse lights func', s, onSynonymsSwedish[2], stringContainsItemFromList(s, onSynonymsSwedish));
-  if (stringContainsItemFromList(s, onSynonymsSwedish)) {
+  console.log('parse lights func', s, synonyms.on[2], stringContainsItemFromList(s, synonyms.on));
+  if (stringContainsItemFromList(s, synonyms.on)) {
     return parseLightsOn(s);
-  } else if (stringContainsItemFromList(s, offSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.off)) {
     return parseLightsOff(s);
-  } else if (stringContainsItemFromList(s, changeSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.change)) {
     return parseLightChange(s);
   } else {
     return SpeechCommand.UNKNOWN;
@@ -179,15 +153,15 @@ function parseLightsOn(s) {
 
 function checkWhichRoom(s) {
   console.log('parse check which room');
-  if (stringContainsItemFromList(s, bedroomSynonymsSwedish)) {
+  if (stringContainsItemFromList(s, synonyms.bedroom)) {
       return SpeechCommand.BEDROOM;
-  } else if (stringContainsItemFromList(s, hallwaySynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.hallway)) {
       return SpeechCommand.HALLWAY;
-  } else if (stringContainsItemFromList(s, livingRoomSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.livingRoom)) {
       return SpeechCommand.LIVING_ROOM;
-  } else if (stringContainsItemFromList(s, wardrobeSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.wardrobe)) {
       return SpeechCommand.WARDROBE;
-  } else if (stringContainsItemFromList(s, allSynonymsSwedish)) {
+  } else if (stringContainsItemFromList(s, synonyms.all)) {
       return SpeechCommand.ALL;
   } else {
       return SpeechCommand.UNKNOWN;
