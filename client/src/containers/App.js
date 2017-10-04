@@ -13,7 +13,7 @@ import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
 
 import moment from 'moment'
-config.language ? moment.locale(config.language) : moment.locale('sv');
+config.language ? moment.locale(config.language) : moment.locale('en');
 
 import { Col, Row } from 'react-bootstrap';
 
