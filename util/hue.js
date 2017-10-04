@@ -3,7 +3,7 @@ var hue = require("node-hue-api"),
   lightState = hue.lightState;
 
 const { lights } = require('../config');
-let rlights, groups = [];
+let rlights, groupAll, groups = [];
 
 const hostname = process.env.HUE_HOSTNAME,
   username = process.env.HUE_USERNAME;
@@ -14,7 +14,7 @@ api.lights(function(err, result) {
   if (err) return;
   rlights = result.lights || [];
   rlights.map((light) => {
-    if (lights[light.name] && lights[light.name].initAutoOff) {
+    if (lights[light.name] && lights[light.name].autoOff) {
       initAutoOff(light, 1000 * 60 * 20);
     }
   });
