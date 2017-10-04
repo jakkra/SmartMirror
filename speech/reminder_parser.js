@@ -19,9 +19,9 @@ exports.parse = function(s){
 
   let date = null;
   let reminderText = '';
-console.log('---remind', matcher1);
+
   if(matcher1 !== null && matcher1[1] && matcher1[2] && matcher1[3]) {
-    console.log('---in');
+
     try {
       reminderText = matcher1[3];
       date = increaseTodayDate(matcher1[1], matcher1[2]);
