@@ -1,3 +1,5 @@
+'use strict';
+
 const moment = require('moment');
 const SpeechCommand = require('./speech_command');
 const request = require('../util/request_helper');
@@ -17,8 +19,9 @@ exports.parse = function(s){
 
   let date = null;
   let reminderText = '';
-
+console.log('---remind', matcher1);
   if(matcher1 !== null && matcher1[1] && matcher1[2] && matcher1[3]) {
+    console.log('---in');
     try {
       reminderText = matcher1[3];
       date = increaseTodayDate(matcher1[1], matcher1[2]);

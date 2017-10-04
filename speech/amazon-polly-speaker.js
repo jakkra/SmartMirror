@@ -1,3 +1,4 @@
+'use strict';
 const AWS = require('aws-sdk')
 const Stream = require('stream')
 const Speaker = require('speaker')

@@ -1,3 +1,5 @@
+'use strict';
+
 const request = require('request');
 require('dotenv').config()
 const speaker = require('../speech/amazon-polly-speaker');
@@ -61,7 +63,7 @@ module.exports = {
 		  }
 		})
 	},
-	
+
 	// Wunderlist
 	getTasks(callback){
 		var options = {
@@ -81,7 +83,7 @@ module.exports = {
 		  }
 		});
 	},
-	
+
 	// Wunderlist
 	createTask(title){
 		var options = {
