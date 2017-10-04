@@ -101,7 +101,7 @@ export default class Tasks extends BaseComponent {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
       	<div style={styles.listName}>
-          Att handla
+          {this.props.phrases.shopping_list}
           <FA
             name='shopping-basket'
             style={styles.shoppingIcon}
