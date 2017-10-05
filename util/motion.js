@@ -1,5 +1,6 @@
 const Gpio = require('onoff').Gpio;
-const pir = new Gpio(18, 'in', 'both');
+const { gpioPins } = require('../config');
+const pir = new Gpio(gpioPins.pirSensor, 'in', 'both');
 
 let prevValue = 0;
 module.exports = {
