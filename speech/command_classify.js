@@ -1,3 +1,5 @@
+'use strict';
+
 const SpeechCommand = require('./speech_command');
 const reminderParser = require('./reminder_parser');
 const synonyms = require('./synonyms');
@@ -57,7 +59,7 @@ function parseBus(s) {
     return SpeechCommand.NEXT_BUS;
   } else {
     return SpeechCommand.UNKNOWN;
-  } 
+  }
 }
 
 function parseNews(s) {

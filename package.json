@@ -53,9 +53,12 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "babel-node server.js",
     "client": "babel-node start-client.js",
-    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
+    "test": "mocha --recursive"
   },
   "devDependencies": {
-    "concurrently": "^3.1.0"
+    "chai": "^4.1.2",
+    "concurrently": "^3.1.0",
+    "mocha": "^4.0.0"
   }
 }
