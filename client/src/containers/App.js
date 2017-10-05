@@ -1,6 +1,8 @@
 import React from 'react';
 
 const config = require('../config');
+const phrases = require(`../../../locales/${config.language}.json`).client;
+
 import Clock from '../components/Clock';
 import Weather from '../components/Weather';
 import Forecast from '../components/Forecast'
@@ -13,7 +15,7 @@ import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
 
 import moment from 'moment'
-moment.locale('sv');
+config.language ? moment.locale(config.language) : moment.locale('en');
 
 import { Col, Row } from 'react-bootstrap';
 
@@ -106,10 +108,10 @@ export default class App extends React.Component {
       news = (<News visible={this.state.visibility.news} />)
     }
     if (config.modules.wunderlistTasks === true) {
-      tasks = (<Tasks visible={this.state.visibility.tasks} />)
+      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases}/>)
     }
     if (config.modules.weather === true) {
-      weather = (<Weather visible={this.state.visibility.weather} />)
+      weather = (<Weather visible={this.state.visibility.weather} phrases={phrases}/>)
     }
     if (config.modules.forecast === true) {
       forecast = (<Forecast visible={this.state.visibility.forecasts} />)
