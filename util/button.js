@@ -1,5 +1,6 @@
 const Gpio = require('onoff').Gpio;
-const button = new Gpio(12, 'in', 'both');
+const { gpioPins } = require('../config');
+const button = new Gpio(gpioPins.button, 'in', 'both');
 let currentValue = 0;
 let waitingLong = false;
 let waitingLongLong = false;

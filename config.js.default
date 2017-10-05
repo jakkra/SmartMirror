@@ -29,6 +29,11 @@ const config = {
     "Closet" : {autoOff : true}
   },
 
+  gpioPins : {
+    button : 12,
+    pirSensor : 18
+  },
+
   modules: {
     dateTime: true,
     wunderlistTasks: false,
