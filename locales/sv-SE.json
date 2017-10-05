@@ -1,11 +1,11 @@
 {
   "speech" : {
-    "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljus", "ljuset", "ljusen", "ljuset", "lyset", "taket", "i taket", "i hallen", "tänd", "släck", "ljus"],
+    "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljuset", "ljusen", "ljuset", "lyset", "taket", "ljus"],
     "on" : ["sätt på", "till", "tänd", "tända", "starta", "händer"],
     "off" : ["stäng av", "stäng av", "stänga", "från", "släck", "släcka", "stoppa", "fläck", "fläckt", "fläkt"],
     "all" : ["alla", "samtliga", "allt"],
     "bedroom" : ["säng", "sängen", "sängens", "sovrum", "sovrums", "sovrummet", "sovrummets"],
-    "hallway" : ["hall", "hallen", "hallens", "dörr", "dörren", "Halland"],
+    "hallway" : ["hall", "hallen", "hallens", "dörr", "dörren"],
     "livingRoom" : ["vardagsrum", "vardagsrummet", "matbord", "matbordet"],
     "wardrobe" : ["garderob", "garderoben", "klädkammare", "klädkammaren"],
     "bus" : ["bussen", "buss", "bus"],
@@ -15,7 +15,7 @@
     "news" : ["nyheter", "nyheterna", "nyhetskälla"],
     "forecasts" : ["väder", "vädret", "prognos", "prognoserna"],
     "article" : ["blog", "bloggar", "bloggen", "inlägg", "inläggen", "inlägget", "artiklar", "artiklarna", "artikel", "artikeln"],
-    "when" : ["när", "byt", "går"],
+    "when" : ["när", "går"],
     "next" : ["nästa", "efterkommande"],
     "previous" : ["förra", "föregående"],
     "remind" : ["påminn"],

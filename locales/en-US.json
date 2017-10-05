@@ -1,8 +1,8 @@
 {
   "speech" : {
-    "lamp" : ["lamp" , "light", "lamps", "lights", "lit", "in the roof", "in the hall"],
-    "on" : ["turn on", "lit", "light", "start"],
-    "off" : ["turn off", "close", "stop", "extinguishing"],
+    "lamp" : ["lamp" , "light", "lamps", "lights", "lit", "in the roof"],
+    "on" : ["turn on", "on", "start"],
+    "off" : ["turn off", "stop", "extinguishing"],
     "all" : ["all"],
     "bedroom" : ["bed", "beds", "bedrooms", "bedroom"],
     "hallway" : ["hallway", "the hallway", "hall", "the hall"],

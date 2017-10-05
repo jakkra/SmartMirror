@@ -92,28 +92,8 @@ function parseLights(s) {
     return parseLightsOn(s);
   } else if (stringContainsItemFromList(s, synonyms.off)) {
     return parseLightsOff(s);
-  } else if (stringContainsItemFromList(s, synonyms.change)) {
-    return parseLightChange(s);
   } else {
     return SpeechCommand.UNKNOWN;
-  }
-}
-
-function parseLightChange(s) {
-  console.log('parse light change');
-  switch (checkWhichRoom(s)) {
-    case SpeechCommand.ALL:
-      return SpeechCommand.LIGHTS_CHANGE_ALL;
-    case SpeechCommand.BEDROOM:
-      return SpeechCommand.LIGHTS_CHANGE_BEDROOM;
-    case SpeechCommand.HALLWAY:
-      return SpeechCommand.LIGHTS_CHANGE_HALLWAY;
-    case SpeechCommand.WARDROBE:
-      return SpeechCommand.LIGHTS_CHANGE_WARDROBE;
-    case SpeechCommand.LIVING_ROOM:
-      return SpeechCommand.LIGHTS_CHANGE_LIVING_ROOM;
-    default:
-      return SpeechCommand.UNKNOWN;
   }
 }
 
