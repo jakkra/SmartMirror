@@ -1,5 +1,5 @@
 const request = require('request');
-require('dotenv').config()
+require('dotenv').config({silent : true})
 const striptags = require('striptags');
 
 module.exports = {

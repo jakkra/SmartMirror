@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-require('dotenv').config()
+require('dotenv').config({silent : true})
 const speaker = require('../speech/amazon-polly-speaker');
 const config = require('../config');
 

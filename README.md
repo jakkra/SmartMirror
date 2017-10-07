@@ -104,8 +104,7 @@ export const config = {
 
 ```
 
-### Create and fill in a .env file depends on the config files.
-Can be empty if you don't use those functions. But the file is required.
+### Add .env file to add custom config parameters (optional)
 ```
 RuleThemAllBackendAccessToken=''
 wunderlistAccessToken=''
