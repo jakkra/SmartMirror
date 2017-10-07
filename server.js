@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({silent : true})
 
 const exec = require('child_process').exec;
 var express = require('express');
