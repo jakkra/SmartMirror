@@ -1,8 +1,8 @@
 {
   "speech" : {
-    "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljuset", "ljusen", "ljuset", "lyset", "taket", "ljus"],
+    "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljusen", "ljuset", "lyset", "taket", "ljus"],
     "on" : ["sätt på", "till", "tänd", "tända", "starta", "händer"],
-    "off" : ["stäng av", "stäng av", "stänga", "från", "släck", "släcka", "stoppa", "fläck", "fläckt", "fläkt"],
+    "off" : ["stäng av", "stänga", "från", "släck", "släcka", "stoppa", "fläck", "fläckt", "fläkt"],
     "all" : ["alla", "samtliga", "allt"],
     "bedroom" : ["säng", "sängen", "sängens", "sovrum", "sovrums", "sovrummet", "sovrummets"],
     "hallway" : ["hall", "hallen", "hallens", "dörr", "dörren"],
@@ -10,8 +10,8 @@
     "wardrobe" : ["garderob", "garderoben", "klädkammare", "klädkammaren"],
     "bus" : ["bussen", "buss", "bus"],
     "change" : ["ändra", "byt", "ändra till"],
-    "show" : ["visa", "starta", "ta fram"],
-    "hide" : ["dölj", "dölja", "stäng av", "ta bort", "göm", "gömma"],
+    "show" : ["visa", "ta fram"],
+    "hide" : ["dölj", "dölja", "av", "ta bort", "göm", "gömma"],
     "news" : ["nyheter", "nyheterna", "nyhetskälla"],
     "forecasts" : ["väder", "vädret", "prognos", "prognoserna"],
     "article" : ["blog", "bloggar", "bloggen", "inlägg", "inläggen", "inlägget", "artiklar", "artiklarna", "artikel", "artikeln"],
