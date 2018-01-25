@@ -2,7 +2,7 @@
 
 It's a Magic Mirror, you all know what it is. This is a complete rewrite in React and Node.js of my [original Magic Mirror](https://github.com/jakkra/MagicMirrorPi) written in Java. Everything is improved and it has lots of new functions.
 
-Both voice recognition and the UI is in Swedish, currently I have no quick and easy support for changing to english.
+Both voice recognition and the UI is in Swedish, however English is also supported by setting language to 'en-US' in the config. For porting to other languages take a look in the locales folder, should be pretty straight forward
 
 ## Images
 
