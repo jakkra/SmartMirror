@@ -14,12 +14,12 @@ const config = require('../config');
 var PROTO_ROOT_DIR = googleProtoFiles('..');
 var protoDescriptor = grpc.load({
   root: PROTO_ROOT_DIR,
-  file: path.relative(PROTO_ROOT_DIR, googleProtoFiles.speech.v1beta1)
+  file: path.relative(PROTO_ROOT_DIR, googleProtoFiles.speech.v1)
 }, 'proto', {
   binaryAsBase64: true,
   convertFieldsToCamelCase: true
 });
-var speechProto = protoDescriptor.google.cloud.speech.v1beta1;
+var speechProto = protoDescriptor.google.cloud.speech.v1;
 var isListening = false;
 var stopTimer = null;
 console.log('STARTING STREAM.js');
@@ -58,7 +58,7 @@ exports.listen = function(callback, done) {
       var call = speechService.streamingRecognize()
         .on('error', cb)
         .on('data', function (recognizeResponse) {
-          if (recognizeResponse.endpointerType == 'END_OF_AUDIO') {
+          if (recognizeResponse.speechEventType == 'END_OF_SINGLE_UTTERANCE') {
             record.stop();
             clearTimeout(stopTimer);
 
@@ -73,7 +73,7 @@ exports.listen = function(callback, done) {
         streamingConfig: {
           config: {
             encoding: 'LINEAR16',
-            sampleRate: 16000,
+            sampleRateHertz: 16000,
             languageCode: config.language
           },
           interimResults: false,
@@ -90,7 +90,7 @@ exports.listen = function(callback, done) {
       isListening = true;
       // Start recording
       var readableMicrophoneStream = record.start({
-        sampleRate : 16000,
+        sampleRateHertz : 16000,
         verbose : true,
         recordProgram: 'arecord'
       });

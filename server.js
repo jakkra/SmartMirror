@@ -77,8 +77,7 @@ function hotwordDetectedCallback(){
   mirrorSocket.sendToClient('recording', {isRecording: true});
   speech.listen((param) => {
     console.log("_______" + new Date() + "_______");
-    console.log(param);
-    if(param && param.results && param.results[0] && param.results[0].alternatives && param.results[0].alternatives[0]) {
+    if(param && param.results && param.results[0] && param.results[0].isFinal === true && param.results[0].alternatives && param.results[0].alternatives[0]) {
       const result = param.results[0].alternatives[0];
       console.log(result.transcript);
       const command = commands.classifyCommand(result.transcript.toLowerCase());

@@ -26,7 +26,7 @@
     "express-ws": "^2.0.0",
     "fs": "0.0.2",
     "google-auto-auth": "^0.5.2",
-    "google-proto-files": "^0.8.6",
+    "google-proto-files": "^0.15.1",
     "grpc": "^1.0.1",
     "install": "^0.8.4",
     "moment": "^2.17.1",
