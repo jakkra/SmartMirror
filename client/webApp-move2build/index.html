@@ -32,6 +32,29 @@
 						<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/transfers">Hide Train</a>
 						<a class="btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/sleep">Sleep</a>
 						<a class="btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/wakeup">Wake up</a>
+						<a class="btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:255:0">Outlets Off</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<section class="testimonials">
+				<h2 id="outletLabel" class="text-center" data-toggle="collapse" data-target="#outlets" >Outlets 
+					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
+				</h2>
+			</section>
+			<div class="row">
+				<div id="outlets" class="col-md-6 col-md-pull-3 get-it collapse">
+					<p>
+					  <div class="form-check">
+					    <input type="checkbox" class="form-check-input" checked id="outletOnOff">
+					    <label class="form-check-label" for="outletOnOff">On or Off</label>
+					  </div>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:1:1">Bedroom Light Strip</a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:2:1">Clock and Lamp </a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:3:1">Corner Lamp</a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:4:1">Coffee Maker </a>
+						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:255:1">All</a>
 					</p>
 				</div>
 			</div>
@@ -169,6 +192,22 @@
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+
+		$('#outletOnOff').click(function() {
+			const checked = this.checked;
+	    const onOffVal = this.checked ? 1 : 0;
+      $("#outlets a").each(function(i, a) {
+      	if (checked) {
+      		a.classList.remove('btn-danger')
+      		a.classList.add('btn-primary')
+      	} else {
+      		a.classList.remove('btn-primary')
+      		a.classList.add('btn-danger') 
+      	}
+				a.href = a.href.replace(/.$/, onOffVal);
+	    });
+		});
+
     $(document).ready(function() {
         $("#tempLabel").click(function() {
             $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
@@ -201,6 +240,11 @@
     });
 		$(document).ready(function() {
         $("#colorLabel").click(function() {
+            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        });
+    });
+    $(document).ready(function() {
+        $("#outletLabel").click(function() {
             $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         });
     });
