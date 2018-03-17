@@ -4,13 +4,18 @@
 #endif
 
 #include <MsTimer2.h>
+#include <HomeEasyByNoopy.h>
 
 #define PIN 6
 #define NUM_LEDS 77
 #define NUM_LEDS_HORIZONTAL 16
 #define NUM_LEDS_VERTICAL 22
 
+#define NEXA_CTRL_ID 0x0a0a406
+HomeEasyByNoopy sender(10, 0, 0); // 433 MHz transmitter on pin 10
+
 void reUpdateColors();
+void setOutletState(int outletNbr, int onOff);
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -36,6 +41,7 @@ void setup() {
   strip.setBrightness(brightness);
   strip.show();
   colorWipe();
+  sender.setEmitFrameCount(15);
 }
 
 void loop() {
@@ -46,6 +52,7 @@ void loop() {
   // brightnessUp:\n
   // brightnessDown:\n
   // side:top/right/bottom/left:r:g:b\n
+  // outlet:{1-4/255}:{0-1}
   if(Serial.available()){
     String cmd = Serial.readStringUntil(':');
     if(cmd.equals("brightness")){
@@ -64,7 +71,36 @@ void loop() {
       setBrightness(brightness + 25); 
     } else if(cmd.equals("brightnessDown")){
       setBrightness(brightness - 25);
+    } else if(cmd.equals("outlet")){
+      int outletNbr = Serial.readStringUntil(':').toInt();
+      int onOff = Serial.readStringUntil('\n').toInt();
+      setOutletState(outletNbr, onOff);
     }
+  }
+}
+
+void setOutletState(int outletNbr, int onOff){
+  int state = onOff ? HE_ON : HE_OFF;
+
+  switch(outletNbr){
+    case 1:
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_1 , state);
+      break;
+    case 2:
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_2 , state);
+      break;
+    case 3:
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_3 , state);
+      break;
+    case 4:
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_4 , state);
+      break;
+    default:
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_1 , state);
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_2 , state);
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_3 , state);
+      sender.emit(NEXA_CTRL_ID, HE_DEVICE_A + HE_DEVICE_4 , state);
+      break;
   }
 }
 
