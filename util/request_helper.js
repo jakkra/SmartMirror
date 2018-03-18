@@ -4,7 +4,16 @@ const request = require('request');
 require('dotenv').config({silent : true});
 const speaker = require('../speech/amazon-polly-speaker');
 const config = require('../config');
+const SpotifyWebApi = require('spotify-web-api-node');
 
+var spotifyApi = new SpotifyWebApi();
+
+spotifyApi.setCredentials({
+  'clientId' : process.env.SPOTIFY_CLIENT_ID,
+  'clientSecret' : process.env.SPOTIFY_CLIENT_SECRET,
+  'refreshToken' : process.env.SPOTIFY_REFRESH_TOKEN,
+  'redirectUri' : 'http://localhost:3000/callback/',
+});
 
 module.exports = {
 
@@ -133,24 +142,18 @@ module.exports = {
 		})
 	},
 
-	/*fetchLimitedTemperatures(token, endDate, unit, count, limit) {
-	  let url = 'http://207.154.239.115' + '/api/temperature/?token=' + process.env.RuleThemAllBackendAccessToken;
-	  if (endDate) url = url + '&endDate=' + endDate;
-	  if (unit) url = url + '&unit=' + unit;
-	  if (count) url = url + '&count=' + count;
-	  if (limit) url = url + '&limit=' + limit;
+	getCurrentlyPlayingSpotify(callback) {
+		spotifyApi.refreshAccessToken()
+	  .then(function(data) {
+	    // Set the access token on the API object so that it's used in all future requests
+	    spotifyApi.setAccessToken(data.body['access_token']);
 
-	  fetch(url)
-	  .then(response => checkStatus(response))
-	  .then(response => response.json())
-	  .then(json => {
-	    if (json.success === true) {
-	      dispatch(fetchLimitTemperatureSuccess(json));
-	    } else {
-	      dispatch(fetchLimitTemperatureFailure(json));
-	    }
-	  })
-	  .catch(error => dispatch(fetchLimitTemperatureFailure(error)));
-	}
-	*/
+	    return spotifyApi.getMyCurrentPlaybackState({})
+	  }).then(function(data) {
+	  	callback(data.body);
+	  }).catch(function(err) {
+	    console.log('Unfortunately, something has gone wrong.', err.message);
+	    callback(null);
+	  });
+	},
 }

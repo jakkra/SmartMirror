@@ -143,3 +143,59 @@ function mirrorConfigFiles(){
     fs.symlinkSync(serverConfig, clientConfig);
   }
 }
+/*
+
+// First get the code
+const SpotifyWebApi = require('spotify-web-api-node');
+
+var scopes = ['user-read-private', 'user-read-email', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-recently-played'],
+redirectUri = 'http://localhost:3000/callback/',
+clientId = process.env.SPOTIFY_CLIENT_ID,
+state = 'some-state-of-my-choice';
+
+// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
+var spotifyApi = new SpotifyWebApi({
+  redirectUri : redirectUri,
+  clientId : clientId
+});
+
+// Create the authorization URL
+var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+
+console.log(authorizeURL);
+
+// And then grant that code to get a refresh token :)
+app.get('/callback', function (req, res) {
+
+  // The code that's returned as a query parameter to the redirect URI
+  var code = req.query.code;
+
+  var spotifyApi = new SpotifyWebApi({
+      clientId : process.env.SPOTIFY_CLIENT_ID,
+      clientSecret : process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri:  'http://localhost:3000/callback/'
+  });
+
+  // Retrieve an access token and a refresh token
+  spotifyApi.authorizationCodeGrant('code')
+    .then(function(data) {
+      console.log('The token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+      console.log('The refresh token is ' + data.body['refresh_token']);
+
+      // Set the access token on the API object to use it in later calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+      spotifyApi.setRefreshToken(data.body['refresh_token']);
+    }, function(err) {
+      console.log('Something went wrong;', err);
+    });
+
+  var source = "Callback code: {{code}}";
+  var data = {"code": code};
+
+  console.log(code);
+  res.send(result);
+
+});
+
+*/

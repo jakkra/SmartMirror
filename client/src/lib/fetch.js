@@ -56,4 +56,11 @@ export function getTemperaturesSevenDays(callback) {
   .then(res => res.temperatures)
 }
 
+export function getCurrentPlaying(callback) {
+  const url = config.serverBaseURL + '/api/spotify/current';
 
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.currentPlaying)
+}

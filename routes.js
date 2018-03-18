@@ -16,14 +16,14 @@ module.exports = (app, mirrorSocket) => {
 	});
 
 	app.get('/api/brightnessUp', (req, res) => {
-                serialHandler.writeString('brightnessUp:');
-                res.redirect("/app");
-        });
+    serialHandler.writeString('brightnessUp:');
+    res.redirect("/app");
+  });
 
 	app.get('/api/brightnessDown', (req, res) => {
-                serialHandler.writeString('brightnessDown:');
-                res.redirect("/app");
-        });
+    serialHandler.writeString('brightnessDown:');
+    res.redirect("/app");
+  });
 
 	app.get('/api/serial/:command', (req, res) => {
 		let serialCommand, hour, min;
@@ -86,16 +86,12 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/hide/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: false});
-	
-	  	   res.redirect("/app");
-
+   	res.redirect("/app");
 	});
 
 	app.get('/api/show/:component', (req, res) => {
 	  mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: true});
-
 	  res.redirect("/app");
-
 	});
 
 
@@ -175,6 +171,16 @@ module.exports = (app, mirrorSocket) => {
 	app.get('/api/next', (req, res) => {
 	  mirrorSocket.sendToClient('command', {component: 'article', action: 'next'});
 	  res.redirect("/app");
+	});
+
+	app.get('/api/spotify/current', (req, res) => {
+		requestHelper.getCurrentlyPlayingSpotify((playing) => {
+			console.log("Playing", playing);
+			if (!playing) return res.status(500).send({ error: 'Token to old, queries new. Please try again.'})
+			res.json({
+				currentPlaying: playing,
+	    });
+		});
 	});
 
 	app.get('/api/forecast', (req, res) => {

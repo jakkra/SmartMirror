@@ -13,6 +13,7 @@ import Tasks from '../components/Tasks';
 import Article from '../components/Article';
 import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
+import Spotify from '../components/Spotify';
 
 import moment from 'moment'
 config.language ? moment.locale(config.language) : moment.locale('en');
@@ -45,6 +46,7 @@ export default class App extends React.Component {
         clock: true,
         temperatureGraph: false,
         transfers: true,
+        spotify: true,
       }
     };
   }
@@ -97,7 +99,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles = null;
+    let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles, spotify = null;
     if (config.modules.dateTime === true) {
       dateTime = (<Clock temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
     }
@@ -122,6 +124,9 @@ export default class App extends React.Component {
     if (config.modules.articles === true) {
       articles = (<Article ref='article' visible={this.state.visibility.article} />)
     }
+    if (config.modules.spotify === true) {
+      spotify = (<Spotify ref='article' visible={this.state.visibility.clock} />)
+    }
 
     const AppStyles = {
       fontSize: config.styles.textScale,
@@ -142,6 +147,7 @@ export default class App extends React.Component {
           <Col xs={4}>
             {dateTime}
             <RecordingStatus isRecording={this.state.isRecording} />
+            {spotify}
             {tasks}
             {transfers}
 
