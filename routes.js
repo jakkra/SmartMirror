@@ -5,6 +5,7 @@ const requestHelper = require('./util/request_helper');
 const articleExtractor = require('./util/article_extractor');
 const serialHandler = require('./util/serial_handler');
 var nodeSkanetraiken = require('node-skanetrafiken');
+const moment = require('moment');
 
 module.exports = (app, mirrorSocket) => {
 
@@ -25,7 +26,26 @@ module.exports = (app, mirrorSocket) => {
         });
 
 	app.get('/api/serial/:command', (req, res) => {
-		serialHandler.writeString(req.params.command);
+		let serialCommand, hour, min;
+		let command = req.params.command;
+		if (command.includes("time")) {
+			serialCommand = command.split(":time=")[0];
+			const hhmm = command.split(":time=")[1];
+			hour = hhmm.split(":")[0];
+			min = hhmm.split(":")[1];
+			let now = moment(new Date());
+			let future = moment(new Date()).hour(hour).minute(min);
+			let diff = future.diff(now);
+			if (diff < 0) {
+				future.add(1, 'day');
+			}
+			diff = future.diff(now);
+			setTimeout(() => {
+				serialHandler.writeString(serialCommand)
+			}, diff);
+		} else {
+			serialHandler.writeString(req.params.command);
+		}
 	  res.redirect("/app");
 	});
 	

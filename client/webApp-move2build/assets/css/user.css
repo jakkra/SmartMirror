@@ -148,3 +148,20 @@ section.features{
   }
 }
 
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
+  top: 26px !important;
+  left: 60px !important;
+}
+
+
+.bootstrap-datetimepicker-widget table td span {
+  color: black;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {
+  visibility: hidden;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {
+  visibility: hidden;
+}

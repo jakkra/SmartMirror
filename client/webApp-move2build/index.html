@@ -6,7 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mirror</title>
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="assets/css/user.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -20,118 +23,129 @@
 				<p class="text-center">Control the Magic!</p>
 			</section>
 			<div class="row">
-				<div class="col-md-6 col-md-pull-3 get-it">
+				<div class="col-lg-10 col-centered get-it">
 					<p>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/news">show news</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/news">Hide news</a>
-						<a class="btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/shutdown">Turn off</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/show/tasks">Show Tasks</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/tasks">Hide Tasks</a>
-						<a class="btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/reboot">Reboot</a>
-						<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/show/transfers">Show Train</a>
-						<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/transfers">Hide Train</a>
-						<a class="btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/sleep">Sleep</a>
-						<a class="btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/wakeup">Wake up</a>
-						<a class="btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:255:0">Outlets Off</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/news">show news</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/news">Hide news</a>
+						<a class="linkGeneral btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/shutdown">Turn off</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/show/tasks">Show Tasks</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/tasks">Hide Tasks</a>
+						<a class="linkGeneral btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/reboot">Reboot</a>
+						<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/show/transfers">Show Train</a>
+						<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/transfers">Hide Train</a>
+						<a class="linkGeneral btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/sleep">Sleep</a>
+						<a class="linkGeneral btn btn-warning btn-lg" role="button" href="http://192.168.1.98:3001/api/wakeup">Wake up</a>
+						<a class="linkGeneral btn btn-danger btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:255:0">Outlets Off</a>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="outletLabel" class="text-center" data-toggle="collapse" data-target="#outlets" >Outlets 
+				<h2 id="outletLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#outlets" >Outlets 
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="outlets" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="outlets" class="col-md-10 col-centerad get-it collapse">
 					<p>
 					  <div class="form-check">
-					    <input type="checkbox" class="form-check-input" checked id="outletOnOff">
-					    <label class="form-check-label" for="outletOnOff">On or Off</label>
+					    <input type="checkbox" class="form-check-input" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="normal" checked id="outletOnOff">
 					  </div>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:1:1">Bedroom Light Strip</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:2:1">Clock and Lamp </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:3:1">Corner Lamp</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:4:1">Coffee Maker </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/outlet:255:1">All</a>
+						<a class="linkOutlet btn btn-success btn-lg" role="button" href="http://192.168.1.142:3001/api/serial/outlet:1:1">Bedroom Light Strip</a>
+						<a class="linkOutlet btn btn-success btn-lg" role="button" href="http://192.168.1.142:3001/api/serial/outlet:2:1">Clock and Lamp </a>
+						<a class="linkOutlet btn btn-success btn-lg" role="button" href="http://192.168.1.142:3001/api/serial/outlet:3:1">Corner Lamp</a>
+						<a class="linkOutlet btn btn-success btn-lg" role="button" href="http://192.168.1.142:3001/api/serial/outlet:4:1">Coffee Maker </a>
+						<a class="linkOutlet btn btn-success btn-lg" role="button" href="http://192.168.1.142:3001/api/serial/outlet:255:1">All</a>
+						<div class="row">
+			        <div class='col-lg-10 col-centered'>
+			            <div class="form-group">
+			                <div class='input-group date' id='datetimepicker'>
+			                    <input readonly type='text' class="form-control" />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-time"></span>
+			                    </span>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="lightLabel" class="text-center" data-toggle="collapse" data-target="#lights" >Lights
+				<h2 id="lightLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#lights" >Lights
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="lights" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="lights" class="col-lg-10 col-centered get-it collapse">
 					<div>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/brightnessUp">Brightness Up 10%</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/brightnessDown">Brightness Down 10%</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:200:100:100">Lights ON</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:0:0:0">Lights OFF</a>
-						<h4 id="colorLabel" class="text-center" data-toggle="collapse" data-target="#colors" >Colors 
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/brightnessUp">Brightness Up 10%</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/brightnessDown">Brightness Down 10%</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:200:100:100">Lights ON</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:0:0:0">Lights OFF</a>
+						<h4 id="colorLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#colors" >Colors 
 							<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 						</h4>
 						<div id="colors" class="collapse">
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:190:10:0">RED </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:72:64:209">BLUE </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:20:140">PINK </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:22:165:11">Green </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:255:0">Yellowish </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:130:255">Purple </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:226:88:34">Rust </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:120:0">Orange </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:141:221:115">Light green</a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:100:205:255">Sky Blue </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:200:120:135">Light Pink </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:190:10:0">RED </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:72:64:209">BLUE </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:20:140">PINK </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:22:165:11">Green </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:255:0">Yellowish </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:130:255">Purple </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:226:88:34">Rust </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:255:120:0">Orange </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:141:221:115">Light green</a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:100:205:255">Sky Blue </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/rgb:200:120:135">Light Pink </a>
 						</div>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:rainbow:50">Rainbow </a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:middleFill:15">Middle Fill</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:oneTwoThree:2">1-2-3</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:rainbow:50">Rainbow </a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:middleFill:15">Middle Fill</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.98:3001/api/serial/mode:oneTwoThree:2">1-2-3</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="clockLabel" class="text-center" data-toggle="collapse" data-target="#clock" >Clock
+				<h2 id="clockLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#clock" >Clock
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="clock" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="clock" class="col-lg-10 col-centered get-it collapse">
 					<div>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.156/on">Clock ON</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.156/off">Clock OFF</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/brightnessUp">Brightness Up 10%</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/brightnessDown">Brightness Down 10%</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.156/setColor/200:100:100">Lights ON</a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.156/setColor/0:0:0">Lights OFF</a>
-						<h4 id="colorLabel" class="text-center" data-toggle="collapse" data-target="#clockColors" >Colors 
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.156/on">Clock ON</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.156/off">Clock OFF</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/brightnessUp">Brightness Up 10%</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/brightnessDown">Brightness Down 10%</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.156/setColor/200:100:100">Lights ON</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.156/setColor/0:0:0">Lights OFF</a>
+						<h4 id="colorLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#clockColors" >Colors 
 							<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 						</h4>
 						<div id="clockColors" class="collapse">
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/190:10:0">RED </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/72:64:209">BLUE </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:20:140">PINK </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/22:165:11">Green </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:255:0">Yellowish </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:130:255">Purple </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/226:88:34">Rust </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:120:0">Orange </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/141:221:115">Light green</a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/100:205:255">Sky Blue </a>
-							<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/200:120:135">Light Pink </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/190:10:0">RED </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/72:64:209">BLUE </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:20:140">PINK </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/22:165:11">Green </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:255:0">Yellowish </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:130:255">Purple </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/226:88:34">Rust </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/255:120:0">Orange </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/141:221:115">Light green</a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/100:205:255">Sky Blue </a>
+							<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.156/setColor/200:120:135">Light Pink </a>
 						</div>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/none">Static Light</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/count">Tick Mode</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/rainbow">Rainbow</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/rainbow_cycle">Rainbow Cycle</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/chase_rainbow">Chase Rainbow</a>
-						<a class="btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/sparkle">Sparkle</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/none">Static Light</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/count">Tick Mode</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/rainbow">Rainbow</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/rainbow_cycle">Rainbow Cycle</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/chase_rainbow">Chase Rainbow</a>
+						<a class="linkGeneral btn btn-info btn-lg" role="button" href="http://192.168.1.156/setMode/sparkle">Sparkle</a>
 
 					</div>
 				</div>
@@ -139,51 +153,51 @@
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="blogLabel" class="text-center" data-toggle="collapse" data-target="#blog" >Blog 
+				<h2 id="blogLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#blog" >Blog 
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="blog" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="blog" class="col-lg-10 col-centered get-it collapse">
 					<p>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/article">Show </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/article">Hide </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/next">Next article</a>
-						<a class="btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/previous">previous article</a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/article">Show </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/article">Hide </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/next">Next article</a>
+						<a class="linkGeneral btn btn-success btn-lg" role="button" href="http://192.168.1.98:3001/api/previous">previous article</a>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="tempLabel" class="text-center" data-toggle="collapse" data-target="#temp">Temperature 
+				<h2 id="tempLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#temp">Temperature 
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="temp" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="temp" class="col-lg-10 col-centered get-it collapse">
 					<p>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/temperatureGraph">Show </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/temperatureGraph">Hide </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/temperatureGraph">Show </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/temperatureGraph">Hide </a>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<section class="testimonials">
-				<h2 id="gameLabel" class="text-center" data-toggle="collapse" data-target="#game">Game 
+				<h2 id="gameLabel" class="collapseLabel text-center" data-toggle="collapse" data-target="#game">Game 
 					<span class="glyphicon glyphicon-chevron-down padding-top-10" aria-hidden="true"></span>
 				</h2>
 			</section>
 			<div class="row">
-				<div id="game" class="col-md-6 col-md-pull-3 get-it collapse">
+				<div id="game" class="col-lg-10 col-centered get-it collapse">
 					<p>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/left">Left </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/right">Right </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/left">Left </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/game/right">Right </a>
 					</p>
 					<p>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/bounceGame">Show </a>
-						<a class="btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/bounceGame">Hide </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/show/bounceGame">Show </a>
+						<a class="linkGeneral btn btn-primary btn-lg" role="button" href="http://192.168.1.98:3001/api/hide/bounceGame">Hide </a>
 					</p>
 				</div>
 			</div>
@@ -191,69 +205,56 @@
 	</div>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js" type="text/javascript" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 	<script type="text/javascript">
 
-		$('#outletOnOff').click(function() {
+		$('#outletOnOff').change(function() {
 			const checked = this.checked;
-	    const onOffVal = this.checked ? 1 : 0;
+	    const onOffVal = $(this).prop('checked') ? 1 : 0;
       $("#outlets a").each(function(i, a) {
       	if (checked) {
       		a.classList.remove('btn-danger')
-      		a.classList.add('btn-primary')
+      		a.classList.add('btn-success')
       	} else {
-      		a.classList.remove('btn-primary')
+      		a.classList.remove('btn-success')
       		a.classList.add('btn-danger') 
       	}
 				a.href = a.href.replace(/.$/, onOffVal);
 	    });
 		});
 
+		$('#datetimepicker').datetimepicker({
+		    format: 'HH:mm',
+		    ignoreReadonly: true
+		});
+
+
     $(document).ready(function() {
-        $("#tempLabel").click(function() {
+        $(".collapseLabel").click(function() {
             $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         });
     });
-    $(document).ready(function() {
-        $("#gameLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $(document).ready(function() {
-        $("#blogLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $(document).ready(function() {
-        $("#lightLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $(document).ready(function() {
-        $("#clockLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $(document).ready(function() {
-        $("#clockColors").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-		$(document).ready(function() {
-        $("#colorLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $(document).ready(function() {
-        $("#outletLabel").click(function() {
-            $(this).find('span').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        });
-    });
-    $('a').click(function (event){ 
+
+    $('a.linkGeneral').click(function (event){ 
      event.preventDefault();
-     console.log("hehehe");
      $.ajax({
         url: $(this).attr('href'), success: function(response) {
             
+        }
+     })
+     return false;
+		});
+
+		$('a.linkOutlet').click(function (event){ 
+     event.preventDefault();
+     let url = $(this).attr('href');
+     if ($("#datetimepicker").find("input").val() != "") {
+     	url += ":time=" + $("#datetimepicker").find("input").val();
+     }
+     $.ajax({
+        url: url, success: function(response) {
         }
      })
      return false;
