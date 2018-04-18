@@ -50,7 +50,6 @@ export default class Spotify extends React.Component {
   }
 
   handleSpotifyCurrentData(currentPlaying){
-  	console.log("Got data", currentPlaying)
   	this.setState({
   		currentPlaying: currentPlaying
   	})
@@ -58,7 +57,7 @@ export default class Spotify extends React.Component {
 
   render() {
   	if (this.state.currentPlaying === null) return null;
-  	let icon = null;
+    
   	const iconName = this.state.currentPlaying.is_playing ? 'play' : 'pause';
     return (
       <div hidden={!this.props.visible}  style={styles.container}>

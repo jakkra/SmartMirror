@@ -24,6 +24,7 @@
   "client" : {
     "feels_like" : "Feels like",
     "wind_speed" : "Wind speed",
-    "shopping_list" : "Shopping list"
+    "shopping_list" : "Shopping list",
+    "water_plant": "The plant is dry!"
   }
 }

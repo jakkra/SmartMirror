@@ -17,6 +17,7 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/moisture/:val', (req, res) => {
 		console.log("Moisture level: " + req.params.val);
+		mirrorSocket.sendToClient('moisture', { level: req.params.val });
 		res.json({success: true, level: req.params.val});
 	});
 

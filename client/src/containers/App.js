@@ -92,6 +92,11 @@ export default class App extends React.Component {
       case 'command':
         this.refs[data.component].onEvent(data);
         break;
+      case 'moisture':
+        this.setState({
+          moistureLevel: Number(data.level)
+        })
+        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -101,7 +106,7 @@ export default class App extends React.Component {
   render() {
     let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles, spotify = null;
     if (config.modules.dateTime === true) {
-      dateTime = (<Clock temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
+      dateTime = (<Clock phrases={phrases} moistureLevel={this.state.moistureLevel} temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
     }
     if (config.modules.transfer === true) {
       transfers = (<Transfers visible={this.state.visibility.transfers} />);
