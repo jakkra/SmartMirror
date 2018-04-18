@@ -15,6 +15,11 @@ module.exports = (app, mirrorSocket) => {
 		res.redirect("/app");
 	});
 
+	app.get('/api/moisture/:val', (req, res) => {
+		console.log("Moisture level: " + req.params.val);
+		res.json({success: true, level: req.params.val});
+	});
+
 	app.get('/api/brightnessUp', (req, res) => {
     serialHandler.writeString('brightnessUp:');
     res.redirect("/app");
@@ -175,7 +180,6 @@ module.exports = (app, mirrorSocket) => {
 
 	app.get('/api/spotify/current', (req, res) => {
 		requestHelper.getCurrentlyPlayingSpotify((playing) => {
-			console.log("Playing", playing);
 			if (!playing) return res.status(500).send({ error: 'Token to old, queries new. Please try again.'})
 			res.json({
 				currentPlaying: playing,
