@@ -102,7 +102,7 @@ export default class Clock extends React.Component {
         </Row>
         <Row>
           <Col xs={12}/>
-            <p hidden={(this.props.moistureLevel > 50)} style={styles.smallText}>{this.props.phrases.water_plant}</p>
+            <p hidden={(this.props.moistureLevel > 70)} style={styles.smallText}>{this.props.phrases.water_plant}</p>
           <Col/>
         </Row>
       </div>
