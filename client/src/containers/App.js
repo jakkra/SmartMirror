@@ -106,7 +106,7 @@ export default class App extends React.Component {
   render() {
     let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles, spotify = null;
     if (config.modules.dateTime === true) {
-      dateTime = (<Clock phrases={phrases} moistureLevel={this.state.moistureLevel} temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
+      dateTime = (<Clock temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
     }
     if (config.modules.transfer === true) {
       transfers = (<Transfers visible={this.state.visibility.transfers} />);
@@ -115,7 +115,7 @@ export default class App extends React.Component {
       news = (<News visible={this.state.visibility.news} />)
     }
     if (config.modules.wunderlistTasks === true) {
-      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases}/>)
+      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases} moistureLevel={this.state.moistureLevel} />)
     }
     if (config.modules.weather === true) {
       weather = (<Weather visible={this.state.visibility.weather} phrases={phrases}/>)

@@ -33,14 +33,11 @@ export default class Clock extends React.Component {
   static propTypes = {
     visible: React.PropTypes.bool,
     showTemperature: React.PropTypes.bool,
-    moistureLevel: React.PropTypes.number,
-    phrases: React.PropTypes.object
   };
 
   static defaultProps = {
     visible: true,
     showTemperature: true,
-    moistureLevel: 70,
   };
   constructor(props) {
     super(props);
@@ -98,11 +95,6 @@ export default class Clock extends React.Component {
         <Row>
           <Col xs={12}/>
             <p hidden={!this.props.showTemperature} style={styles.smallText}>{this.props.temperature} °C</p>
-          <Col/>
-        </Row>
-        <Row>
-          <Col xs={12}/>
-            <p hidden={(this.props.moistureLevel > 70)} style={styles.smallText}>{this.props.phrases.water_plant}</p>
           <Col/>
         </Row>
       </div>

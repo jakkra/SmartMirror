@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BaseComponent from './BaseComponent';
+
 import { getTasks } from '../lib/fetch';
 import FlipMove from 'react-flip-move';
 import FA from 'react-fontawesome';
@@ -20,15 +21,32 @@ const styles = {
     color: 'white',
     fontSize: '2.4em',
     textAlign: 'left',
+    marginBottom: 10,
   },
-  shoppingIcon: {
+  icon: {
     color: 'white',
     marginLeft: 15,
     fontSize: '0.9em'
   },
+  waterPlantText: {
+    color: 'white',
+    fontSize: '2em',
+  },
 }
 
 export default class Tasks extends BaseComponent {
+
+  static propTypes = {
+    visible: React.PropTypes.bool,
+    phrases: React.PropTypes.object,
+    moistureLevel: React.PropTypes.number,
+  };
+
+  static defaultProps = {
+    visible: true,
+    moistureLevel: 55,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +104,31 @@ export default class Tasks extends BaseComponent {
     });
   }
 
-  renderToptasks() {
+  renderTaskList() {
+    if (this.state.tasks.length < 1) return null;
+    return (
+      <div>
+        <div style={styles.listName}>
+        {this.props.phrases.shopping_list}
+        <FA
+          name='shopping-basket'
+          style={styles.icon}
+        />
+      </div>
+      <FlipMove 
+        staggerDurationBy="30"
+        duration={500}
+        enterAnimation='accordianVertical'
+        leaveAnimation='accordianVertical'
+        typeName="div"
+      >
+        { this.renderTopTasksItems() }
+      </FlipMove>
+    </div>
+    )
+  }
+
+  renderTopTasksItems() {
     return this.state.subTasks.map((task, i) => {
     	return (
     		<div key={task.id}>
@@ -96,26 +138,25 @@ export default class Tasks extends BaseComponent {
     });
   }
 
-  render() {
-    if (this.state.tasks.length < 1) return null;
+  renderWaterPlant() {
+    if (this.props.moistureLevel > 55) return null;
     return (
-      <div hidden={!this.props.visible} style={styles.container}>
-      	<div style={styles.listName}>
-          {this.props.phrases.shopping_list}
+      <div style={styles.listName}>
+          {this.props.phrases.water_plant + " (~" + this.props.moistureLevel + "%)"}
           <FA
-            name='shopping-basket'
-            style={styles.shoppingIcon}
+            name='tint'
+            style={styles.icon}
           />
         </div>
-        <FlipMove 
-        	staggerDurationBy="30"
-          duration={500}
-          enterAnimation='accordianVertical'
-          leaveAnimation='accordianVertical'
-          typeName="div"
-        >
-          { this.renderToptasks() }
-        </FlipMove>
+      )
+  }
+
+  render() {
+    return (
+      <div hidden={!this.props.visible} style={styles.container}>
+        {this.renderWaterPlant()}
+      	{this.renderTaskList()}
+        }
       </div>
     );
   }
