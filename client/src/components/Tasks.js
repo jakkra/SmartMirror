@@ -21,7 +21,7 @@ const styles = {
     color: 'white',
     fontSize: '2.4em',
     textAlign: 'left',
-    marginBottom: 10,
+    marginBottom: 7,
   },
   icon: {
     color: 'white',
