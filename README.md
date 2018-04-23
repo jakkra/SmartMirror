@@ -6,11 +6,18 @@ Both voice recognition and the UI is in Swedish, however English is also support
 
 ## Images
 
-<img src="pics/rsz_full.jpg" width="400"/> <img src="pics/rsz_rc.jpg" width="400"/>
-
+<img src="pics/full_less.jpg"/>
+<p float="left">
+  <img src="pics/rsz_full.jpg" width="420"/>
+  <img src="pics/left.jpg" width="420"/>
+</p>
+<img src="pics/temps.jpg"/>
 <img src="pics/rsz_lc.jpg">
+<p float="left">
+  <img src="pics/list.gif" width="420">
+  <img src="pics/below.jpg" width="420"/>
+</p>
 <img src="pics/rsz_m.jpg">
-<img src="pics/rsz_rs.jpg" width="400"> <img src="pics/list.gif" width="400">
 
 My [Home automation and monitoring app](https://github.com/jakkra/OneAppToRuleThemAll) which can control the mirror supports iOS, however you must pay to be a developer to run it on an actual device, so I made a simple web app to control the mirror from.
 
@@ -44,6 +51,9 @@ When a reminder is successfully created, the Mirror will speak something like "W
 
 Behind the Mirror I have a RGB led strip with individually controllable leds. The leds can be controlled from my [Home automation and monitoring app](https://github.com/jakkra/OneAppToRuleThemAll).
 
+### Components
+All components can be individually shown/hidden by the Web App/API endpoint. The default behaviour is configured in the config.
+
 **Shopping list**
 
 It displays the items on a Wunderlist list (in my case our shopping list).
@@ -67,6 +77,13 @@ Also it notifies my [Home automation and monitoring backend](https://github.com/
 
 Headlines and short descriptions are changing in the bottom of the Mirror every 20 seconds or so.
 
+**Spotify currently playing**
+
+Shows your currently playing track, because why not.
+
+**Moisture level of a plant**
+
+Shows if your plant needs watering, data is sent from a battery powered esp8266 with a moisture sensor, placed in of our plants.
 
 ## Running locally
 
