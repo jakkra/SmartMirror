@@ -13,9 +13,9 @@ const checkStatus = (res) => {
 
 
 export function getLatestNews(callback) {
-	const url = config.svtNewsUrl;
+  const url = config.svtNewsUrl;
 
-	return fetch(url)
+  return fetch(url)
   .then(checkStatus)
   .then(res => res.json())
   .then(res => res.items)

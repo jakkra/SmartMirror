@@ -30,7 +30,7 @@ export default class Transfers extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
-    	transfers: [],
+      transfers: [],
     };
     this.refreshTransfers = this.refreshTransfers.bind(this);
     this.renderToptransfers = this.renderToptransfers.bind(this);
@@ -49,9 +49,9 @@ export default class Transfers extends BaseComponent {
   }
 
   refreshTransfers() {
-  	getJourney()
-  	.then(t => this.setState({ transfers: t}))
-  	.catch((err) => console.log("hehehe", err));
+    getJourney()
+    .then(t => this.setState({ transfers: t}))
+    .catch((err) => console.log("hehehe", err));
   }
 
   getMinutesDiff(date){
@@ -68,11 +68,11 @@ export default class Transfers extends BaseComponent {
     let time;
     return this.state.transfers.map((route, i) => {
       time = new Date(route.DepDateTime[0])
-    	return (
-    		<div key={route.JourneyKey[0]}>
-    			<div style={styles.route}> {'Om ' + this.getMinutesDiff(time) + ' minuter'} </div>
-    		</div>
-    	);
+      return (
+        <div key={route.JourneyKey[0]}>
+          <div style={styles.route}> {'Om ' + this.getMinutesDiff(time) + ' minuter'} </div>
+        </div>
+      );
     });
   }
 
@@ -80,7 +80,7 @@ export default class Transfers extends BaseComponent {
     if (this.state.transfers.length < 1) return null;
     return (
       <div hidden={!this.props.visible} style={styles.container}>
-      	<div style={styles.listName}>
+        <div style={styles.listName}>
           Malmö C
           <FA
             name='train'

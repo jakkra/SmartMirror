@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 
 const styles = {
   container: {
-	  marginLeft: -15,
+    marginLeft: -15,
   },
   songName: {
     color: 'white',
@@ -24,7 +24,7 @@ export default class Spotify extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    	currentPlaying: null,
+      currentPlaying: null,
 
     };
     this.refreshPlaying = this.refreshPlaying.bind(this);
@@ -44,21 +44,21 @@ export default class Spotify extends React.Component {
   }
 
   refreshPlaying() {
-  	getCurrentPlaying()
-  	.then(this.handleSpotifyCurrentData)
-  	.catch((err) => console.log(err));
+    getCurrentPlaying()
+    .then(this.handleSpotifyCurrentData)
+    .catch((err) => console.log(err));
   }
 
   handleSpotifyCurrentData(currentPlaying){
-  	this.setState({
-  		currentPlaying: currentPlaying
-  	})
+    this.setState({
+      currentPlaying: currentPlaying
+    })
   }
 
   render() {
-  	if (this.state.currentPlaying === null) return null;
+    if (this.state.currentPlaying === null) return null;
     
-  	const iconName = this.state.currentPlaying.is_playing ? 'play' : 'pause';
+    const iconName = this.state.currentPlaying.is_playing ? 'play' : 'pause';
     return (
       <div hidden={!this.props.visible}  style={styles.container}>
         <div style={styles.songName}>

@@ -1,28 +1,28 @@
 const greetings = {
-	morning: [
+  morning: [
     "God morgon!",
     "Kaffe?",
     "Ha en bra dag!",
     "Hoppas du får en bra dag!",
     "Sovit gott?"
-	],
-	afternoon: [
-		 "Ganska fin du!",
+  ],
+  afternoon: [
+     "Ganska fin du!",
      "Trevlig eftermiddag!",
      "Eftermiddags kaffe?",
      "Glömde väl inte att fika?"
-	],
-	evening: [
-		"Trevlig kväll!",
+  ],
+  evening: [
+    "Trevlig kväll!",
     "Ser bra ut!",
     "Myskväll?!"
-	]
+  ]
 }
 
 module.exports = {
-	getMessage: function(callback) {
-		const d = new Date();
-		var hour = d.getHours();
+  getMessage: function(callback) {
+    const d = new Date();
+    var hour = d.getHours();
 
     if (hour >= 5 && hour < 12) {
       return greetings.morning[Math.floor(Math.random() * greetings.morning.length)];
@@ -33,7 +33,7 @@ module.exports = {
     } else {
       return "Something wrong, hour is: " + hour;
     }
-	}
+  }
 }
 
 

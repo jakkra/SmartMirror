@@ -13,8 +13,8 @@ const styles = {
     textAlign: 'right'
   },
   weatherImg: {
-		maxWidth: '100%',
-		height: 'auto',
+    maxWidth: '100%',
+    height: 'auto',
   }
 }
 
@@ -22,7 +22,7 @@ export default class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    	weather: {}
+      weather: {}
     };
     this.refreshWeather = this.refreshWeather.bind(this);
     this.handleNewWeather = this.handleNewWeather.bind(this);
@@ -41,30 +41,30 @@ export default class Weather extends React.Component {
   }
 
   refreshWeather() {
-  	getCurrentWeather()
-  	.then(this.handleNewWeather)
-  	.catch((err) => console.log(err));
+    getCurrentWeather()
+    .then(this.handleNewWeather)
+    .catch((err) => console.log(err));
   }
 
   handleNewWeather(weather){
-  	this.setState({
-  		weather: weather
-  	})
+    this.setState({
+      weather: weather
+    })
   }
 
   render() {
-  	let weatherSymbol;
-  	if(this.state.weather.weatherSymbol){
-	  	weatherSymbol = (<img style={styles.weatherImg} role="presentation" src={require('../../resources/weather-icons/' + fileFromInt(this.state.weather.weatherSymbol))}/>);
-  	} else {
-  		weatherSymbol = null;
-  	}
-  	let windDirectionSymbol;
-  	if(this.state.weather.windDirection){
-	  	windDirectionSymbol = (<img style={{ position: 'absolute', right: 40, textAlign: 'right' ,marginTop: 20, marginLeft: 0, maxWidth: '16%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../../resources/weather-icons/wind_arrow.png')}/>);
-  	} else {
-  		windDirectionSymbol = null;
-  	}
+    let weatherSymbol;
+    if(this.state.weather.weatherSymbol){
+      weatherSymbol = (<img style={styles.weatherImg} role="presentation" src={require('../../resources/weather-icons/' + fileFromInt(this.state.weather.weatherSymbol))}/>);
+    } else {
+      weatherSymbol = null;
+    }
+    let windDirectionSymbol;
+    if(this.state.weather.windDirection){
+      windDirectionSymbol = (<img style={{ position: 'absolute', right: 40, textAlign: 'right' ,marginTop: 20, marginLeft: 0, maxWidth: '16%', height: 'auto', WebkitTransform: 'rotate(' + this.state.weather.windDirection + 'deg)'}} role="presentation" src={require('../../resources/weather-icons/wind_arrow.png')}/>);
+    } else {
+      windDirectionSymbol = null;
+    }
 
     return (
       <div hidden={!this.props.visible}  style={styles.container}>

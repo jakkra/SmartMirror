@@ -47,7 +47,7 @@ function getSpeechService (callback) {
   });
 }
 exports.listen = function(callback, done) {
-	console.log('listen');
+  console.log('listen');
   if(isListening === true) return;
   async.waterfall([
     function (cb) {

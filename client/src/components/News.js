@@ -31,9 +31,9 @@ export default class News extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    	articles: [],
-    	subArticles: [],
-    	numArticles: 1,
+      articles: [],
+      subArticles: [],
+      numArticles: 1,
     };
     this.refreshNews = this.refreshNews.bind(this);
     this.handleNewNews = this.handleNewNews.bind(this);
@@ -60,36 +60,36 @@ export default class News extends React.Component {
   }
 
   refreshNews() {
-  	getLatestNews()
-  	.then(this.handleNewNews)
-  	.catch((err) => console.log(err));
+    getLatestNews()
+    .then(this.handleNewNews)
+    .catch((err) => console.log(err));
   }
 
   handleNewNews(articles){
-  	this.setState({
-  		articles: articles,
-  		subArticles: articles.slice(0, this.state.numArticles)
-  	})
+    this.setState({
+      articles: articles,
+      subArticles: articles.slice(0, this.state.numArticles)
+    })
   }
 
   rotateList(){
-  	const articles = this.state.articles.slice();
+    const articles = this.state.articles.slice();
     articles.unshift(articles.pop())
 
     this.setState({
-    	articles: articles,
+      articles: articles,
       subArticles: articles.slice(0, this.state.numArticles)
     });
   }
 
   renderTopArticles() {
     return this.state.subArticles.map((article, i) => {
-    	return (
-    		<div key={article.link}>
-    			<div style={styles.articleTitle}> {article.title} </div>
-    			<div style={styles.article}> {article.description} </div>
-    		</div>
-    	);
+      return (
+        <div key={article.link}>
+          <div style={styles.articleTitle}> {article.title} </div>
+          <div style={styles.article}> {article.description} </div>
+        </div>
+      );
     });
   }
 
@@ -97,7 +97,7 @@ export default class News extends React.Component {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
         <FlipMove 
-        	staggerDurationBy="30"
+          staggerDurationBy="30"
           duration={500}
           enterAnimation='accordianVertical'
           leaveAnimation='accordianVertical'

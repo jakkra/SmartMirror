@@ -48,7 +48,7 @@ export default class Article extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
-    	articles: [],
+      articles: [],
       currentArticle: {},
       visible: true
     };
@@ -82,27 +82,27 @@ export default class Article extends BaseComponent {
   }
 
   refreshArticles() {
-  	getArticles()
-  	.then(this.handleNewArticle)
-  	.catch((err) => console.log(err));
+    getArticles()
+    .then(this.handleNewArticle)
+    .catch((err) => console.log(err));
   }
 
   handleNewArticle(articles){
-  	this.setState({
-  		articles: articles,
-  		currentArticle: articles[3]
+    this.setState({
+      articles: articles,
+      currentArticle: articles[3]
     });
   }
 
   rotateList(){
-  	if(this.state.articles.length < 1){
-  		return;
-  	}
-  	const articles = this.state.articles.slice();
+    if(this.state.articles.length < 1){
+      return;
+    }
+    const articles = this.state.articles.slice();
     articles.unshift(articles.pop())
 
     this.setState({
-    	articles: articles,
+      articles: articles,
       currentArticle: articles[0]
     });
   }
@@ -112,12 +112,12 @@ export default class Article extends BaseComponent {
   }
   // The article is in HTML, so we use that to display the article.
   renderArticle(article) {
-  	return (
-  		<div>
-  			<div style={styles.taskTitle}> {article.title} </div>
+    return (
+      <div>
+        <div style={styles.taskTitle}> {article.title} </div>
         <div style={styles.articleText} dangerouslySetInnerHTML={this.createMarkup(article.post)} />
-  		</div>
-  	);
+      </div>
+    );
   }
 
   render() {

@@ -13,9 +13,9 @@ const checkStatus = (res) => {
 
 
 export function getTasks(callback) {
-	const url = config.serverBaseURL + '/api/tasks';
+  const url = config.serverBaseURL + '/api/tasks';
 
-	return fetch(url)
+  return fetch(url)
   .then(checkStatus)
   .then(res => res.json())
   .then(res => res.tasks)

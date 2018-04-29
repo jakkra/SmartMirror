@@ -50,9 +50,9 @@ export default class Tasks extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
-    	tasks: [],
-    	subTasks: [],
-    	numTasks: 6
+      tasks: [],
+      subTasks: [],
+      numTasks: 6
     };
     this.refreshTasks = this.refreshTasks.bind(this);
     this.handleNewTasks = this.handleNewTasks.bind(this);
@@ -79,27 +79,27 @@ export default class Tasks extends BaseComponent {
   }
 
   refreshTasks() {
-  	getTasks()
-  	.then(this.handleNewTasks)
-  	.catch((err) => console.log(err));
+    getTasks()
+    .then(this.handleNewTasks)
+    .catch((err) => console.log(err));
   }
 
   handleNewTasks(tasks){
-  	this.setState({
-  		tasks: tasks,
-  		subTasks: tasks.slice(0, this.state.numTasks)
-  	})
+    this.setState({
+      tasks: tasks,
+      subTasks: tasks.slice(0, this.state.numTasks)
+    })
   }
 
   rotateList(){
-  	if(this.state.tasks.length < this.state.numTasks){
-  		return;
-  	}
-  	const tasks = this.state.tasks.slice();
+    if(this.state.tasks.length < this.state.numTasks){
+      return;
+    }
+    const tasks = this.state.tasks.slice();
     tasks.unshift(tasks.pop())
 
     this.setState({
-    	tasks: tasks,
+      tasks: tasks,
       subTasks: tasks.slice(0, this.state.numTasks)
     });
   }
@@ -130,11 +130,11 @@ export default class Tasks extends BaseComponent {
 
   renderTopTasksItems() {
     return this.state.subTasks.map((task, i) => {
-    	return (
-    		<div key={task.id}>
-    			<div style={styles.taskTitle}> &#x26AB; {task.title} </div>
-    		</div>
-    	);
+      return (
+        <div key={task.id}>
+          <div style={styles.taskTitle}> &#x26AB; {task.title} </div>
+        </div>
+      );
     });
   }
 
@@ -155,7 +155,7 @@ export default class Tasks extends BaseComponent {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
         {this.renderWaterPlant()}
-      	{this.renderTaskList()}
+        {this.renderTaskList()}
         }
       </div>
     );

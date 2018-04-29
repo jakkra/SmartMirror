@@ -11,15 +11,15 @@ const styles = {
 
   },
   weatherImg: {
-  	
+    
   },
   forecastText: {
-  	color: 'white',
+    color: 'white',
     fontSize: '1.7em',
   },
   foreacstIcon: {
     height: '40px',
-  	color: 'white',
+    color: 'white',
     fontSize: '1.8em',
     textAlign: 'center'
   },
@@ -31,12 +31,12 @@ const styles = {
   },
   foreacstTemp: {
     whiteSpace: 'nowrap',
-  	color: 'white',
+    color: 'white',
     fontSize: '1.6em',
     textAlign: 'right',
   },
   locationLabel: {
-  	color: 'white',
+    color: 'white',
     fontSize: '2.9em',
     lineHeight: 1,
     marginBottom: 10
@@ -63,7 +63,7 @@ export default class Forecast extends React.Component {
       sunset: '2:52 PM'
     };
     this.state = {
-    	weather: dummy
+      weather: dummy
     };
     this.refreshForecast = this.refreshForecast.bind(this);
     this.handleNewForecast = this.handleNewForecast.bind(this);
@@ -92,20 +92,20 @@ export default class Forecast extends React.Component {
       };
       this.handleNewForecast(f);
     })
-  	.catch((err) => console.log(err));
+    .catch((err) => console.log(err));
   }
 
   handleNewForecast(weather){
     console.log(weather);
-  	this.setState({
-  		weather: weather
-  	})
+    this.setState({
+      weather: weather
+    })
   }
 
   render() {
     return (
       <div hidden={!this.props.visible} style={styles.container} className="pull-right">
-  	   <p style={styles.locationLabel}> {config.forecastLabelName} </p>
+       <p style={styles.locationLabel}> {config.forecastLabelName} </p>
         <Row style={styles.daytimeHours}>
           <Col xs={6}>
             <p className='pull-left'><span className='wi wi-sunrise'></span> {moment(this.state.weather.sunrise, ["h:mm A"]).format("HH:mm")}</p>
@@ -115,26 +115,26 @@ export default class Forecast extends React.Component {
           </Col>
         </Row>
         
-	      {this.state.weather.forecast.map(function(object, i){
-	      	if(i > 4) return null;
-	        return (
-	        	<Row key={i}>
-		          <Col xs={4}>
-		          	<div style={styles.forecastText}>
-		          		{moment(new Date(object.temperatureMaxTime) * 1000).format('dddd')}
-		          	</div>
-		          </Col>
-		          <Col style={{ textAlign: 'center' }}xs={4}>
+        {this.state.weather.forecast.map(function(object, i){
+          if(i > 4) return null;
+          return (
+            <Row key={i}>
+              <Col xs={4}>
+                <div style={styles.forecastText}>
+                  {moment(new Date(object.temperatureMaxTime) * 1000).format('dddd')}
+                </div>
+              </Col>
+              <Col style={{ textAlign: 'center' }}xs={4}>
                 <Skycons style={styles.foreacstIcon} color='white' icon={object.icon.replace(new RegExp('-', 'g'), '_').toUpperCase()} autoplay={true}/>
-		          </Col>
-		          <Col xs={4}>
-		          	<div style={styles.foreacstTemp}>
-		          		{Math.round(object.temperatureMax)} / {Math.round(object.temperatureMin)}
-		          	</div>
-		          </Col>
-		        </Row>
-	        	)
-	    	})}
+              </Col>
+              <Col xs={4}>
+                <div style={styles.foreacstTemp}>
+                  {Math.round(object.temperatureMax)} / {Math.round(object.temperatureMin)}
+                </div>
+              </Col>
+            </Row>
+            )
+        })}
       </div>
     );
   }

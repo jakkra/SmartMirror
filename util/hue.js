@@ -30,23 +30,23 @@ api.groups(function(err, result) {
 function initAutoOff(light, ttl) {
   let waitingToTurnOff = false;
   let timerId;
-	setInterval(() => {
-		api.lightStatus(light.id, function(err, result) {
-	    if (err) throw err;
-	    if (result.state.reachable === true && result.state.on === true && waitingToTurnOff === false) {
-	    	waitingToTurnOff = true;
-	    	clearTimeout(timerId);
-				timerId = setTimeout(() => {
-					api.setLightState(light.id, { "on": false })
-			    .fail(displayError)
-			    .done(() => waitingToTurnOff = false);
-				}, ttl);
-	    } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
-	    	waitingToTurnOff = false;
-	    	clearTimeout(timerId);
-	    }
-		});
-	}, 1000 * 30);
+  setInterval(() => {
+    api.lightStatus(light.id, function(err, result) {
+      if (err) throw err;
+      if (result.state.reachable === true && result.state.on === true && waitingToTurnOff === false) {
+        waitingToTurnOff = true;
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+          api.setLightState(light.id, { "on": false })
+          .fail(displayError)
+          .done(() => waitingToTurnOff = false);
+        }, ttl);
+      } else if ((result.state.reachable === false || result.state.on === false) && waitingToTurnOff === true) {
+        waitingToTurnOff = false;
+        clearTimeout(timerId);
+      }
+    });
+  }, 1000 * 30);
 }
 
 
