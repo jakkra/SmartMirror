@@ -50,6 +50,7 @@ export default class Spotify extends React.Component {
   }
 
   handleSpotifyCurrentData(currentPlaying){
+    if (currentPlaying === null || currentPlaying.item === null) return;
     this.setState({
       currentPlaying: currentPlaying
     })
