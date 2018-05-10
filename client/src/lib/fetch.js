@@ -21,6 +21,15 @@ export function getTasks(callback) {
   .then(res => res.tasks)
 }
 
+export function getPlantMoistureLevel(callback) {
+  const url = config.serverBaseURL + '/api/moisture/latest'
+
+  return fetch(url)
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(res => res.moisture.length > 0 ? res.moisture[0] : null)
+}
+
 export function getArticles(callback) {
   const url = config.serverBaseURL + '/api/articles';
 

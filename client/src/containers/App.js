@@ -92,11 +92,6 @@ export default class App extends React.Component {
       case 'command':
         this.refs[data.component].onEvent(data);
         break;
-      case 'moisture':
-        this.setState({
-          moistureLevel: Number(data.level)
-        })
-        break;
       default:
         console.log('Unhandled event: ' + message.event);
         break;
@@ -115,7 +110,7 @@ export default class App extends React.Component {
       news = (<News visible={this.state.visibility.news} />)
     }
     if (config.modules.wunderlistTasks === true) {
-      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases} moistureLevel={this.state.moistureLevel} />)
+      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases} />)
     }
     if (config.modules.weather === true) {
       weather = (<Weather visible={this.state.visibility.weather} phrases={phrases}/>)

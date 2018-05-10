@@ -2,7 +2,7 @@ import React from 'react';
 
 import BaseComponent from './BaseComponent';
 
-import { getTasks } from '../lib/fetch';
+import { getTasks, getPlantMoistureLevel } from '../lib/fetch';
 import FlipMove from 'react-flip-move';
 import FA from 'react-fontawesome';
 
@@ -39,12 +39,10 @@ export default class Tasks extends BaseComponent {
   static propTypes = {
     visible: React.PropTypes.bool,
     phrases: React.PropTypes.object,
-    moistureLevel: React.PropTypes.number,
   };
 
   static defaultProps = {
     visible: true,
-    moistureLevel: 55,
   };
 
   constructor(props) {
@@ -52,12 +50,13 @@ export default class Tasks extends BaseComponent {
     this.state = {
       tasks: [],
       subTasks: [],
-      numTasks: 6
+      numTasks: 6,
+      moistureLevel: 54,
     };
     this.refreshTasks = this.refreshTasks.bind(this);
     this.handleNewTasks = this.handleNewTasks.bind(this);
     this.rotateList = this.rotateList.bind(this);
-
+    this.handleNewMoistureLog = this.handleNewMoistureLog.bind(this);
   }
 
   componentDidMount() {
@@ -82,12 +81,23 @@ export default class Tasks extends BaseComponent {
     getTasks()
     .then(this.handleNewTasks)
     .catch((err) => console.log(err));
+
+    getPlantMoistureLevel()
+    .then(this.handleNewMoistureLog)
+    .catch((err) => console.log(err));
   }
 
-  handleNewTasks(tasks){
+  handleNewTasks(tasks) {
     this.setState({
       tasks: tasks,
       subTasks: tasks.slice(0, this.state.numTasks)
+    })
+  }
+
+  handleNewMoistureLog(moistureLogging) {
+    console.log(moistureLogging)
+    this.setState({
+      moistureLevel: moistureLogging.moisture,
     })
   }
 
@@ -139,10 +149,10 @@ export default class Tasks extends BaseComponent {
   }
 
   renderWaterPlant() {
-    if (this.props.moistureLevel > 55) return null;
+    if (this.state.moistureLevel > 70) return null;
     return (
       <div style={styles.listName}>
-          {this.props.phrases.water_plant + " (~" + this.props.moistureLevel + "%)"}
+          {this.props.phrases.water_plant + " (~" + this.state.moistureLevel + "%)"}
           <FA
             name='tint'
             style={styles.icon}

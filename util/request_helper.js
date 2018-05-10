@@ -142,6 +142,16 @@ module.exports = {
     })
   },
 
+  getLatestMoistureLevel(callback) {
+    request
+    .get('http://207.154.239.115' + '/api/moisture/latest?source=default_plant&token=' + process.env.RuleThemAllBackendAccessToken, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let body = JSON.parse(response.body);
+        callback(body.moisture);
+      }
+    })
+  },
+
   getCurrentlyPlayingSpotify(callback) {
     spotifyApi.refreshAccessToken()
     .then(function(data) {

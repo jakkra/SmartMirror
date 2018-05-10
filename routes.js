@@ -15,12 +15,6 @@ module.exports = (app, mirrorSocket) => {
     res.redirect("/app");
   });
 
-  app.get('/api/moisture/:val', (req, res) => {
-    console.log("Moisture level: " + req.params.val);
-    mirrorSocket.sendToClient('moisture', { level: req.params.val });
-    res.json({success: true, level: req.params.val});
-  });
-
   app.get('/api/brightnessUp', (req, res) => {
     serialHandler.writeString('brightnessUp:');
     res.redirect("/app");
@@ -120,6 +114,14 @@ module.exports = (app, mirrorSocket) => {
         tasks: tasks
       });
     return;
+    })
+  });
+
+  app.get('/api/moisture/latest', (req, res) => {
+    requestHelper.getLatestMoistureLevel((moisture) => {
+      return res.json({
+        moisture: moisture
+      });
     })
   });
 
