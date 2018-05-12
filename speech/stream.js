@@ -103,7 +103,8 @@ exports.listen = function(callback, done) {
       // In case no end of audio
       stopTimer = setTimeout(function () {
         console.log('_______STOOOOOP____');
-        record.stop()
+        record.stop();
+        isListening = false;
       }, 10000)
     }
   ], function (err) {
