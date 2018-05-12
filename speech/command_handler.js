@@ -1,5 +1,6 @@
 module.exports = (mirrorSocket) => {
   const config = require('../config');
+  const serialHandler = require('./util/serial_handler');
 
   let hue = null;
 
@@ -75,6 +76,12 @@ module.exports = (mirrorSocket) => {
           break;
         case SpeechCommand.CHANGE_ARTICLE_SOURCE:
           mirrorSocket.sendToClient('command', {component: 'article', action: 'change_source'});
+          break;
+        case SpeechCommand.TURN_OFF_EVERYTHING:
+          hue.allLights({on: false, brightness: 100});
+          exec("sudo tvservice -o");
+          serialHandler.writeString('outlet:255:0');
+          serialHandler.writeString('rgb:0:0:0');
           break;
         case SpeechCommand.UNKNOWN:
           console.log("Command not found: " + command);

@@ -3,7 +3,7 @@
     "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljusen", "ljuset", "lyset", "taket", "ljus"],
     "on" : ["sätt på", "till", "tänd", "tända", "starta", "händer"],
     "off" : ["stäng av", "stänga", "från", "släck", "släcka", "stoppa", "fläck", "fläckt", "fläkt"],
-    "all" : ["alla", "samtliga", "allt"],
+    "all" : ["alla", "samtliga", "allt", "allting"],
     "bedroom" : ["säng", "sängen", "sängens", "sovrum", "sovrums", "sovrummet", "sovrummets"],
     "hallway" : ["hall", "hallen", "hallens", "dörr", "dörren"],
     "livingRoom" : ["vardagsrum", "vardagsrummet", "matbord", "matbordet"],

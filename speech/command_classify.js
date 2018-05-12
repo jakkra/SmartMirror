@@ -20,6 +20,8 @@ exports.classifyCommand = function(s){
   } else if(stringContainsItemFromList(s, synonyms.remind)){
       console.log('Parse reminder');
       return reminderParser.parse(s);
+  } else if (stringContainsItemFromList(s, synonyms.all) && stringContainsItemFromList(s, synonyms.off)) {
+    return SpeechCommand.TURN_OFF_EVERYTHING;
   } else if(stringContainsItemFromList(s, synonyms.turnOffMirror)){
       return SpeechCommand.TURN_OFF;
   } else {

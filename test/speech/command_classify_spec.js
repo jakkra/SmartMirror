@@ -350,6 +350,29 @@ describe('command_classify', () => {
     });
   });
 
+  synonyms.all.map((allCommand) => {
+    describe(`Given a ALL command ${allCommand}`, () => {
+
+      synonyms.off.map((offCommand) => {
+        describe(`Given an OFF command ${offCommand}`, () => {
+          const result = classifyCommand(`${allCommand} ${offCommand}`);
+
+          it('Should return TURN_OFF_EVERYTHING', () => {
+            expect(result).to.equal(speechCommand.TURN_OFF_EVERYTHING);
+          });
+        });
+      });
+
+      describe(`Given an UNKNOWN toggle command`, () => {
+        const result = classifyCommand(`${allCommand} unknown`);
+
+        it('Should return unknown', () => {
+          expect(result).to.equal(speechCommand.UNKNOWN);
+        });
+      });
+    });
+  });
+
   describe(`Given an unknown command`, () => {
     const result = classifyCommand(`unknown`);
 
