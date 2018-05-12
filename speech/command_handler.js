@@ -1,6 +1,9 @@
 module.exports = (mirrorSocket) => {
   const config = require('../config');
-  const serialHandler = require('./util/serial_handler');
+  const serialHandler = require('../util/serial_handler');
+  const speaker = require('../speech/amazon-polly-speaker');
+
+  const moment = require('moment');
 
   let hue = null;
 
@@ -13,7 +16,16 @@ module.exports = (mirrorSocket) => {
 
   return {
     handle: function(command){
-      switch (command) {
+      let commandId;
+      let data = null;
+      if (typeof(command) === "object") {
+        commandId = command.command;
+        data = command.data;
+      } else {
+        commandId = command;
+      }
+
+      switch (commandId) {
         case SpeechCommand.LIGHTS_ON_ALL:
         console.log('all light on');
           hue.allLights({on: true, brightness: 100});
@@ -82,6 +94,25 @@ module.exports = (mirrorSocket) => {
           exec("sudo tvservice -o");
           serialHandler.writeString('outlet:255:0');
           serialHandler.writeString('rgb:0:0:0');
+          break;
+        case SpeechCommand.SET_COFFEMAKER_TIMER:
+          console.log(data.hour, data.min)
+          const now = moment(new Date());
+          let future = moment(new Date()).hour(data.hour);
+          if (data.min) {
+            future = future.minute(data.min)
+          } else {
+            future.minute(0);
+          }
+          let diff = future.diff(now);
+          if (diff < 0) {
+            future.add(1, 'day');
+          }
+          diff = future.diff(now);
+          speaker.speak('Startar kaffekokaren klockan ' + data.hour + (data.min ? ' och ' + data.min : ''));
+          setTimeout(() => {
+            serialHandler.writeString('outlet:4:1');
+          }, diff);
           break;
         case SpeechCommand.UNKNOWN:
           console.log("Command not found: " + command);

@@ -350,6 +350,16 @@ describe('command_classify', () => {
     });
   });
 
+  synonyms.coffeMaker.map((coffeMakerCommand) => {
+    describe(`Given a COFFE MAKER command ${coffeMakerCommand}`, () => {
+      const result = classifyCommand(`${coffeMakerCommand} 6.35`);
+
+      it('Should return COFFE MAKER', () => {
+        expect(result.command).to.equal(speechCommand.SET_COFFEMAKER_TIMER);
+      });
+    });
+  });
+
   synonyms.all.map((allCommand) => {
     describe(`Given a ALL command ${allCommand}`, () => {
 

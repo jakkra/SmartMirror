@@ -24,6 +24,8 @@ exports.classifyCommand = function(s){
     return SpeechCommand.TURN_OFF_EVERYTHING;
   } else if(stringContainsItemFromList(s, synonyms.turnOffMirror)){
       return SpeechCommand.TURN_OFF;
+  } else if(stringContainsItemFromList(s, synonyms.coffeMaker)){
+      return parseCoffeMaker(s);
   } else {
     console.log('it\'s unknown');
     return SpeechCommand.UNKNOWN;
@@ -83,6 +85,33 @@ function parseForecasts(s) {
     return SpeechCommand.SHOW_FORECASTS;
   } else if (stringContainsItemFromList(s, synonyms.hide)) {
     return SpeechCommand.HIDE_FORECASTS;
+  } else {
+    return SpeechCommand.UNKNOWN;
+  }
+}
+
+function parseCoffeMaker(s) {
+  console.log('parse coffemaker');
+  const match = s.match(/\d+/g);
+  let hhmm = [];
+  if (match) {
+    hhmm = match.map(Number);
+  }
+  if (hhmm && Number.isInteger(hhmm[0]) && Number.isInteger(hhmm[1])) {
+    return {
+      command: SpeechCommand.SET_COFFEMAKER_TIMER,
+      data: {
+        hour: hhmm[0],
+        min: hhmm[1],
+      }
+    }
+  } else if (hhmm && Number.isInteger(hhmm[0])) {
+    return {
+      command: SpeechCommand.SET_COFFEMAKER_TIMER,
+      data: {
+        hour: hhmm[0],
+      }
+    }
   } else {
     return SpeechCommand.UNKNOWN;
   }

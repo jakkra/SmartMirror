@@ -1,7 +1,7 @@
 {
   "speech" : {
     "lamp" : ["lampa", "lampan", "lampor", "lamporna", "ljusen", "ljuset", "lyset", "taket", "ljus"],
-    "on" : ["sätt på", "till", "tänd", "tända", "starta", "händer"],
+    "on" : ["sätt på", "till", "tänd", "tända", "starta", "händer", "slå på"],
     "off" : ["stäng av", "stänga", "från", "släck", "släcka", "stoppa", "fläck", "fläckt", "fläkt"],
     "all" : ["alla", "samtliga", "allt", "allting"],
     "bedroom" : ["säng", "sängen", "sängens", "sovrum", "sovrums", "sovrummet", "sovrummets"],
@@ -19,7 +19,8 @@
     "next" : ["nästa", "efterkommande"],
     "previous" : ["förra", "föregående"],
     "remind" : ["påminn"],
-    "turnOffMirror" : ["stäng av spegeln", "spegel stäng av dig", "gå och sov spegel"]
+    "turnOffMirror" : ["stäng av spegeln", "spegel stäng av dig", "gå och sov spegel"],
+    "coffeMaker" : ["kaffekokare", "moccamaster"]
   },
   "client" : {
     "feels_like" : "Känns som",

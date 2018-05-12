@@ -19,7 +19,8 @@
     "next" : ["next"],
     "previous" : ["previous", "before", "preceding"],
     "remind" : ["remind"],
-    "turnOffMirror" : ["turn off mirror", "switch off mirror"]
+    "turnOffMirror" : ["turn off mirror", "switch off mirror"],
+    "coffeMaker" : ["coffe maker", "coffe brewer", "moccamaster"]
   },
   "client" : {
     "feels_like" : "Feels like",
