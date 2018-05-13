@@ -92,8 +92,10 @@ module.exports = (mirrorSocket) => {
         case SpeechCommand.TURN_OFF_EVERYTHING:
           hue.allLights({on: false, brightness: 100});
           exec("sudo tvservice -o");
-          serialHandler.writeString('outlet:255:0');
           serialHandler.writeString('rgb:0:0:0');
+          setTimeout(function() {
+            serialHandler.writeString('outlet:255:0');
+           }, 2000);
           break;
         case SpeechCommand.SET_COFFEMAKER_TIMER:
           console.log(data.hour, data.min)
