@@ -319,6 +319,29 @@ describe('command_classify', () => {
     });
   });
 
+  synonyms.train.map((trainCommand) => {
+    describe(`Given a TRAIN command ${trainCommand}`, () => {
+
+      synonyms.when.map((whenCommand) => {
+        describe(`Given an WHEN command ${whenCommand}`, () => {
+          const result = classifyCommand(`${trainCommand} ${whenCommand}`);
+
+          it('Should return NEXT_TRAIN', () => {
+            expect(result).to.equal(speechCommand.NEXT_TRAIN);
+          });
+        });
+      });
+
+      describe(`Given an UNKNOWN toggle command`, () => {
+        const result = classifyCommand(`${trainCommand} unknown`);
+
+        it('Should return unknown', () => {
+          expect(result).to.equal(speechCommand.UNKNOWN);
+        });
+      });
+    });
+  });
+
   synonyms.remind.map((remindCommand) => {
     describe(`Given a REMIND command ${remindCommand}`, () => {
 

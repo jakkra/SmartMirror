@@ -9,6 +9,7 @@
     "livingRoom" : ["living room","the living room", "dining table"],
     "wardrobe" : ["wardrobe", "closet", "almirah"],
     "bus" : ["bus", "buses"],
+    "train" : ["train"],
     "change" : ["change", "change to"],
     "show"  : ["show"],
     "hide" : ["hide"],

@@ -9,6 +9,7 @@
     "livingRoom" : ["vardagsrum", "vardagsrummet", "matbord", "matbordet"],
     "wardrobe" : ["garderob", "garderoben", "klädkammare", "klädkammaren"],
     "bus" : ["bussen", "buss", "bus"],
+    "train" : ["tåg", "tåget"],
     "change" : ["ändra", "byt", "ändra till"],
     "show" : ["visa", "ta fram"],
     "hide" : ["dölj", "dölja", "av", "ta bort", "göm", "gömma"],

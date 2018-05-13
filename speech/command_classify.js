@@ -6,26 +6,27 @@ const synonyms = require('./synonyms');
 
 exports.classifyCommand = function(s){
   console.log('classify command');
-  if (stringContainsItemFromList(s, synonyms.lamp)) {
-      console.log('lampssss');
-      return parseLights(s);
+  if(stringContainsItemFromList(s, synonyms.remind)){
+    console.log('Parse reminder');
+    return reminderParser.parse(s);
+  } else if (stringContainsItemFromList(s, synonyms.lamp)) {
+    return parseLights(s);
   } else if (stringContainsItemFromList(s, synonyms.forecasts)) {
-      return parseForecasts(s);
+    return parseForecasts(s);
   } else if (stringContainsItemFromList(s, synonyms.news)) {
-      return parseNews(s);
+    return parseNews(s);
   } else if(stringContainsItemFromList(s, synonyms.article)){
-      return parseArticle(s);
+    return parseArticle(s);
+  } else if(stringContainsItemFromList(s, synonyms.train)){
+    return parseTrain(s);
   } else if(stringContainsItemFromList(s, synonyms.bus)){
-      return parseBus(s);
-  } else if(stringContainsItemFromList(s, synonyms.remind)){
-      console.log('Parse reminder');
-      return reminderParser.parse(s);
-  } else if (stringContainsItemFromList(s, synonyms.all) && stringContainsItemFromList(s, synonyms.off)) {
+    return parseBus(s);
+  }  else if (stringContainsItemFromList(s, synonyms.all) && stringContainsItemFromList(s, synonyms.off)) {
     return SpeechCommand.TURN_OFF_EVERYTHING;
   } else if(stringContainsItemFromList(s, synonyms.turnOffMirror)){
-      return SpeechCommand.TURN_OFF;
+    return SpeechCommand.TURN_OFF;
   } else if(stringContainsItemFromList(s, synonyms.coffeMaker)){
-      return parseCoffeMaker(s);
+    return parseCoffeMaker(s);
   } else {
     console.log('it\'s unknown');
     return SpeechCommand.UNKNOWN;
@@ -61,6 +62,15 @@ function parseBus(s) {
   console.log('parse bus');
   if (stringContainsItemFromList(s, synonyms.when)) {
     return SpeechCommand.NEXT_BUS;
+  } else {
+    return SpeechCommand.UNKNOWN;
+  }
+}
+
+function parseTrain(s) {
+  console.log('parse train');
+  if (stringContainsItemFromList(s, synonyms.when)) {
+    return SpeechCommand.NEXT_TRAIN;
   } else {
     return SpeechCommand.UNKNOWN;
   }
