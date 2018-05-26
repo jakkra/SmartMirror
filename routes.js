@@ -12,17 +12,14 @@ module.exports = (app, mirrorSocket) => {
   app.get('/api/brightness/:val', (req, res) => {
     console.log(req.params.val);
     if(req.params.cmd) serialHandler.writeString('brightness:' + req.params.val);
-    res.redirect("/app");
   });
 
   app.get('/api/brightnessUp', (req, res) => {
     serialHandler.writeString('brightnessUp:');
-    res.redirect("/app");
   });
 
   app.get('/api/brightnessDown', (req, res) => {
     serialHandler.writeString('brightnessDown:');
-    res.redirect("/app");
   });
 
   app.get('/api/serial/:command', (req, res) => {
@@ -46,7 +43,6 @@ module.exports = (app, mirrorSocket) => {
     } else {
       serialHandler.writeString(req.params.command);
     }
-    res.redirect("/app");
   });
   
 
@@ -64,12 +60,10 @@ module.exports = (app, mirrorSocket) => {
         serialHandler.writeString('side:' + side + ':' + rgb.r + ':' + rgb.g + ':' + rgb.b);
       }
     }
-    res.redirect("/app");
   });
 
   app.get('/api/speak/:text', (req, res) => {
     if (req.params.text) speaker.speak(req.params.text);
-    res.redirect("/app");
   });
 
   app.get('/api/hide', (req, res) => {
@@ -79,19 +73,14 @@ module.exports = (app, mirrorSocket) => {
     mirrorSocket.sendToClient('visibility', {component: 'tasks', visible: false});
     mirrorSocket.sendToClient('visibility', {component: 'weather', visible: false});
     mirrorSocket.sendToClient('visibility', {component: 'clock', visible: false});
-
-    res.redirect("/app");
-
   });
 
   app.get('/api/hide/:component', (req, res) => {
     mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: false});
-    res.redirect("/app");
   });
 
   app.get('/api/show/:component', (req, res) => {
     mirrorSocket.sendToClient('visibility', {component: req.params.component, visible: true});
-    res.redirect("/app");
   });
 
 
@@ -158,27 +147,22 @@ module.exports = (app, mirrorSocket) => {
 
   app.get('/api/shutdown', (req, res) => {
     exec("sudo shutdown -h now");
-    res.redirect("/app");
   });
 
   app.get('/api/sleep', (req, res) => {
     exec("sudo tvservice -o");
-    res.redirect("/app");
   });
 
   app.get('/api/wakeup', (req, res) => {
     exec("sudo tvservice -p; sudo chvt 6; sudo chvt 7;");
-    res.redirect("/app");
   });
 
   app.get('/api/reboot', (req, res) => {
     exec("sudo reboot");
-    res.redirect("/app");
   });
 
   app.get('/api/next', (req, res) => {
     mirrorSocket.sendToClient('command', {component: 'article', action: 'next'});
-    res.redirect("/app");
   });
 
   app.get('/api/spotify/current', (req, res) => {
