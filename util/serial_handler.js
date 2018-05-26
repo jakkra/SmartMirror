@@ -16,9 +16,9 @@ SerialPort.list(function (err, ports) {
   });
 });
 
-module.exports = {
+const self = module.exports = {
   writeString: function(text) {
-    if(openedPort !== null){
+    if (openedPort !== null){
       openedPort.write(text, function(err) {
         if (err) {
           return console.log('Error on write: ', err.message);
@@ -26,4 +26,25 @@ module.exports = {
       });
     }
   },
+
+  setOutletOff: function(outletsOff) {
+    outletsOff.forEach((outletId, i) =>  {
+      setTimeout(function() {
+        self.writeString(`outlet:${outletId}:0`);
+       }, (i + 1) * 1000);
+    });
+  },
+
+  setOutletOn: function(outletsOn) {
+    outletsOn.forEach((outletId, i) =>  {
+      setTimeout(function() {
+        self.writeString(`outlet:${outletId}:1`);
+       }, (i + 1) * 1000);
+    });
+  },
+
+  turnOffLedstrip: function() {
+    self.writeString('rgb:0:0:0');
+  }
+  
 }

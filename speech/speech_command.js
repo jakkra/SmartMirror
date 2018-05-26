@@ -34,4 +34,5 @@ module.exports = Object.freeze({
   TURN_OFF_EVERYTHING: 41,
   SET_COFFEMAKER_TIMER: 42,
   NEXT_TRAIN: 43,
+  TURN_ON_EVERYTHING: 44,
 });

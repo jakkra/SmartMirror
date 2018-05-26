@@ -23,6 +23,8 @@ exports.classifyCommand = function(s){
     return parseBus(s);
   }  else if (stringContainsItemFromList(s, synonyms.all) && stringContainsItemFromList(s, synonyms.off)) {
     return SpeechCommand.TURN_OFF_EVERYTHING;
+  } else if (stringContainsItemFromList(s, synonyms.all) && stringContainsItemFromList(s, synonyms.on)) {
+    return SpeechCommand.TURN_ON_EVERYTHING;
   } else if(stringContainsItemFromList(s, synonyms.turnOffMirror)){
     return SpeechCommand.TURN_OFF;
   } else if(stringContainsItemFromList(s, synonyms.coffeMaker)){

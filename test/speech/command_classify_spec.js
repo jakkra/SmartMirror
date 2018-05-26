@@ -406,6 +406,21 @@ describe('command_classify', () => {
     });
   });
 
+  synonyms.all.map((allCommand) => {
+    describe(`Given a ALL command ${allCommand}`, () => {
+
+      synonyms.on.map((onCommand) => {
+        describe(`Given an ON command ${onCommand}`, () => {
+          const result = classifyCommand(`${allCommand} ${onCommand}`);
+
+          it('Should return TURN_ON_EVERYTHING', () => {
+            expect(result).to.equal(speechCommand.TURN_ON_EVERYTHING);
+          });
+        });
+      });
+    });
+  });
+
   describe(`Given an unknown command`, () => {
     const result = classifyCommand(`unknown`);
 
