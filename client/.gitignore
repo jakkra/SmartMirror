@@ -15,4 +15,6 @@ npm-debug.log
 src/config.js
 
 # build
-# build
+build
+build/
+build/*
