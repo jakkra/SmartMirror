@@ -102,9 +102,10 @@ exports.listen = function(callback, done) {
 
       // In case no end of audio
       stopTimer = setTimeout(function () {
-        console.log('_______STOOOOOP____');
+        console.log('Stop recording, no voice recognized');
         record.stop();
         isListening = false;
+        done();
       }, 10000)
     }
   ], function (err) {
