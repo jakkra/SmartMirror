@@ -34,6 +34,11 @@ const config = {
     pirSensor : 18
   },
 
+  journeyStations : {
+    from: 'Lund C',
+    to: 'Malmö C',
+  },
+
   modules: {
     dateTime: true,
     wunderlistTasks: false,

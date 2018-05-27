@@ -7,11 +7,10 @@ var expressWs = require('express-ws')(app);
 
 const mirrorSocket = require('./util/mirror_socket')(expressWs);
 const commandHandler = require('./speech/command_handler')(mirrorSocket);
-
 mirrorConfigFiles();
 
 const config = require('./config');
-let speech, hotword, commands, hue = null;
+let speech, hotword, commands = null;
 
 if (config.modules.googleCloudSpeech === true) {
   speech = require('./speech/stream.js');

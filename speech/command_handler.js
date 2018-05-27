@@ -2,7 +2,7 @@ module.exports = (mirrorSocket) => {
   const config = require('../config');
   const serialHandler = require('../util/serial_handler');
   const speaker = require('../speech/amazon-polly-speaker');
-  const nodeSkanetraiken = require('node-skanetrafiken');
+  const skanetrafiken = require('../util/skanetrafiken');
 
   const moment = require('moment');
 
@@ -73,38 +73,24 @@ module.exports = (mirrorSocket) => {
         case SpeechCommand.NEXT_BUS:
          break;
         case SpeechCommand.NEXT_TRAIN:
-        // TODO extract to seperate file and config
-          const lundC = {
-            id: '81216' ,
-            name: 'Lund C' ,
-            type: '0' ,
-          };
-
-          const malmoC = {
-            id: '80000',
-            name: 'Malmö C',
-            type: '0',
-          }
-
-          nodeSkanetraiken.getJourneys({ from: lundC, to: malmoC, limit: 5, action: 'next' }, function(results, err) {
-            if (!err) {
-              let message = 'Kommande tåg till Malmö Central går om ';
-              results.forEach((route, i, arr) => {
-                const diffMs = (new Date(route.DepDateTime[0]) - new Date());
-                const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-                if (i < (arr.length - 1)) {
-                  message += diffMins + ', ';
-                } else {
-                  message += 'och ' + diffMins + ' minuter';
-                }
-              });
-              console.log(message);
-              speaker.speak(message);
-            }
-          });
+          skanetrafiken.getJourneysUsingConfig().then((results) => {
+            let message = 'Kommande tåg till Malmö Central går om ';
+            results.forEach((route, i, arr) => {
+              const diffMs = (new Date(route.DepDateTime[0]) - new Date());
+              const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+              if (i < (arr.length - 1)) {
+                message += diffMins + ', ';
+              } else {
+                message += 'och ' + diffMins + ' minuter';
+              }
+            });
+            console.log(message);
+            speaker.speak(message);
+          }).catch(err => console.log(err));
           break;
         case SpeechCommand.TURN_OFF:
           exec("sudo shutdown -h now");
+          break;
         case SpeechCommand.SHOW_ARTICLES:
           mirrorSocket.sendToClient('visibility', {component: 'article', visible: true});
           break;

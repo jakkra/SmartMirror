@@ -10,7 +10,6 @@ SerialPort.list(function (err, ports) {
         if (err) {
           return console.log('Error: ', err.message);
         }
-
       });
     }
   });
