@@ -10,15 +10,13 @@ module.exports = {
     pir.watch(function(err, value) {
       if (err) return;
       console.log('Motion detected ' + value);
-      if(value === 1 && prevValue === 0) {
+      if (value === 1 && prevValue === 0) {
         callback();
       }
     });
   },
-  exit:function() {
+  exit: function() {
     console.log('Exit motion and unregister');
     pir.unexport();
-  }
-}
-
-
+  },
+};

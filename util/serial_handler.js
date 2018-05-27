@@ -1,12 +1,11 @@
-
 const SerialPort = require('serialport');
 let openedPort;
 
-SerialPort.list(function (err, ports) {
-  ports.forEach((port) => {
-    if(port.manufacturer && port.manufacturer.includes('arduino')){
+SerialPort.list(function(err, ports) {
+  ports.forEach(port => {
+    if (port.manufacturer && port.manufacturer.includes('arduino')) {
       console.log(port);
-      openedPort = new SerialPort(port.comName, (err) => {
+      openedPort = new SerialPort(port.comName, err => {
         if (err) {
           return console.log('Error: ', err.message);
         }
@@ -15,9 +14,9 @@ SerialPort.list(function (err, ports) {
   });
 });
 
-const self = module.exports = {
+const self = (module.exports = {
   writeString: function(text) {
-    if (openedPort !== null){
+    if (openedPort !== null) {
       openedPort.write(text, function(err) {
         if (err) {
           return console.log('Error on write: ', err.message);
@@ -27,18 +26,18 @@ const self = module.exports = {
   },
 
   setOutletOff: function(outletsOff) {
-    outletsOff.forEach((outletId, i) =>  {
+    outletsOff.forEach((outletId, i) => {
       setTimeout(function() {
         self.writeString(`outlet:${outletId}:0`);
-       }, (i + 1) * 3000);
+      }, (i + 1) * 3000);
     });
   },
 
   setOutletOn: function(outletsOn) {
-    outletsOn.forEach((outletId, i) =>  {
+    outletsOn.forEach((outletId, i) => {
       setTimeout(function() {
         self.writeString(`outlet:${outletId}:1`);
-       }, (i + 1) * 3000);
+      }, (i + 1) * 3000);
     });
   },
 
@@ -48,5 +47,5 @@ const self = module.exports = {
 
   turnOnLedstrip: function() {
     self.writeString('rgb:200:100:100');
-  }
-}
+  },
+});

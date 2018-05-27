@@ -4,17 +4,12 @@ const speechCommand = require('../../speech/speech_command');
 const expect = require('chai').expect;
 
 describe('command_classify', () => {
-
-  synonyms.lamp.map((lampCommand) => {
+  synonyms.lamp.map(lampCommand => {
     describe(`Given a LAMP command ${lampCommand}`, () => {
-
-      synonyms.on.map((onCommand) => {
+      synonyms.on.map(onCommand => {
         describe(`Given an ON command ${onCommand}`, () => {
-
-          synonyms.all.map((allCommand) => {
-
+          synonyms.all.map(allCommand => {
             describe(`Given an ALL command ${allCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${onCommand} ${allCommand}`);
 
               it('Should return LIGHTS_ON_ALL', () => {
@@ -23,10 +18,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.bedroom.map((bedroomCommand) => {
-
+          synonyms.bedroom.map(bedroomCommand => {
             describe(`Given an BEDROOM command ${bedroomCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${onCommand} ${bedroomCommand}`);
 
               it('Should return LIGHTS_ON_BEDROOM', () => {
@@ -35,10 +28,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.hallway.map((hallwayCommand) => {
-
+          synonyms.hallway.map(hallwayCommand => {
             describe(`Given an HALLWAY command ${hallwayCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${onCommand} ${hallwayCommand}`);
 
               it('Should return LIGHTS_ON_HALLWAY', () => {
@@ -47,10 +38,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.wardrobe.map((wardrobeCommand) => {
-
+          synonyms.wardrobe.map(wardrobeCommand => {
             describe(`Given an WARDROBE command ${wardrobeCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${onCommand} ${wardrobeCommand}`);
 
               it('Should return LIGHTS_ON_WARDROBE', () => {
@@ -59,10 +48,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.livingRoom.map((livingRoomCommand) => {
-
+          synonyms.livingRoom.map(livingRoomCommand => {
             describe(`Given an LIVING_ROOM command ${livingRoomCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${onCommand} ${livingRoomCommand}`);
 
               it('Should return LIGHTS_ON_LIVING_ROOM', () => {
@@ -72,7 +59,6 @@ describe('command_classify', () => {
           });
 
           describe(`Given an no location command`, () => {
-
             const result = classifyCommand(`${lampCommand} ${onCommand}`);
 
             it('Should return LIGHTS_ON', () => {
@@ -82,13 +68,10 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.off.map((offCommand) => {
+      synonyms.off.map(offCommand => {
         describe(`Given an OFF command ${offCommand}`, () => {
-
-          synonyms.all.map((allCommand) => {
-
+          synonyms.all.map(allCommand => {
             describe(`Given an ALL command ${allCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${offCommand} ${allCommand}`);
 
               it('Should return LIGHTS_OFF_ALL', () => {
@@ -97,10 +80,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.bedroom.map((bedroomCommand) => {
-
+          synonyms.bedroom.map(bedroomCommand => {
             describe(`Given an BEDROOM command ${bedroomCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${offCommand} ${bedroomCommand}`);
 
               it('Should return LIGHTS_OFF_BEDROOM', () => {
@@ -109,10 +90,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.hallway.map((hallwayCommand) => {
-
+          synonyms.hallway.map(hallwayCommand => {
             describe(`Given an HALLWAY command ${hallwayCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${offCommand} ${hallwayCommand}`);
 
               it('Should return LIGHTS_OFF_HALLWAY', () => {
@@ -121,10 +100,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.wardrobe.map((wardrobeCommand) => {
-
+          synonyms.wardrobe.map(wardrobeCommand => {
             describe(`Given an WARDROBE command ${wardrobeCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${offCommand} ${wardrobeCommand}`);
 
               it('Should return LIGHTS_OFF_WARDROBE', () => {
@@ -133,10 +110,8 @@ describe('command_classify', () => {
             });
           });
 
-          synonyms.livingRoom.map((livingRoomCommand) => {
-
+          synonyms.livingRoom.map(livingRoomCommand => {
             describe(`Given an LIVING_ROOM command ${livingRoomCommand}`, () => {
-
               const result = classifyCommand(`${lampCommand} ${offCommand} ${livingRoomCommand}`);
 
               it('Should return LIGHTS_OFF_LIVING_ROOM', () => {
@@ -146,7 +121,6 @@ describe('command_classify', () => {
           });
 
           describe(`Given an no location command`, () => {
-
             const result = classifyCommand(`${lampCommand} ${offCommand}`);
 
             it('Should return LIGHTS_OFF', () => {
@@ -157,7 +131,6 @@ describe('command_classify', () => {
       });
 
       describe(`Given an unknown toggle command`, () => {
-
         const result = classifyCommand(`${lampCommand} unknown`);
 
         it('Should return unknown', () => {
@@ -167,10 +140,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.forecasts.map((forecastsCommand) => {
+  synonyms.forecasts.map(forecastsCommand => {
     describe(`Given a FORECASTS command ${forecastsCommand}`, () => {
-
-      synonyms.show.map((showCommand) => {
+      synonyms.show.map(showCommand => {
         describe(`Given an SHOW command ${showCommand}`, () => {
           const result = classifyCommand(`${forecastsCommand} ${showCommand}`);
 
@@ -180,7 +152,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.hide.map((hideCommand) => {
+      synonyms.hide.map(hideCommand => {
         describe(`Given an HIDE command ${hideCommand}`, () => {
           const result = classifyCommand(`${forecastsCommand} ${hideCommand}`);
 
@@ -200,10 +172,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.news.map((newsCommand) => {
+  synonyms.news.map(newsCommand => {
     describe(`Given a NEWS command ${newsCommand}`, () => {
-
-      synonyms.show.map((showCommand) => {
+      synonyms.show.map(showCommand => {
         describe(`Given an SHOW command ${showCommand}`, () => {
           const result = classifyCommand(`${newsCommand} ${showCommand}`);
 
@@ -213,7 +184,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.hide.map((hideCommand) => {
+      synonyms.hide.map(hideCommand => {
         describe(`Given an HIDE command ${hideCommand}`, () => {
           const result = classifyCommand(`${newsCommand} ${hideCommand}`);
 
@@ -223,7 +194,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.change.map((changeCommand) => {
+      synonyms.change.map(changeCommand => {
         describe(`Given an CHANGE command ${changeCommand}`, () => {
           const result = classifyCommand(`${newsCommand} ${changeCommand}`);
 
@@ -243,10 +214,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.article.map((articleCommand) => {
+  synonyms.article.map(articleCommand => {
     describe(`Given a ARTICLE command ${articleCommand}`, () => {
-
-      synonyms.show.map((showCommand) => {
+      synonyms.show.map(showCommand => {
         describe(`Given an SHOW command ${showCommand}`, () => {
           const result = classifyCommand(`${articleCommand} ${showCommand}`);
 
@@ -256,7 +226,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.hide.map((hideCommand) => {
+      synonyms.hide.map(hideCommand => {
         describe(`Given an HIDE command ${hideCommand}`, () => {
           const result = classifyCommand(`${articleCommand} ${hideCommand}`);
 
@@ -266,7 +236,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.previous.map((previousCommand) => {
+      synonyms.previous.map(previousCommand => {
         describe(`Given an PREVIOUS command ${previousCommand}`, () => {
           const result = classifyCommand(`${articleCommand} ${previousCommand}`);
 
@@ -276,7 +246,7 @@ describe('command_classify', () => {
         });
       });
 
-      synonyms.next.map((nextCommand) => {
+      synonyms.next.map(nextCommand => {
         describe(`Given an NEXT command ${nextCommand}`, () => {
           const result = classifyCommand(`${articleCommand} ${nextCommand}`);
 
@@ -296,10 +266,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.bus.map((busCommand) => {
+  synonyms.bus.map(busCommand => {
     describe(`Given a BUS command ${busCommand}`, () => {
-
-      synonyms.when.map((whenCommand) => {
+      synonyms.when.map(whenCommand => {
         describe(`Given an WHEN command ${whenCommand}`, () => {
           const result = classifyCommand(`${busCommand} ${whenCommand}`);
 
@@ -319,10 +288,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.train.map((trainCommand) => {
+  synonyms.train.map(trainCommand => {
     describe(`Given a TRAIN command ${trainCommand}`, () => {
-
-      synonyms.when.map((whenCommand) => {
+      synonyms.when.map(whenCommand => {
         describe(`Given an WHEN command ${whenCommand}`, () => {
           const result = classifyCommand(`${trainCommand} ${whenCommand}`);
 
@@ -342,9 +310,8 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.remind.map((remindCommand) => {
+  synonyms.remind.map(remindCommand => {
     describe(`Given a REMIND command ${remindCommand}`, () => {
-
       describe(`Given a valid remind command`, () => {
         const result = classifyCommand(`${remindCommand} om en minuter att do stuff`);
 
@@ -363,7 +330,7 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.turnOffMirror.map((turnOffMirrorCommand) => {
+  synonyms.turnOffMirror.map(turnOffMirrorCommand => {
     describe(`Given a TURN OFF MIRROR command ${turnOffMirrorCommand}`, () => {
       const result = classifyCommand(`${turnOffMirrorCommand}`);
 
@@ -373,7 +340,7 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.coffeMaker.map((coffeMakerCommand) => {
+  synonyms.coffeMaker.map(coffeMakerCommand => {
     describe(`Given a COFFE MAKER command ${coffeMakerCommand}`, () => {
       const result = classifyCommand(`${coffeMakerCommand} 6.35`);
 
@@ -383,10 +350,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.all.map((allCommand) => {
+  synonyms.all.map(allCommand => {
     describe(`Given a ALL command ${allCommand}`, () => {
-
-      synonyms.off.map((offCommand) => {
+      synonyms.off.map(offCommand => {
         describe(`Given an OFF command ${offCommand}`, () => {
           const result = classifyCommand(`${allCommand} ${offCommand}`);
 
@@ -406,10 +372,9 @@ describe('command_classify', () => {
     });
   });
 
-  synonyms.all.map((allCommand) => {
+  synonyms.all.map(allCommand => {
     describe(`Given a ALL command ${allCommand}`, () => {
-
-      synonyms.on.map((onCommand) => {
+      synonyms.on.map(onCommand => {
         describe(`Given an ON command ${onCommand}`, () => {
           const result = classifyCommand(`${allCommand} ${onCommand}`);
 
@@ -428,5 +393,4 @@ describe('command_classify', () => {
       expect(result).to.equal(speechCommand.UNKNOWN);
     });
   });
-
 });

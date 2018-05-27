@@ -1,32 +1,30 @@
-
 var sensor = require('ds18x20');
 const request_helper = require('./request_helper');
 
 module.exports = {
   start: function() {
-    sensor.isDriverLoaded(function (err, isLoaded) {
+    sensor.isDriverLoaded(function(err, isLoaded) {
       console.log(isLoaded);
-      if(isLoaded === false) {
+      if (isLoaded === false) {
         sensor.loadDriver();
       }
-      var self = this;      
+      var self = this;
       setInterval(function() {
         logTemperature(checkTemperature());
       }, 20 * 60 * 1000);
       logTemperature(checkTemperature());
     });
-
   },
 
-  getTemperature: function(){
+  getTemperature: function() {
     return checkTemperature();
   },
 
-  pollTemperature: function(interval, callback){
+  pollTemperature: function(interval, callback) {
     setInterval(function() {
       callback(checkTemperature());
     }, interval);
-  }
+  },
 };
 
 function checkTemperature() {
@@ -37,10 +35,10 @@ function checkTemperature() {
     console.log('Temp is: ' + temperature);
     return temperature;
   } else {
-  return null;
+    return null;
   }
 }
 
 function logTemperature(temperature) {
-  if(temperature) request_helper.logTemperature(temperature);
+  if (temperature) request_helper.logTemperature(temperature);
 }

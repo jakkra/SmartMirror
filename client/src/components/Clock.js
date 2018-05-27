@@ -1,12 +1,10 @@
 import React from 'react';
 
-import moment from 'moment'
+import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 const styles = {
-  container: {
-
-  },
+  container: {},
   clock: {
     color: 'white',
     fontSize: '6.3em',
@@ -26,10 +24,9 @@ const styles = {
     color: 'white',
     fontSize: '2.7em',
   },
-}
+};
 
 export default class Clock extends React.Component {
-
   static propTypes = {
     visible: React.PropTypes.bool,
     showTemperature: React.PropTypes.bool,
@@ -47,10 +44,7 @@ export default class Clock extends React.Component {
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+    this.timerID = setInterval(() => this.tick(), 1000);
   }
 
   componentWillUnmount() {
@@ -63,7 +57,7 @@ export default class Clock extends React.Component {
 
   tick() {
     this.setState({
-      date: new moment()
+      date: new moment(),
     });
   }
 
@@ -74,9 +68,9 @@ export default class Clock extends React.Component {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
         <Row>
-          <Col xs={12}/>
-            <div style={styles.smallText}> {day}</div>
-          <Col/>
+          <Col xs={12} />
+          <div style={styles.smallText}> {day}</div>
+          <Col />
         </Row>
         <Row>
           <Col xs={12}>
@@ -84,18 +78,18 @@ export default class Clock extends React.Component {
               <Col xs={12}>
                 <div style={styles.clock}>
                   {this.state.date.format('HH:mm')}
-                  <span style={styles.clockSeconds}>
-                    {this.state.date.format('ss')}
-                  </span>
+                  <span style={styles.clockSeconds}>{this.state.date.format('ss')}</span>
                 </div>
               </Col>
             </Row>
           </Col>
         </Row>
         <Row>
-          <Col xs={12}/>
-            <p hidden={!this.props.showTemperature} style={styles.smallText}>{this.props.temperature} °C</p>
-          <Col/>
+          <Col xs={12} />
+          <p hidden={!this.props.showTemperature} style={styles.smallText}>
+            {this.props.temperature} °C
+          </p>
+          <Col />
         </Row>
       </div>
     );

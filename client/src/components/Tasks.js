@@ -26,16 +26,15 @@ const styles = {
   icon: {
     color: 'white',
     marginLeft: 15,
-    fontSize: '0.9em'
+    fontSize: '0.9em',
   },
   waterPlantText: {
     color: 'white',
     fontSize: '2em',
   },
-}
+};
 
 export default class Tasks extends BaseComponent {
-
   static propTypes = {
     visible: React.PropTypes.bool,
     phrases: React.PropTypes.object,
@@ -60,16 +59,10 @@ export default class Tasks extends BaseComponent {
   }
 
   componentDidMount() {
-    this.refreshTimer = setInterval(
-      () => this.refreshTasks(),
-      1000 * 10 
-    );
+    this.refreshTimer = setInterval(() => this.refreshTasks(), 1000 * 10);
     this.refreshTasks();
 
-    this.rotatetasksTimer = setInterval(
-      () => this.rotateList(),
-      1000 * 2
-    );
+    this.rotatetasksTimer = setInterval(() => this.rotateList(), 1000 * 2);
   }
 
   componentWillUnmount() {
@@ -79,38 +72,38 @@ export default class Tasks extends BaseComponent {
 
   refreshTasks() {
     getTasks()
-    .then(this.handleNewTasks)
-    .catch((err) => console.log(err));
+      .then(this.handleNewTasks)
+      .catch(err => console.log(err));
 
     getPlantMoistureLevel()
-    .then(this.handleNewMoistureLog)
-    .catch((err) => console.log(err));
+      .then(this.handleNewMoistureLog)
+      .catch(err => console.log(err));
   }
 
   handleNewTasks(tasks) {
     this.setState({
       tasks: tasks,
-      subTasks: tasks.slice(0, this.state.numTasks)
-    })
+      subTasks: tasks.slice(0, this.state.numTasks),
+    });
   }
 
   handleNewMoistureLog(moistureLogging) {
-    console.log(moistureLogging)
+    console.log(moistureLogging);
     this.setState({
       moistureLevel: moistureLogging.moisture,
-    })
+    });
   }
 
-  rotateList(){
-    if(this.state.tasks.length < this.state.numTasks){
+  rotateList() {
+    if (this.state.tasks.length < this.state.numTasks) {
       return;
     }
     const tasks = this.state.tasks.slice();
-    tasks.unshift(tasks.pop())
+    tasks.unshift(tasks.pop());
 
     this.setState({
       tasks: tasks,
-      subTasks: tasks.slice(0, this.state.numTasks)
+      subTasks: tasks.slice(0, this.state.numTasks),
     });
   }
 
@@ -119,23 +112,19 @@ export default class Tasks extends BaseComponent {
     return (
       <div>
         <div style={styles.listName}>
-        {this.props.phrases.shopping_list}
-        <FA
-          name='shopping-basket'
-          style={styles.icon}
-        />
+          {this.props.phrases.shopping_list}
+          <FA name="shopping-basket" style={styles.icon} />
+        </div>
+        <FlipMove
+          staggerDurationBy="30"
+          duration={500}
+          enterAnimation="accordianVertical"
+          leaveAnimation="accordianVertical"
+          typeName="div">
+          {this.renderTopTasksItems()}
+        </FlipMove>
       </div>
-      <FlipMove 
-        staggerDurationBy="30"
-        duration={500}
-        enterAnimation='accordianVertical'
-        leaveAnimation='accordianVertical'
-        typeName="div"
-      >
-        { this.renderTopTasksItems() }
-      </FlipMove>
-    </div>
-    )
+    );
   }
 
   renderTopTasksItems() {
@@ -152,13 +141,10 @@ export default class Tasks extends BaseComponent {
     if (this.state.moistureLevel > 70) return null;
     return (
       <div style={styles.listName}>
-          {this.props.phrases.water_plant + " (~" + this.state.moistureLevel + "%)"}
-          <FA
-            name='tint'
-            style={styles.icon}
-          />
-        </div>
-      )
+        {this.props.phrases.water_plant + ' (~' + this.state.moistureLevel + '%)'}
+        <FA name="tint" style={styles.icon} />
+      </div>
+    );
   }
 
   render() {

@@ -5,7 +5,7 @@ const phrases = require(`../../../locales/${config.language}.json`).client;
 
 import Clock from '../components/Clock';
 import Weather from '../components/Weather';
-import Forecast from '../components/Forecast'
+import Forecast from '../components/Forecast';
 import News from '../components/News';
 import RecordingStatus from '../components/RecordingStatus';
 import Message from '../components/Message';
@@ -15,7 +15,7 @@ import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
 import Spotify from '../components/Spotify';
 
-import moment from 'moment'
+import moment from 'moment';
 config.language ? moment.locale(config.language) : moment.locale('en');
 
 import { Col, Row } from 'react-bootstrap';
@@ -28,14 +28,14 @@ export default class App extends React.Component {
     s.addEventListener('error', m => console.log(m));
     s.addEventListener('open', m => {
       console.log(m);
-      s.send({event: 'connect', data: 'Hey there'});
+      s.send({ event: 'connect', data: 'Hey there' });
     });
     this.state = {
       temperature: '22.6',
       isRecording: false,
       message: {
         text: 'No messages set',
-        visible: false
+        visible: false,
       },
       visibility: {
         news: true,
@@ -47,47 +47,47 @@ export default class App extends React.Component {
         temperatureGraph: false,
         transfers: true,
         spotify: true,
-      }
+      },
     };
   }
 
   handleMessage(message) {
     message = JSON.parse(message.data);
     const data = message.data;
-    switch(message.event){
+    switch (message.event) {
       case 'temperature':
         this.setState({
-          temperature: data.temperature
-        })
+          temperature: data.temperature,
+        });
         break;
       case 'recording':
         this.setState({
-          isRecording: message.data.isRecording
-        })
+          isRecording: message.data.isRecording,
+        });
         break;
       case 'motion':
-        if(!this.state.message.visible){
+        if (!this.state.message.visible) {
           this.setState({
             message: {
               text: data.message,
-              visible: true
-            }
-          })
+              visible: true,
+            },
+          });
           setTimeout(() => {
             this.setState({
               message: {
-                visible: false
-              }
-            })
-          }, 10000)
+                visible: false,
+              },
+            });
+          }, 10000);
         }
         break;
       case 'visibility':
         const prevStateVisability = this.state.visibility;
         prevStateVisability[data.component] = data.visible;
         this.setState({
-          visibility: prevStateVisability
-        })
+          visibility: prevStateVisability,
+        });
         break;
       case 'command':
         this.refs[data.component].onEvent(data);
@@ -99,33 +99,47 @@ export default class App extends React.Component {
   }
 
   render() {
-    let dateTime, transfers, news, tasks, weather, forecast, temperatureGraph, articles, spotify = null;
+    let dateTime,
+      transfers,
+      news,
+      tasks,
+      weather,
+      forecast,
+      temperatureGraph,
+      articles,
+      spotify = null;
     if (config.modules.dateTime === true) {
-      dateTime = (<Clock temperature={this.state.temperature} visible={this.state.visibility.clock} showTemperature={config.modules.tempPirSensor}/>)
+      dateTime = (
+        <Clock
+          temperature={this.state.temperature}
+          visible={this.state.visibility.clock}
+          showTemperature={config.modules.tempPirSensor}
+        />
+      );
     }
     if (config.modules.transfer === true) {
-      transfers = (<Transfers visible={this.state.visibility.transfers} />);
+      transfers = <Transfers visible={this.state.visibility.transfers} />;
     }
     if (config.modules.news === true) {
-      news = (<News visible={this.state.visibility.news} />)
+      news = <News visible={this.state.visibility.news} />;
     }
     if (config.modules.wunderlistTasks === true) {
-      tasks = (<Tasks visible={this.state.visibility.tasks} phrases={phrases} />)
+      tasks = <Tasks visible={this.state.visibility.tasks} phrases={phrases} />;
     }
     if (config.modules.weather === true) {
-      weather = (<Weather visible={this.state.visibility.weather} phrases={phrases}/>)
+      weather = <Weather visible={this.state.visibility.weather} phrases={phrases} />;
     }
     if (config.modules.forecast === true) {
-      forecast = (<Forecast visible={this.state.visibility.forecasts} />)
+      forecast = <Forecast visible={this.state.visibility.forecasts} />;
     }
     if (config.modules.temperatureGraph === true) {
-      temperatureGraph = (<TemperatureGraph ref='temperatureGraph' visible={this.state.visibility.temperatureGraph} />)
+      temperatureGraph = <TemperatureGraph ref="temperatureGraph" visible={this.state.visibility.temperatureGraph} />;
     }
     if (config.modules.articles === true) {
-      articles = (<Article ref='article' visible={this.state.visibility.article} />)
+      articles = <Article ref="article" visible={this.state.visibility.article} />;
     }
     if (config.modules.spotify === true) {
-      spotify = (<Spotify ref='article' visible={this.state.visibility.clock} />)
+      spotify = <Spotify ref="article" visible={this.state.visibility.clock} />;
     }
 
     const AppStyles = {
@@ -135,38 +149,41 @@ export default class App extends React.Component {
       paddingTop: config.styles.paddingTop,
       paddingLeft: config.styles.paddingLeft,
       paddingRight: config.styles.paddingRight,
-      paddingBottom: config.styles.paddingBottom
+      paddingBottom: config.styles.paddingBottom,
     };
 
     return (
-      <div style={AppStyles} className='App'>
+      <div style={AppStyles} className="App">
         {articles}
         {temperatureGraph}
 
-        <Row className='Container'>
+        <Row className="Container">
           <Col xs={4}>
             {dateTime}
             <RecordingStatus isRecording={this.state.isRecording} />
             {spotify}
             {tasks}
             {transfers}
-
           </Col>
           <Col xs={4} />
           <Col xs={4}>
-            <Row>
-              {weather}
-            </Row>
-            <Row style={{marginTop: 50}}>
-              {forecast}
-            </Row>
+            <Row>{weather}</Row>
+            <Row style={{ marginTop: 50 }}>{forecast}</Row>
           </Col>
         </Row>
-        <Row style={{height: '1%'}}/>
-        <Row style={{marginBottom: 100, marginTop: 50}}>
-          <Message props={{visible: this.state.message.visible, message: this.state.message.text}}/>
+        <Row style={{ height: '1%' }} />
+        <Row style={{ marginBottom: 100, marginTop: 50 }}>
+          <Message props={{ visible: this.state.message.visible, message: this.state.message.text }} />
         </Row>
-        <Row style={{position: 'absolute', bottom: '0px', left: '0px', width: '100%', padding: 60, paddingBottom: 0}}>
+        <Row
+          style={{
+            position: 'absolute',
+            bottom: '0px',
+            left: '0px',
+            width: '100%',
+            padding: 60,
+            paddingBottom: 0,
+          }}>
           {news}
         </Row>
       </div>

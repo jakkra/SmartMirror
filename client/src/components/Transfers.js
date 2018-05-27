@@ -17,14 +17,14 @@ const styles = {
   listName: {
     color: 'white',
     fontSize: '2.4em',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   trainIcon: {
     color: 'white',
     marginLeft: 15,
-    fontSize: '0.9em'
+    fontSize: '0.9em',
   },
-}
+};
 
 export default class Transfers extends BaseComponent {
   constructor(props) {
@@ -37,10 +37,7 @@ export default class Transfers extends BaseComponent {
   }
 
   componentDidMount() {
-    this.refreshTimer = setInterval(
-      () => this.refreshTransfers(),
-      1000 * 10 
-    );
+    this.refreshTimer = setInterval(() => this.refreshTransfers(), 1000 * 10);
     this.refreshTransfers();
   }
 
@@ -50,24 +47,23 @@ export default class Transfers extends BaseComponent {
 
   refreshTransfers() {
     getJourney()
-    .then(t => this.setState({ transfers: t}))
-    .catch((err) => console.log("hehehe", err));
+      .then(t => this.setState({ transfers: t }))
+      .catch(err => console.log('hehehe', err));
   }
 
-  getMinutesDiff(date){
+  getMinutesDiff(date) {
     const today = new Date();
-    const diffMs = (date - today);
+    const diffMs = date - today;
     // const diffDays = Math.floor(diffMs / 86400000);
     // const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
     return diffMins;
   }
 
-
   renderToptransfers() {
     let time;
     return this.state.transfers.map((route, i) => {
-      time = new Date(route.DepDateTime[0])
+      time = new Date(route.DepDateTime[0]);
       return (
         <div key={route.JourneyKey[0]}>
           <div style={styles.route}> {'Om ' + this.getMinutesDiff(time) + ' minuter'} </div>
@@ -82,10 +78,7 @@ export default class Transfers extends BaseComponent {
       <div hidden={!this.props.visible} style={styles.container}>
         <div style={styles.listName}>
           Malmö C
-          <FA
-            name='train'
-            style={styles.trainIcon}
-          />
+          <FA name="train" style={styles.trainIcon} />
         </div>
         {this.renderToptransfers(this.state.transfers)}
       </div>

@@ -4,13 +4,13 @@ const moment = require('moment');
 const SpeechCommand = require('./speech_command');
 const request = require('../util/request_helper');
 
-const time1 = new RegExp("om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)");
-const time2 = new RegExp("att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)");
-const tomorrow = new RegExp("imorgon\\s+(?:klockan)?\\s*([0-9]+)(?:\\.)?([0-9]+)?\\s+att\\s+(.*)");
-const weekday = new RegExp("på\\s+([^\\s]*)\\s+att\\s+(.*)");
-const buySomething = new RegExp("att\\s+.*(?:köpa|handla)\\s+(?:mer|mera|flera|fler)?(?:\\s+)?(.*)");
+const time1 = new RegExp('om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)');
+const time2 = new RegExp('att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)');
+const tomorrow = new RegExp('imorgon\\s+(?:klockan)?\\s*([0-9]+)(?:\\.)?([0-9]+)?\\s+att\\s+(.*)');
+const weekday = new RegExp('på\\s+([^\\s]*)\\s+att\\s+(.*)');
+const buySomething = new RegExp('att\\s+.*(?:köpa|handla)\\s+(?:mer|mera|flera|fler)?(?:\\s+)?(.*)');
 
-exports.parse = function(s){
+exports.parse = function(s) {
   const matcher1 = s.match(time1);
   const matcher2 = s.match(time2);
   const tomorrowMatcher = s.match(tomorrow);
@@ -20,54 +20,53 @@ exports.parse = function(s){
   let date = null;
   let reminderText = '';
 
-  if(matcher1 !== null && matcher1[1] && matcher1[2] && matcher1[3]) {
-
+  if (matcher1 !== null && matcher1[1] && matcher1[2] && matcher1[3]) {
     try {
       reminderText = matcher1[3];
       date = increaseTodayDate(matcher1[1], matcher1[2]);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       return SpeechCommand.UNKNOWN;
     }
-  } else if(matcher2 !== null && matcher2[1] && matcher2[2] && matcher2[3]) {
+  } else if (matcher2 !== null && matcher2[1] && matcher2[2] && matcher2[3]) {
     try {
       reminderText = matcher2[1];
       date = increaseTodayDate(matcher2[2], matcher2[3]);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       return SpeechCommand.UNKNOWN;
     }
-  } else if(tomorrowMatcher !== null && tomorrowMatcher[1] && tomorrowMatcher[2] && tomorrowMatcher[3]) {
+  } else if (tomorrowMatcher !== null && tomorrowMatcher[1] && tomorrowMatcher[2] && tomorrowMatcher[3]) {
     try {
       const hour = tomorrowMatcher[1];
       const min = tomorrowMatcher[2];
       date = getTomorrowAt(hour, min);
       reminderText = tomorrowMatcher[3];
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       return SpeechCommand.UNKNOWN;
     }
-  } else if(weekdayMatcher !== null && weekdayMatcher[1] && weekdayMatcher[2]) {
+  } else if (weekdayMatcher !== null && weekdayMatcher[1] && weekdayMatcher[2]) {
     try {
       const day = weekdayMatcher[1];
       date = getFutureDay(day);
       reminderText = weekdayMatcher[2];
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       return SpeechCommand.UNKNOWN;
     }
-  } else if(buyMatcher !== null){
+  } else if (buyMatcher !== null) {
     request.createTask(buyMatcher[1]);
   } else {
     console.log('No match found for: ' + s);
     return SpeechCommand.UNKNOWN;
   }
 
-  if(date !== null && reminderText !== '') {
+  if (date !== null && reminderText !== '') {
     request.createReminder(date, reminderText);
     return SpeechCommand.CREATE_REMINDER;
   }
-}
+};
 
 function increaseTodayDate(num, unit) {
   const c = moment();
@@ -77,24 +76,24 @@ function increaseTodayDate(num, unit) {
     c.add(numUnits, calUnit);
     return c;
   } else {
-    throw "Parse error near " + num + " " + unit;
+    throw 'Parse error near ' + num + ' ' + unit;
   }
 }
 
-function getTomorrowAt(hour, minute){
-  if(isNaN(hour) && isNaN(minute)) throw 'Not parseable ' + hour + ' ' + minute;
+function getTomorrowAt(hour, minute) {
+  if (isNaN(hour) && isNaN(minute)) throw 'Not parseable ' + hour + ' ' + minute;
   const c = moment();
   c.add(1, 'day');
   c.set({
-    'hour': hour,
-    'minute': minute
+    hour: hour,
+    minute: minute,
   });
   return c;
 }
 
-function getFutureDay(day){
+function getFutureDay(day) {
   try {
-    const c = moment({hour: 12});
+    const c = moment({ hour: 12 });
     const dayNum = moment().weekday();
     const goalDayNum = getCalId(day);
     if (goalDayNum - dayNum > 0) {
@@ -103,27 +102,26 @@ function getFutureDay(day){
       c.add(7 + goalDayNum - dayNum, 'day');
     }
     return c;
-  } catch(err) {
+  } catch (err) {
     throw 'Parse error on ' + day;
   }
 }
 
-
 function getCalId(day) {
   switch (day) {
-    case "söndag":
+    case 'söndag':
       return 7;
-    case "måndag":
+    case 'måndag':
       return 1;
-    case "tisdag":
+    case 'tisdag':
       return 2;
-    case "onsdag":
+    case 'onsdag':
       return 3;
-    case "torsdag":
+    case 'torsdag':
       return 4;
-    case "fredag":
+    case 'fredag':
       return 5;
-    case "lördag":
+    case 'lördag':
       return 6;
     default:
       console.log('Parse error on day: ' + day);
@@ -133,17 +131,17 @@ function getCalId(day) {
 
 function getCalUnit(unit) {
   switch (unit) {
-    case "minuter":
+    case 'minuter':
       return 'minute';
-    case "minut":
+    case 'minut':
       return 'minute';
-    case "timme":
+    case 'timme':
       return 'hour';
-    case "timmar":
+    case 'timmar':
       return 'hour';
-    case "dag":
+    case 'dag':
       return 'day';
-    case "dagar":
+    case 'dagar':
       return 'day';
     default:
       return -1;
@@ -151,32 +149,32 @@ function getCalUnit(unit) {
 }
 
 function wordToInt(s) {
-  if(!isNaN(s)) return parseInt(s);
+  if (!isNaN(s)) return parseInt(s);
 
   switch (s) {
-    case "en":
+    case 'en':
       return 1;
-    case "två":
+    case 'två':
       return 2;
-    case "tre":
+    case 'tre':
       return 3;
-    case "fyra":
+    case 'fyra':
       return 4;
-    case "fem":
+    case 'fem':
       return 5;
-    case "sex":
+    case 'sex':
       return 6;
-    case "sju":
+    case 'sju':
       return 7;
-    case "åtta":
+    case 'åtta':
       return 8;
-    case "nio":
+    case 'nio':
       return 9;
-    case "tio":
+    case 'tio':
       return 10;
-    case "elva":
+    case 'elva':
       return 11;
-    case "tolv":
+    case 'tolv':
       return 12;
     default:
       return -1;

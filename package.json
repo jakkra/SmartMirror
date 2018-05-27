@@ -3,10 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "babel": {
-    "presets": [
-      "es2015",
-      "stage-0"
-    ]
+    "presets": ["es2015", "stage-0"]
   },
   "eslintConfig": {
     "extends": "react-app"

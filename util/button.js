@@ -13,7 +13,7 @@ let lastClick = 0;
 module.exports = {
   start: function(callbackShort, callbackLong, callbackLongLong, callbackDouble, longPressTime) {
     var self = this;
-    button.watch(function (err, value) {
+    button.watch(function(err, value) {
       if (err) {
         console.log('error read button from gpio', err);
         throw err;
@@ -54,10 +54,8 @@ module.exports = {
       console.log('button change', value);
     });
   },
-  exit:function() {
+  exit: function() {
     console.log('Exit motion and unregister');
     button.unexport();
-  }
-}
-
-
+  },
+};

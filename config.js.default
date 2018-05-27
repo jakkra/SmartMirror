@@ -1,5 +1,4 @@
 const config = {
-
   styles: {
     fontFamily: 'Sawasdee',
     fontWeight: 500,
@@ -7,34 +6,36 @@ const config = {
     paddingTop: '5%', // space from the top edge
     paddingLeft: '7%', // space from the left edge
     paddingRight: '6%', // space from the right edge
-    paddingBottom: '0%' // space from the bottom edge
+    paddingBottom: '0%', // space from the bottom edge
   },
 
   YAHOO_WOEID: '897819',
   SMHI_COORD: {
     longitude: '13',
-    latitude: '55.6'
+    latitude: '55.6',
   },
   forecastLabelName: 'Lund',
-  svtNewsUrl: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fwww.svt.se%2Fnyheter%2Frss.xml',
+  svtNewsUrl:
+    'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fwww.svt.se%2Fnyheter%2Frss.xml',
 
-  serverBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000',
+  serverBaseURL:
+    process.env.NODE_ENV === 'production' ? 'http://localhost:3001' : 'http://localhost:3000',
   wsServerBaseURL: process.env.NODE_ENV === 'production' ? 'localhost:3001/' : 'localhost:3001/',
 
-  language : "sv-SE", // swedish by default
+  language: 'sv-SE', // swedish by default
 
-  lights : {
-    "Bedroom" : { autoOff : true},
-    "Dining Table" : {autoOff : false},
-    "Closet" : {autoOff : true}
+  lights: {
+    Bedroom: { autoOff: true },
+    'Dining Table': { autoOff: false },
+    Closet: { autoOff: true },
   },
 
-  gpioPins : {
-    button : 12,
-    pirSensor : 18
+  gpioPins: {
+    button: 12,
+    pirSensor: 18,
   },
 
-  journeyStations : {
+  journeyStations: {
     from: 'Lund C',
     to: 'Malmö C',
   },
@@ -51,8 +52,7 @@ const config = {
     philipsHue: false,
     temperatureGraph: false,
     articles: false,
-  }
-
+  },
 };
 
 module.exports = config;

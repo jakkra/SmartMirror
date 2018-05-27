@@ -4,39 +4,35 @@ import BaseComponent from './BaseComponent';
 import { getArticles } from '../lib/fetch';
 
 const styles = {
-  container: {
-  },
+  container: {},
   taskTitle: {
     color: 'white',
     fontSize: '1.7em',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   articleText: {
     color: 'white',
     fontSize: '1.2em',
-    textAlign: 'left'
-  }
-}
+    textAlign: 'left',
+  },
+};
 
 const customModalStyle = {
   overlay: {
     border: '0.5px solid #ccc',
-    backgroundColor: 'transparent'
-
+    backgroundColor: 'transparent',
   },
-  content : {
+  content: {
     top: '50%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: 'black'
-  }
+    backgroundColor: 'black',
+  },
 };
 
-
 export default class Article extends BaseComponent {
-
   static propTypes = {
     visible: React.PropTypes.bool,
   };
@@ -50,30 +46,24 @@ export default class Article extends BaseComponent {
     this.state = {
       articles: [],
       currentArticle: {},
-      visible: true
+      visible: true,
     };
     this.refreshArticles = this.refreshArticles.bind(this);
     this.handleNewArticle = this.handleNewArticle.bind(this);
     this.rotateList = this.rotateList.bind(this);
   }
 
-  onEvent(event){
-    if(event.action === 'next'){
+  onEvent(event) {
+    if (event.action === 'next') {
       this.rotateList();
     }
   }
 
   componentDidMount() {
-    this.refreshTimer = setInterval(
-      () => this.refreshArticles(),
-      1000 * 60 * 5 
-    );
+    this.refreshTimer = setInterval(() => this.refreshArticles(), 1000 * 60 * 5);
     this.refreshArticles();
 
-    this.rotatetasksTimer = setInterval(
-      () => this.rotateList(),
-      1000 * 60 * 10
-    );
+    this.rotatetasksTimer = setInterval(() => this.rotateList(), 1000 * 60 * 10);
   }
 
   componentWillUnmount() {
@@ -83,32 +73,32 @@ export default class Article extends BaseComponent {
 
   refreshArticles() {
     getArticles()
-    .then(this.handleNewArticle)
-    .catch((err) => console.log(err));
+      .then(this.handleNewArticle)
+      .catch(err => console.log(err));
   }
 
-  handleNewArticle(articles){
+  handleNewArticle(articles) {
     this.setState({
       articles: articles,
-      currentArticle: articles[3]
+      currentArticle: articles[3],
     });
   }
 
-  rotateList(){
-    if(this.state.articles.length < 1){
+  rotateList() {
+    if (this.state.articles.length < 1) {
       return;
     }
     const articles = this.state.articles.slice();
-    articles.unshift(articles.pop())
+    articles.unshift(articles.pop());
 
     this.setState({
       articles: articles,
-      currentArticle: articles[0]
+      currentArticle: articles[0],
     });
   }
 
   createMarkup(html) {
-    return {__html: html};
+    return { __html: html };
   }
   // The article is in HTML, so we use that to display the article.
   renderArticle(article) {
@@ -122,11 +112,7 @@ export default class Article extends BaseComponent {
 
   render() {
     return (
-      <Modal
-        isOpen={this.props.visible}
-        style={customModalStyle}
-        contentLabel="Modal"
-      >
+      <Modal isOpen={this.props.visible} style={customModalStyle} contentLabel="Modal">
         {this.renderArticle(this.state.currentArticle)}
       </Modal>
     );

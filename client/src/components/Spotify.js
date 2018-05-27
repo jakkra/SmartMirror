@@ -16,26 +16,22 @@ const styles = {
     color: 'white',
     marginLeft: 0,
     fontSize: '0.9em',
-    paddingRight: 15
+    paddingRight: 15,
   },
-}
+};
 
 export default class Spotify extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPlaying: null,
-
     };
     this.refreshPlaying = this.refreshPlaying.bind(this);
     this.handleSpotifyCurrentData = this.handleSpotifyCurrentData.bind(this);
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.refreshPlaying(),
-      1000 
-    );
+    this.timerID = setInterval(() => this.refreshPlaying(), 1000);
     this.refreshPlaying();
   }
 
@@ -45,28 +41,25 @@ export default class Spotify extends React.Component {
 
   refreshPlaying() {
     getCurrentPlaying()
-    .then(this.handleSpotifyCurrentData)
-    .catch((err) => console.log(err));
+      .then(this.handleSpotifyCurrentData)
+      .catch(err => console.log(err));
   }
 
-  handleSpotifyCurrentData(currentPlaying){
+  handleSpotifyCurrentData(currentPlaying) {
     if (currentPlaying === null || currentPlaying.item === null) return;
     this.setState({
-      currentPlaying: currentPlaying
-    })
+      currentPlaying: currentPlaying,
+    });
   }
 
   render() {
     if (this.state.currentPlaying === null) return null;
-    
+
     const iconName = this.state.currentPlaying.is_playing ? 'play' : 'pause';
     return (
-      <div hidden={!this.props.visible}  style={styles.container}>
+      <div hidden={!this.props.visible} style={styles.container}>
         <div style={styles.songName}>
-          <FA
-            name={iconName}
-            style={styles.musicIcon}
-          />
+          <FA name={iconName} style={styles.musicIcon} />
           {this.state.currentPlaying.item.name} av {this.state.currentPlaying.item.artists[0].name}
         </div>
       </div>

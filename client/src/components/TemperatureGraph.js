@@ -3,33 +3,26 @@ import Modal from 'react-modal';
 import BaseComponent from './BaseComponent';
 import moment from 'moment';
 
-import {
-  LineChart,
-  Line, XAxis,
-  YAxis,
-  CartesianGrid,
-} from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 import { getTemperaturesSevenDays } from '../lib/fetch';
 
 const customModalStyle = {
   overlay: {
     border: '0.5px solid #ccc',
-    backgroundColor: 'transparent'
-
+    backgroundColor: 'transparent',
   },
-  content : {
+  content: {
     top: '50%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: 'black'
-  }
+    backgroundColor: 'black',
+  },
 };
 
 export default class TemperatureGraph extends BaseComponent {
-
   static propTypes = {
     visible: React.PropTypes.bool,
   };
@@ -41,7 +34,7 @@ export default class TemperatureGraph extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
-      temperatures: []
+      temperatures: [],
     };
     this.days = [];
     this.renderTemp = this.renderTemp.bind(this);
@@ -51,17 +44,14 @@ export default class TemperatureGraph extends BaseComponent {
     this.formatY = this.formatY.bind(this);
   }
 
-  onEvent(event){
-    if(event.action === 'next'){
+  onEvent(event) {
+    if (event.action === 'next') {
       this.rotateList();
     }
   }
 
   componentDidMount() {
-    this.refreshTimer = setInterval(
-      () => this.refreshTemps(),
-      1000 * 60 * 5 
-    );
+    this.refreshTimer = setInterval(() => this.refreshTemps(), 1000 * 60 * 5);
     this.refreshTemps();
   }
 
@@ -71,11 +61,11 @@ export default class TemperatureGraph extends BaseComponent {
 
   refreshTemps() {
     getTemperaturesSevenDays()
-    .then(this.handleNewTemp)
-    .catch((err) => console.log(err));
+      .then(this.handleNewTemp)
+      .catch(err => console.log(err));
   }
 
-  handleNewTemp(temps){
+  handleNewTemp(temps) {
     const t = temps.filter(function(obj) {
       return obj.temperature !== 0;
     });
@@ -85,11 +75,11 @@ export default class TemperatureGraph extends BaseComponent {
   }
 
   formatX(x) {
-    if (this.days.indexOf(moment(new Date(x)).format('dddd')) > -1){
+    if (this.days.indexOf(moment(new Date(x)).format('dddd')) > -1) {
       return '';
     } else {
       this.days.push(moment(new Date(x)).format('dddd'));
-      return moment(new Date(x)).format('dddd')
+      return moment(new Date(x)).format('dddd');
     }
   }
 
@@ -99,22 +89,44 @@ export default class TemperatureGraph extends BaseComponent {
 
   renderTemp(temps) {
     return (
-      <LineChart width={800} height={500} data={this.state.temperatures} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-        <XAxis axisLine={false} mirror={true} strokeWidth="2" tick={{stroke: 'white', fontSize: 18}} interval={Math.round(this.state.temperatures.length/7)} tickFormatter={this.formatX} dataKey="createdAt"/>
-        <YAxis tick={{stroke: 'white', fontSize: 18}} type="number" domain={['dataMin - 1', 'dataMax + 1']} tickFormatter={this.formatY}/>
-        <CartesianGrid horizontal={false} strokeWidth="2" strokeDasharray="10 10"/>
-        <Line name="Temperatur" dot={false} width={200} type="monotone" dataKey="temperature" strokeWidth="4" stroke="#FFA500" activeDot={{r: 8}}/>
+      <LineChart
+        width={800}
+        height={500}
+        data={this.state.temperatures}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <XAxis
+          axisLine={false}
+          mirror={true}
+          strokeWidth="2"
+          tick={{ stroke: 'white', fontSize: 18 }}
+          interval={Math.round(this.state.temperatures.length / 7)}
+          tickFormatter={this.formatX}
+          dataKey="createdAt"
+        />
+        <YAxis
+          tick={{ stroke: 'white', fontSize: 18 }}
+          type="number"
+          domain={['dataMin - 1', 'dataMax + 1']}
+          tickFormatter={this.formatY}
+        />
+        <CartesianGrid horizontal={false} strokeWidth="2" strokeDasharray="10 10" />
+        <Line
+          name="Temperatur"
+          dot={false}
+          width={200}
+          type="monotone"
+          dataKey="temperature"
+          strokeWidth="4"
+          stroke="#FFA500"
+          activeDot={{ r: 8 }}
+        />
       </LineChart>
     );
   }
 
   render() {
     return (
-      <Modal
-        isOpen={this.props.visible}
-        style={customModalStyle}
-        contentLabel="Modal"
-      >
+      <Modal isOpen={this.props.visible} style={customModalStyle} contentLabel="Modal">
         {this.renderTemp(this.state.temps)}
       </Modal>
     );

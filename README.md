@@ -153,6 +153,11 @@ cd ..
 npm start
 ```
 
+### Code style 
+```
+prettier --print-width 120 --jsx-bracket-same-line --single-quote --trailing-comma es5 --write ./**/*.js
+```
+
 ## Building
 
 Running `npm run build` creates the static bundle.

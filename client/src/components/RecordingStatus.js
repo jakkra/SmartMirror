@@ -5,12 +5,9 @@ const styles = {
     borderRadius: '50%',
     width: '20px',
     height: '20px',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
-}
+};
 
-const RecordingStatus = ({isRecording}) => (
-  <canvas hidden={!isRecording} style={styles.redCircle}></canvas>
-);
+const RecordingStatus = ({ isRecording }) => <canvas hidden={!isRecording} style={styles.redCircle} />;
 export default RecordingStatus;
-

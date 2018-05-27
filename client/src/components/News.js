@@ -4,28 +4,26 @@ import { getLatestNews } from '../lib/svt_news';
 import FlipMove from 'react-flip-move';
 
 const styles = {
-  container: {
-
-  },
+  container: {},
   articleTitle: {
     color: 'white',
     fontSize: '2.5em',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   article: {
     color: 'white',
     fontSize: '1.4em',
-    textAlign: 'center'
+    textAlign: 'center',
   },
-}
+};
 
 export default class News extends React.Component {
   static propTypes = {
-    visible: React.PropTypes.bool
+    visible: React.PropTypes.bool,
   };
 
   static defaultProps = {
-    visible: true
+    visible: true,
   };
 
   constructor(props) {
@@ -38,20 +36,13 @@ export default class News extends React.Component {
     this.refreshNews = this.refreshNews.bind(this);
     this.handleNewNews = this.handleNewNews.bind(this);
     this.rotateList = this.rotateList.bind(this);
-
   }
 
   componentDidMount() {
-    this.refreshTimer = setInterval(
-      () => this.refreshNews(),
-      1000 * 60 * 10 
-    );
+    this.refreshTimer = setInterval(() => this.refreshNews(), 1000 * 60 * 10);
     this.refreshNews();
 
-    this.rotateArticlesTimer = setInterval(
-      () => this.rotateList(),
-      1000 * 10
-    );
+    this.rotateArticlesTimer = setInterval(() => this.rotateList(), 1000 * 10);
   }
 
   componentWillUnmount() {
@@ -61,24 +52,24 @@ export default class News extends React.Component {
 
   refreshNews() {
     getLatestNews()
-    .then(this.handleNewNews)
-    .catch((err) => console.log(err));
+      .then(this.handleNewNews)
+      .catch(err => console.log(err));
   }
 
-  handleNewNews(articles){
+  handleNewNews(articles) {
     this.setState({
       articles: articles,
-      subArticles: articles.slice(0, this.state.numArticles)
-    })
+      subArticles: articles.slice(0, this.state.numArticles),
+    });
   }
 
-  rotateList(){
+  rotateList() {
     const articles = this.state.articles.slice();
-    articles.unshift(articles.pop())
+    articles.unshift(articles.pop());
 
     this.setState({
       articles: articles,
-      subArticles: articles.slice(0, this.state.numArticles)
+      subArticles: articles.slice(0, this.state.numArticles),
     });
   }
 
@@ -96,14 +87,13 @@ export default class News extends React.Component {
   render() {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
-        <FlipMove 
+        <FlipMove
           staggerDurationBy="30"
           duration={500}
-          enterAnimation='accordianVertical'
-          leaveAnimation='accordianVertical'
-          typeName="ul"
-        >
-          { this.renderTopArticles() }
+          enterAnimation="accordianVertical"
+          leaveAnimation="accordianVertical"
+          typeName="ul">
+          {this.renderTopArticles()}
         </FlipMove>
       </div>
     );

@@ -42,9 +42,9 @@ function getFromToStations(fromName, toName) {
       });
     }
     if (stationFrom !== null && stationTo !== null) {
-      resolve()
-    };
-  })
+      resolve();
+    }
+  });
 }
 
 module.exports = {
@@ -52,7 +52,10 @@ module.exports = {
     await getFromToStations(config.journeyStations.from, config.journeyStations.to);
 
     return new Promise(resolve => {
-      nodeSkanetraiken.getJourneys({ from: stationFrom, to: stationTo, limit: 5, action: 'next' }, function(results, err) {
+      nodeSkanetraiken.getJourneys({ from: stationFrom, to: stationTo, limit: 5, action: 'next' }, function(
+        results,
+        err
+      ) {
         if (!err) {
           resolve(results);
         } else {
@@ -60,5 +63,5 @@ module.exports = {
         }
       });
     });
-  }
-}
+  },
+};
