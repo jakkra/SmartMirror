@@ -128,6 +128,7 @@ module.exports = (mirrorSocket) => {
           break;
         case SpeechCommand.TURN_ON_EVERYTHING:
           serialHandler.setOutletOn([2, 3]);
+          serialHandler.turnOnLedstrip();
           break;
         case SpeechCommand.SET_COFFEMAKER_TIMER:
           console.log(data.hour, data.min)

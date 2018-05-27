@@ -31,7 +31,7 @@ const self = module.exports = {
     outletsOff.forEach((outletId, i) =>  {
       setTimeout(function() {
         self.writeString(`outlet:${outletId}:0`);
-       }, (i + 1) * 1000);
+       }, (i + 1) * 3000);
     });
   },
 
@@ -39,12 +39,15 @@ const self = module.exports = {
     outletsOn.forEach((outletId, i) =>  {
       setTimeout(function() {
         self.writeString(`outlet:${outletId}:1`);
-       }, (i + 1) * 1000);
+       }, (i + 1) * 3000);
     });
   },
 
   turnOffLedstrip: function() {
     self.writeString('rgb:0:0:0');
+  },
+
+  turnOnLedstrip: function() {
+    self.writeString('rgb:200:100:100');
   }
-  
 }
