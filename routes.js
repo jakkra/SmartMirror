@@ -13,7 +13,7 @@ module.exports = (app, mirrorSocket) => {
     if (req.params.cmd) serialHandler.writeString('brightness:' + req.params.val);
     res.json({
       success: true,
-    });
+    }); 
   });
 
   app.get('/api/brightnessUp', (req, res) => {
