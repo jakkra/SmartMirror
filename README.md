@@ -141,6 +141,9 @@ target='Krantz-Ubuntu' // Set to 'PI' on your Raspberry Pi. Avoids errors initia
 ### 
 
 ### Run it
+
+NOTE: This project is only tested on Node v7.6.0. New versions of Node may not work.
+If you get wierd errors, downgrade to Node v7.6.0. 
 ```
 git clone https://github.com/jakkra/SmartMirror.git
 cd SmartMirror
@@ -151,6 +154,14 @@ npm i
 
 cd ..
 npm start
+```
+
+Note: The current package.json are compatible with node 7.6.0
+If you get errors building with later version of node, use below to downgrade: 
+```
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n 7.6.0
 ```
 
 ### Code style 

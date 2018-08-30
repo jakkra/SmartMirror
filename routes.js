@@ -11,14 +11,23 @@ module.exports = (app, mirrorSocket) => {
   app.get('/api/brightness/:val', (req, res) => {
     console.log(req.params.val);
     if (req.params.cmd) serialHandler.writeString('brightness:' + req.params.val);
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/brightnessUp', (req, res) => {
     serialHandler.writeString('brightnessUp:');
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/brightnessDown', (req, res) => {
     serialHandler.writeString('brightnessDown:');
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/serial/:command', (req, res) => {
@@ -44,12 +53,13 @@ module.exports = (app, mirrorSocket) => {
     } else {
       serialHandler.writeString(req.params.command);
     }
+    res.json({
+      success: true,
+    });
   });
 
   app.post('/api/serial', (req, res) => {
     if (req.body.mode) {
-      const mode = req.body.mode;
-      const speed = req.body.speed;
       serialHandler.writeString('mode:' + req.body.mode + ':' + req.body.speed);
     } else {
       const side = req.body.side;
@@ -60,10 +70,16 @@ module.exports = (app, mirrorSocket) => {
         serialHandler.writeString('side:' + side + ':' + rgb.r + ':' + rgb.g + ':' + rgb.b);
       }
     }
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/speak/:text', (req, res) => {
     if (req.params.text) speaker.speak(req.params.text);
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/hide', (req, res) => {
@@ -73,14 +89,23 @@ module.exports = (app, mirrorSocket) => {
     mirrorSocket.sendToClient('visibility', { component: 'tasks', visible: false });
     mirrorSocket.sendToClient('visibility', { component: 'weather', visible: false });
     mirrorSocket.sendToClient('visibility', { component: 'clock', visible: false });
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/hide/:component', (req, res) => {
     mirrorSocket.sendToClient('visibility', { component: req.params.component, visible: false });
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/show/:component', (req, res) => {
     mirrorSocket.sendToClient('visibility', { component: req.params.component, visible: true });
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/show', (req, res) => {
@@ -146,14 +171,23 @@ module.exports = (app, mirrorSocket) => {
 
   app.get('/api/shutdown', (req, res) => {
     exec('sudo shutdown -h now');
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/sleep', (req, res) => {
     exec('sudo tvservice -o');
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/wakeup', (req, res) => {
     exec('sudo tvservice -p; sudo chvt 6; sudo chvt 7;');
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/reboot', (req, res) => {
@@ -162,6 +196,9 @@ module.exports = (app, mirrorSocket) => {
 
   app.get('/api/next', (req, res) => {
     mirrorSocket.sendToClient('command', { component: 'article', action: 'next' });
+    res.json({
+      success: true,
+    });
   });
 
   app.get('/api/spotify/current', (req, res) => {
