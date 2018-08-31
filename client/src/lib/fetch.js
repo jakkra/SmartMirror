@@ -72,3 +72,33 @@ export function getCurrentPlaying(callback) {
     .then(res => res.json())
     .then(res => res.currentPlaying);
 }
+
+export function get3DPrinterState(callback) {
+  const url = 'http://octopi.local/api/printer';
+  const urlJob = 'http://octopi.local/api/job';
+
+  var options = {
+    method: "GET",
+    headers: {
+      'X-Api-Key': config.octoiApiKey,
+    },
+  };
+
+  let state = null;
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(json => {
+      state = json;
+      return fetch(urlJob, options)
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(jobStatus => {
+      return {
+        state: state,
+        job: jobStatus
+      }
+    });
+}
+

@@ -138,7 +138,7 @@ export default class Tasks extends BaseComponent {
   }
 
   renderWaterPlant() {
-    if (this.state.moistureLevel > 70) return null;
+    if (this.state.moistureLevel > 65) return null;
     return (
       <div style={styles.listName}>
         {this.props.phrases.water_plant + ' (~' + this.state.moistureLevel + '%)'}

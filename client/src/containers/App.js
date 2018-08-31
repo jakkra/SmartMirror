@@ -14,6 +14,7 @@ import Article from '../components/Article';
 import TemperatureGraph from '../components/TemperatureGraph';
 import Transfers from '../components/Transfers';
 import Spotify from '../components/Spotify';
+import OctoPrint from '../components/OctoPrint';
 
 import moment from 'moment';
 config.language ? moment.locale(config.language) : moment.locale('en');
@@ -47,6 +48,7 @@ export default class App extends React.Component {
         temperatureGraph: false,
         transfers: true,
         spotify: true,
+        octoprint: true
       },
     };
   }
@@ -107,7 +109,8 @@ export default class App extends React.Component {
       forecast,
       temperatureGraph,
       articles,
-      spotify = null;
+      spotify,
+      octoprint = null;
     if (config.modules.dateTime === true) {
       dateTime = (
         <Clock
@@ -131,6 +134,9 @@ export default class App extends React.Component {
     }
     if (config.modules.forecast === true) {
       forecast = <Forecast visible={this.state.visibility.forecasts} />;
+    }
+    if (config.modules.forecast === true) {
+      octoprint = <OctoPrint visible={this.state.visibility.octoprint} />;
     }
     if (config.modules.temperatureGraph === true) {
       temperatureGraph = <TemperatureGraph ref="temperatureGraph" visible={this.state.visibility.temperatureGraph} />;
@@ -169,6 +175,7 @@ export default class App extends React.Component {
           <Col xs={4}>
             <Row>{weather}</Row>
             <Row style={{ marginTop: 50 }}>{forecast}</Row>
+            <Row style={{ marginTop: 50 }}>{octoprint}</Row>
           </Col>
         </Row>
         <Row style={{ height: '1%' }} />
