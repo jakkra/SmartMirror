@@ -83,7 +83,11 @@ Shows your currently playing track, because why not.
 
 **Moisture level of a plant**
 
-Shows if your plant needs watering, data is sent from a battery powered esp8266 with a moisture sensor, placed in of our plants.
+Shows if your plant needs watering, data is sent from a battery powered esp8266 with a moisture sensor, placed in one of our plants.
+
+**OctoPi**
+
+Shows some information of your current 3D print, such as the filename, bed/nozzle temperatures and the progress.
 
 ## Running locally
 
