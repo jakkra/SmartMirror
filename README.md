@@ -225,7 +225,7 @@ cd /home/pi/Documents/SmartMirror # Edit to path of project
 
 git fetch
 
-#if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
   echo "Updating mirror"
   git stash # Just incase we wanted to save some change
   git reset --hard origin/master
@@ -233,7 +233,7 @@ git fetch
   npm run build
   cd ..
   cp -r client/webApp-move2build client/build/app
-#fi
+fi
 
 NODE_ENV=production /usr/bin/npm run server > mirrorLog.txt  &
 export DISPLAY=:0.0

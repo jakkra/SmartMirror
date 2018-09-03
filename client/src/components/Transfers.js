@@ -66,7 +66,7 @@ export default class Transfers extends BaseComponent {
       time = new Date(route.DepDateTime[0]);
       return (
         <div key={route.JourneyKey[0]}>
-          <div style={styles.route}> {'Om ' + this.getMinutesDiff(time) + ' minuter'} </div>
+          <div style={styles.route}> {'om ' + this.getMinutesDiff(time) + ' minuter'} </div>
         </div>
       );
     });

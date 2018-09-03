@@ -13,7 +13,7 @@ const styles = {
   },
   taskTitle: {
     color: 'white',
-    fontSize: '1.7em',
+    fontSize: '2em',
     textAlign: 'left',
     paddingLeft: 15,
   },

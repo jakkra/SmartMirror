@@ -11,7 +11,7 @@ const styles = {
   weatherImg: {},
   forecastText: {
     color: 'white',
-    fontSize: '1.7em',
+    fontSize: '2em',
   },
   foreacstIcon: {
     height: '40px',
@@ -28,7 +28,7 @@ const styles = {
   foreacstTemp: {
     whiteSpace: 'nowrap',
     color: 'white',
-    fontSize: '1.6em',
+    fontSize: '1.8em',
     textAlign: 'right',
   },
   locationLabel: {
