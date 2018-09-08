@@ -7,9 +7,14 @@ module.exports = {
     let articles = [];
     request.get('http://www.isabellalowengrip.se/wp-json/wp/v2/posts', function(error, response, body) {
       if (!error && response.statusCode == 200) {
-        let posts = JSON.parse(body);
-        posts = posts.map(extractIDAndContent);
-        callback(posts);
+        try {
+	  let posts = JSON.parse(body);
+          posts = posts.map(extractIDAndContent);
+          callback(posts);
+        } catch (err) {
+          console.log('Failed to parse articles');
+          callback(null);
+        }
       }
     });
   },
