@@ -31,7 +31,7 @@ export default class Spotify extends React.Component {
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.refreshPlaying(), 1000);
+    //this.timerID = setInterval(() => this.refreshPlaying(), 1000);
     this.refreshPlaying();
   }
 
