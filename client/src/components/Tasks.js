@@ -88,7 +88,6 @@ export default class Tasks extends BaseComponent {
   }
 
   handleNewMoistureLog(moistureLogging) {
-    console.log(moistureLogging);
     this.setState({
       moistureLevel: moistureLogging.moisture,
     });

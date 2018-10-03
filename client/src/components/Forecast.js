@@ -75,7 +75,6 @@ export default class Forecast extends React.Component {
   refreshForecast() {
     getForecast()
       .then(res => {
-        console.log(res);
         const f = {
           forecast: res.daily.data.slice(1),
           sunrise: new Date(res.daily.data['0'].sunriseTime * 1000),
@@ -87,7 +86,6 @@ export default class Forecast extends React.Component {
   }
 
   handleNewForecast(weather) {
-    console.log(weather);
     this.setState({
       weather: weather,
     });

@@ -130,7 +130,7 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
-  app.get('/api/demo:action', (req, res) => {
+  app.get('/api/demo/:action', (req, res) => {
     if (req.params.action === 'dry') {
       requestHelper.logMoistureLevel(20);
       res.json({
