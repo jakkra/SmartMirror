@@ -6,30 +6,67 @@ import FA from 'react-fontawesome';
 
 const styles = {
   container: {
+    textAlign: 'right'
   },
   listName: {
     color: 'white',
     fontSize: '2.1em',
-    textAlign: 'right',
   },
   listItem: {
     color: 'white',
     fontSize: '1.8em',
-    textAlign: 'right',
   },
   icon: {
     color: 'white',
     marginLeft: 15,
     fontSize: '0.9em',
   },
+  videoFeed: {
+    maxWidth: '80%',
+    maxHeight: '80%',
+    marginTop: 10,
+    marginRight: 0
+  },
 };
 
 export default class OctoPrint extends BaseComponent {
+  static propTypes = {
+    visible: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    visible: true,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      currentPrinterState: {},
-      currentJob: {}
+      // Default simulate printing for demo purposes
+      currentPrinterState: {
+        state: {
+          flags: {
+            printing: true,
+          },
+        },
+        temperature: {
+          tool0: {
+            actual: 60
+          },
+          bed: {
+            actual: 210
+          }
+        }
+      },
+      currentJob: {
+        job: {
+          file: {
+            name: 'test_demo_print.stl'
+          },
+        },
+        progress: {
+          completion: 22
+        }
+      }
     };
     this.refreshPrinterState = this.refreshPrinterState.bind(this);
   }
@@ -81,6 +118,9 @@ export default class OctoPrint extends BaseComponent {
         <div style={styles.listItem}>
           Bed {this.state.currentPrinterState.temperature.bed.actual}°C
           <FA name="thermometer-half" style={styles.icon} />
+        </div>
+        <div>
+          <img style={styles.videoFeed} src={"http://krantz.asuscomm.com:9080/"} alt="Stream of print"/>
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ const styles = {
   container: {},
   weather: {
     color: 'white',
-    fontSize: '1.6em',
+    fontSize: '1.8em',
     margin: 0,
     textAlign: 'right',
   },
