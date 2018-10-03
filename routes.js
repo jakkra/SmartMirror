@@ -130,6 +130,24 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
+  app.get('/api/demo:action', (req, res) => {
+    if (req.params.action === 'dry') {
+      requestHelper.logMoistureLevel(20);
+      res.json({
+        success: true,
+      });
+    } else if (req.params.action === 'water') {
+      requestHelper.logMoistureLevel(95);
+      res.json({
+        success: true,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  });
+
   app.get('/api/moisture/latest', (req, res) => {
     requestHelper.getLatestMoistureLevel(moisture => {
       return res.json({

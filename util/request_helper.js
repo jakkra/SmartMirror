@@ -17,7 +17,6 @@ spotifyApi.setCredentials({
 
 module.exports = {
   createReminder: function(date, text) {
-    var self = this;
     var options = {
       url: 'http://207.154.239.115/api/reminder/create',
       headers: {
@@ -31,14 +30,13 @@ module.exports = {
       },
     };
     request.post(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
         speaker.speak('Jag påminner dig att ' + text);
       }
     });
   },
 
   logTemperature: function(temp) {
-    var self = this;
     var options = {
       url: 'http://207.154.239.115/api/temperature/',
       headers: {
@@ -50,7 +48,7 @@ module.exports = {
       },
     };
     request.post(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
         console.log(body);
       }
     });
@@ -66,7 +64,23 @@ module.exports = {
       body: { time: new Date().toISOString() },
     };
     request.post(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
+        console.log(body);
+      }
+    });
+  },
+
+  logMoistureLevel: function(moistureLevel) {
+    var options = {
+      url: 'http://207.154.239.115/api/moisture',
+      headers: {
+        'x-access-token': process.env.RuleThemAllBackendAccessToken,
+      },
+      json: true,
+      body: { moisture: moistureLevel },
+    };
+    request.post(options, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
         console.log(body);
       }
     });

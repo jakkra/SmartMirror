@@ -48,7 +48,7 @@ export default class App extends React.Component {
         temperatureGraph: false,
         transfers: true,
         spotify: true,
-        octoprint: true
+        octoprint: false
       },
     };
   }
