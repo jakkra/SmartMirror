@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "babel": {
-    "presets": ["es2015", "stage-0"]
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,11 +36,11 @@
     "node-uuid": "^1.4.7",
     "npm": "^4.0.5",
     "onoff": "^1.1.1",
-    "react": "^15.4.1",
-    "react-addons-css-transition-group": "^15.4.1",
-    "react-addons-transition-group": "^15.4.1",
+    "react": "^16.5.2",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-transition-group": "^15.6.2",
     "react-bootstrap": "^0.30.7",
-    "react-dom": "^15.4.1",
+    "react-dom": "^16.5.2",
     "reactstrap": "^3.9.5",
     "recharts": "^1.0.0-alpha.0",
     "request": "^2.79.0",
