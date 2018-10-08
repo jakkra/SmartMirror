@@ -90,7 +90,7 @@ export default class OctoPrint extends BaseComponent {
   }
 
   render() {
-    if (!this.state.currentPrinterState.state || !this.state.currentPrinterState.state.flags.printing) return null;
+    if (!this.state.currentPrinterState.state || !this.state.currentPrinterState.state.flags) return null;
     let progress = null;
     if (this.state.currentJob && this.state.currentJob.job.file.name) {
       progress = (

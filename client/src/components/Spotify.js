@@ -31,7 +31,7 @@ export default class Spotify extends React.Component {
   }
 
   componentDidMount() {
-    //this.timerID = setInterval(() => this.refreshPlaying(), 1000);
+    this.timerID = setInterval(() => this.refreshPlaying(), 2000);
     this.refreshPlaying();
   }
 
@@ -53,7 +53,7 @@ export default class Spotify extends React.Component {
   }
 
   render() {
-    if (this.state.currentPlaying === null) return null;
+    if (this.state.currentPlaying === null || !this.state.currentPlaying.item) return null;
 
     const iconName = this.state.currentPlaying.is_playing ? 'play' : 'pause';
     return (
