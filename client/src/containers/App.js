@@ -55,6 +55,7 @@ export default class App extends React.Component {
 
   handleMessage(message) {
     message = JSON.parse(message.data);
+    console.log(message);
     const data = message.data;
     switch (message.event) {
       case 'temperature':

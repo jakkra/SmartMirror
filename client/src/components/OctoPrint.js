@@ -29,6 +29,35 @@ const styles = {
   },
 };
 
+const defaultState = {
+  // Default simulate printing for demo purposes
+  currentPrinterState: {
+    state: {
+      flags: {
+        printing: true,
+      },
+    },
+    temperature: {
+      tool0: {
+        actual: 60
+      },
+      bed: {
+        actual: 210
+      }
+    }
+  },
+  currentJob: {
+    job: {
+      file: {
+        name: 'test_demo_print.stl'
+      },
+    },
+    progress: {
+      completion: 22
+    }
+  }
+};
+
 export default class OctoPrint extends BaseComponent {
   static propTypes = {
     visible: React.PropTypes.bool,
@@ -40,34 +69,7 @@ export default class OctoPrint extends BaseComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      // Default simulate printing for demo purposes
-      currentPrinterState: {
-        state: {
-          flags: {
-            printing: true,
-          },
-        },
-        temperature: {
-          tool0: {
-            actual: 60
-          },
-          bed: {
-            actual: 210
-          }
-        }
-      },
-      currentJob: {
-        job: {
-          file: {
-            name: 'test_demo_print.stl'
-          },
-        },
-        progress: {
-          completion: 22
-        }
-      }
-    };
+    this.state = defaultState;
     this.refreshPrinterState = this.refreshPrinterState.bind(this);
   }
 
@@ -85,7 +87,7 @@ export default class OctoPrint extends BaseComponent {
       .then(state => this.setState({ currentPrinterState: state.state, currentJob: state.job }))
       .catch(err => {
         console.log('Printer offline', err);
-        this.setState({ currentPrinterState: {}, currentJob: {} })
+        this.setState(defaultState)
       });
   }
 
