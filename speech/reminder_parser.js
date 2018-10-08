@@ -1,11 +1,10 @@
-'use strict';
-
 const moment = require('moment');
 const SpeechCommand = require('./speech_command');
 const request = require('../util/request_helper');
 
 const time1 = new RegExp('om\\s+([^\\s]*)\\s*(.*?)\\s+att\\s+(.*)');
 const time2 = new RegExp('att\\s+(.+)\\s+om\\s+([^\\s]+)\\s+([^\\s]+)');
+const todayAt = new RegExp('att\\s+(.*)\\s+(?:klockan)\\s*([0-9]+)(?:\\.)?([0-9]+)?');
 const tomorrow = new RegExp('imorgon\\s+(?:klockan)?\\s*([0-9]+)(?:\\.)?([0-9]+)?\\s+att\\s+(.*)');
 const weekday = new RegExp('på\\s+([^\\s]*)\\s+att\\s+(.*)');
 const buySomething = new RegExp('att\\s+.*(?:köpa|handla)\\s+(?:mer|mera|flera|fler)?(?:\\s+)?(.*)');
@@ -16,6 +15,7 @@ exports.parse = function(s) {
   const tomorrowMatcher = s.match(tomorrow);
   const weekdayMatcher = s.match(weekday);
   const buyMatcher = s.match(buySomething);
+  const todayMatcher = s.match(todayAt);
 
   let date = null;
   let reminderText = '';
@@ -57,11 +57,20 @@ exports.parse = function(s) {
     }
   } else if (buyMatcher !== null) {
     request.createTask(buyMatcher[1]);
+  } else if (todayMatcher !== null && todayMatcher[1] && todayMatcher[2] && todayMatcher[3]) {
+    try {
+      const hour = todayMatcher[2];
+      const min = todayMatcher[3];
+      date = getTomorrowAt(hour, min);
+      reminderText = todayMatcher[1];
+    } catch (err) {
+      console.log(err);
+      return SpeechCommand.UNKNOWN;
+    }
   } else {
     console.log('No match found for: ' + s);
     return SpeechCommand.UNKNOWN;
   }
-
   if (date !== null && reminderText !== '') {
     request.createReminder(date, reminderText);
     return SpeechCommand.CREATE_REMINDER;
