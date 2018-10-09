@@ -73,6 +73,15 @@ export function getCurrentPlaying(callback) {
     .then(res => res.currentPlaying);
 }
 
+export function getLocalIpAddress(callback) {
+  const url = config.serverBaseURL + '/api/localip';
+
+  return fetch(url)
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(res => res.ip)
+}
+
 export function get3DPrinterState(callback) {
   const url = 'http://octopi.local/api/printer';
   const urlJob = 'http://octopi.local/api/job';

@@ -154,7 +154,7 @@ module.exports = {
   getTemperatures(callback) {
     request.get(
       'http://207.154.239.115' +
-        '/api/temperature/?unit=days&count=7&limit=168&token=' +
+        '/api/temperature/?unit=days&count=7&limit=200&token=' +
         process.env.RuleThemAllBackendAccessToken,
       function(error, response, body) {
         if (!error && response.statusCode == 200) {

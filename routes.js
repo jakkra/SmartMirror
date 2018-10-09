@@ -6,6 +6,7 @@ const articleExtractor = require('./util/article_extractor');
 const serialHandler = require('./util/serial_handler');
 var skanetrafiken = require('./util/skanetrafiken');
 const moment = require('moment');
+const ip = require('ip');
 
 module.exports = (app, mirrorSocket) => {
   app.get('/api/brightness/:val', (req, res) => {
@@ -248,5 +249,12 @@ module.exports = (app, mirrorSocket) => {
       .catch(err => {
         res.json({ error: 'Could not featch bus/trains' });
       });
+  });
+
+  app.get('/api/localip', (req, res) => {
+    res.json({
+      success: true,
+      ip: ip.address(),
+    });
   });
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 import BaseComponent from './BaseComponent';
 
-import { getTasks, getPlantMoistureLevel } from '../lib/fetch';
+import { getTasks, getPlantMoistureLevel, getLocalIpAddress } from '../lib/fetch';
 import FlipMove from 'react-flip-move';
 import FA from 'react-fontawesome';
 
@@ -51,6 +51,7 @@ export default class Tasks extends BaseComponent {
       subTasks: [],
       numTasks: 6,
       moistureLevel: 54,
+      localip: '',
     };
     this.refreshTasks = this.refreshTasks.bind(this);
     this.handleNewTasks = this.handleNewTasks.bind(this);
@@ -63,6 +64,12 @@ export default class Tasks extends BaseComponent {
     this.refreshTasks();
 
     this.rotatetasksTimer = setInterval(() => this.rotateList(), 1000 * 2);
+
+    getLocalIpAddress()
+      .then(ip => this.setState({localip: ip}))
+      .catch(err => console.log(err));
+
+    setTimeout(() => this.setState({localip: ''}), 20000);
   }
 
   componentWillUnmount() {
@@ -149,6 +156,7 @@ export default class Tasks extends BaseComponent {
   render() {
     return (
       <div hidden={!this.props.visible} style={styles.container}>
+        <p style={styles.listName} >{this.state.localip}</p>
         {this.renderWaterPlant()}
         {this.renderTaskList()}
         }
