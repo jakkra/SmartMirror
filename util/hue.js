@@ -12,21 +12,28 @@ const hostname = process.env.HUE_HOSTNAME,
 
 const api = new HueApi(hostname, username);
 
-api.lights(function(err, result) {
-  if (err) return;
-  rlights = result.lights || [];
-  rlights.map(light => {
-    if (lights[light.name] && lights[light.name].autoOff) {
-      initAutoOff(light, 1000 * 60 * 20);
-    }
-  });
-});
+refreshLights();
+setInterval(refreshLights, 10 * 60 * 1000);
 
 api.groups(function(err, result) {
   if (err) throw err;
   groups = result;
   groupAll = groups.find(group => group.name === 'All');
 });
+
+function refreshLights() {
+  api.lights(function(err, result) {
+    if (err) {
+      return;
+    }
+    rlights = result.lights || [];
+    rlights.forEach(light => {
+      if (lights[light.name] && lights[light.name].autoOff) {
+        initAutoOff(light, 1000 * 60 * 20);
+      }
+    });
+  });
+}
 
 function initAutoOff(light, ttl) {
   let waitingToTurnOff = false;
@@ -61,11 +68,22 @@ module.exports = {
   },
   light: function(name, options) {
     const state = lightState.create(options);
-    let chosenLight = rlights.find(light => light.name == name);
-    if (!chosenLight) {
-      return console.log('Light not found: ' + name);
+
+    let chosenLight = rlights.find(light => light.name === name);
+    let chosenGroup = groups.find(light => light.name === name);
+    if (chosenLight) {
+      api.setLightState(chosenLight.id, state);
+    } else if (chosenGroup) {
+      api
+      .setGroupLightState(chosenGroup.id, state)
+      .then(displayResult)
+      .fail(displayError);
+    } else {
+      console.log('Light/group not found: ' + name);
+      return false;
     }
-    api.setLightState(chosenLight.id, state);
+    
+    return true;
   },
 };
 

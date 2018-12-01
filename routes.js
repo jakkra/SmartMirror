@@ -7,6 +7,7 @@ const serialHandler = require('./util/serial_handler');
 var skanetrafiken = require('./util/skanetrafiken');
 const moment = require('moment');
 const ip = require('ip');
+const hue = require('./util/hue');
 
 module.exports = (app, mirrorSocket) => {
   app.get('/api/brightness/:val', (req, res) => {
@@ -257,4 +258,32 @@ module.exports = (app, mirrorSocket) => {
       ip: ip.address(),
     });
   });
+
+  app.get('/api/localip', (req, res) => {
+    res.json({
+      success: true,
+      ip: ip.address(),
+    });
+  });
+
+  app.post('/api/hue', (req, res) => {
+    if (!req.body.name || !req.body.options) {
+      return res.json({
+        success: false,
+        message: 'Must specify hue light name and options'
+      });
+    }
+
+    if (hue.light(req.body.name, req.body.options)) {
+      return res.json({
+        success: true,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'Light not found. Hue bridge lights are refreshed every 10 min. Try again later or check the name.'
+      });
+    }
+  });
+
 };
