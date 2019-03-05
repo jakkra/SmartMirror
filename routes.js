@@ -189,6 +189,15 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
+  app.get('/api/temperatures7days/:source', (req, res) => {
+    requestHelper.getTemperaturesFromSource(req.params.source, temps => {
+      res.json({
+        temperatures: temps,
+      });
+      return;
+    });
+  });
+
   app.get('/api/shutdown', (req, res) => {
     exec('sudo shutdown -h now');
     res.json({

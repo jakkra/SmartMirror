@@ -143,7 +143,7 @@ module.exports = {
         longitude +
         '?lang=sv&units=si',
       function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           let forecast = JSON.parse(body);
           callback(forecast);
         }
@@ -157,7 +157,20 @@ module.exports = {
         '/api/temperature/?unit=days&count=7&limit=200&token=' +
         process.env.RuleThemAllBackendAccessToken,
       function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
+          let temps = JSON.parse(body);
+          callback(temps.temperatures);
+        }
+      }
+    );
+  },
+  getTemperaturesFromSource(source, callback) {
+    request.get(
+      'http://207.154.239.115' +
+        '/api/temperature/?unit=days&count=7&limit=200&source=' + source + '&token=' +
+        process.env.RuleThemAllBackendAccessToken,
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
           let temps = JSON.parse(body);
           callback(temps.temperatures);
         }
@@ -171,7 +184,7 @@ module.exports = {
         '/api/moisture/latest?source=default_plant&token=' +
         process.env.RuleThemAllBackendAccessToken,
       function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           let body = JSON.parse(response.body);
           callback(body.moisture);
         }
