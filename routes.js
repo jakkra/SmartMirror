@@ -158,9 +158,9 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
-  app.get('/api/tasks/create/:title', (req, res) => {
-    if (req.params.title) {
-      requestHelper.createTask(req.params.title);
+  app.post('/api/tasks', (req, res) => {
+    if (req.body.title) {
+      requestHelper.createTask(req.body.title);
       res.json({
         success: true,
       });
