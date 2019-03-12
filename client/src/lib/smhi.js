@@ -52,15 +52,17 @@ const getKeyName = key => {
       return 'rainfallMedianAmount';
     case 'Wsymb':
       return 'weatherSymbol';
+    case 'Wsymb2':
+      return 'weatherSymbol2';
     default:
-      System.out.println('Did not find any match for valueName: ' + key);
+      console.log('Did not find any match for valueName: ' + key);
       break;
   }
 };
 
 export function getCurrentWeather(callback) {
   const url =
-    'http://opendata-download-metfcst.smhi.se/api/category/pmp2g/version/2/geotype/point/lon/' +
+    'http://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/' +
     config.SMHI_COORD.longitude +
     '/lat/' +
     config.SMHI_COORD.latitude +
@@ -78,7 +80,7 @@ function extractCurrentWeather(forecast) {
     const forecastDate = new moment(hf.validTime);
     return forecastDate.isAfter(now);
   });
-  const currentForecast = forecast.timeSeries[currentWeatherIndex - 1];
+  const currentForecast = forecast.timeSeries[currentWeatherIndex];
 
   const nowForecast = {};
   currentForecast.parameters.forEach(data => {
