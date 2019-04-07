@@ -171,6 +171,19 @@ module.exports = (app, mirrorSocket) => {
     }
   });
 
+  app.post('/api/reminders', (req, res) => {
+    if (req.body.date && req.body.text) {
+      requestHelper.createReminder(req.body.date, req.body.text);
+      res.json({
+        success: true,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  });
+
   app.get('/api/articles', (req, res) => {
     articleExtractor.getArticles(articles => {
       res.json({
