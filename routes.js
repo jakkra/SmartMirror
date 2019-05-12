@@ -158,6 +158,15 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
+  app.get('/api/moisture', (req, res) => {
+    console.log("get")
+    requestHelper.getMoisturesLast7Days(moisture => {
+      return res.json({
+        moisture: moisture,
+      });
+    });
+  });
+
   app.post('/api/tasks', (req, res) => {
     if (req.body.title) {
       requestHelper.createTask(req.body.title);

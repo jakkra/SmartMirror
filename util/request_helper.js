@@ -192,6 +192,22 @@ module.exports = {
     );
   },
 
+  getMoisturesLast7Days(callback) {
+    request.get(
+      'http://207.154.239.115' +
+        '/api/moisture?unit=days&count=7&token=' +
+        process.env.RuleThemAllBackendAccessToken,
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          let body = JSON.parse(response.body);
+          callback(body.moisture);
+        } else {
+          console.log(error)
+        }
+      }
+    );
+  },
+
   getCurrentlyPlayingSpotify(callback) {
     spotifyApi
       .refreshAccessToken()
