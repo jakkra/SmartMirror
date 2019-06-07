@@ -178,6 +178,20 @@ module.exports = {
     );
   },
 
+  getLatestTemperature(source, callback) {
+    request.get(
+      'http://207.154.239.115' +
+        '/api/temperature/latest?source=' + source + '&token=' +
+        process.env.RuleThemAllBackendAccessToken,
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          let body = JSON.parse(response.body);
+          callback(body.temperature);
+        }
+      }
+    );
+  },
+
   getLatestMoistureLevel(callback) {
     request.get(
       'http://207.154.239.115' +

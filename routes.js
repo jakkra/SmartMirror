@@ -220,6 +220,14 @@ module.exports = (app, mirrorSocket) => {
     });
   });
 
+  app.get('/api/temperature/latest/:source', (req, res) => {
+    requestHelper.getLatestTemperature(req.params.source, temperature => {
+      return res.json({
+        temperature: temperature,
+      });
+    });
+  });
+
   app.get('/api/shutdown', (req, res) => {
     exec('sudo shutdown -h now');
     res.json({
