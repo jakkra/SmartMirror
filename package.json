@@ -49,7 +49,8 @@
     "snowboy": "^1.1.0",
     "speaker": "^0.3.0",
     "spotify-web-api-node": "^3.0.0",
-    "striptags": "^2.1.1"
+    "striptags": "^2.1.1",
+    "zigbee-herdsman": "^0.5.7"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",

@@ -20,6 +20,7 @@ if (config.modules.googleCloudSpeech === true) {
   commands = require('./speech/command_classify');
 }
 
+
 const messages = require('./util/messages.js');
 const requestHelper = require('./util/request_helper');
 
@@ -42,6 +43,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 require('./routes')(app, mirrorSocket);
+if (config.modules.zigbee === true) {
+  require('./zigbee_routes.js')(app, mirrorSocket);
+}
 
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
