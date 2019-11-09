@@ -1,7 +1,12 @@
 const http = require('http');
 const ZHerdsman = require('zigbee-herdsman');
-const { zigbeeUsb, zigbeeDbPath } = require('../config');
+const { zigbeeUsb, zigbeeDbPath, sonosIp } = require('../config');
 const zigbeeConfig = require('../zigbee_config');
+
+const { Sonos } = require('sonos')
+const device = new Sonos(sonosIp);
+
+let volumeTimerHandle = null;
 
 console.log(zigbeeUsb, zigbeeDbPath, zigbeeConfig);
 
@@ -22,7 +27,6 @@ zserver.start(function (err) {
 });
 
 zserver.on('ind', function (msg) {
-  
   switch (msg.type) {
     case 'devIncoming':
       console.log('Device: ' + msg.data + ' joining the network!');
@@ -39,7 +43,17 @@ zserver.on('ind', function (msg) {
     case 'cmdOff':
       handleOnOff(msg.endpoints[0].device.ieeeAddr, false);
       break;
+    case 'cmdMoveWithOnOff':
+      handleVolumeChangeStart(true);
+      break;
+    case 'cmdStopWithOnOff':
+      handleVolumeChangeStop();
+      break;
+    case 'cmdMove':
+      handleVolumeChangeStart(false);
+      break;
     default:
+      console.log('Unknown');
       console.log(msg);
       break;
   }
@@ -60,6 +74,30 @@ function handleOnOff(address, isOn) {
       });
     }
   });
+}
+
+function changeVolume(percent) {
+  device.getVolume()
+    .then(volume => device.setVolume(volume + percent < 0 ? 0 : volume + percent))
+    .catch(err => console.log(err));
+}
+
+function handleVolumeChangeStart(isVolumeUp) {
+  if (volumeTimerHandle != null) {
+    console.log("Something is really wrong");
+    clearInterval(volumeTimerHandle);
+  }
+
+  changeVolume(isVolumeUp ? 5 : -10);
+
+  volumeTimerHandle = setInterval(() => {
+    changeVolume(isVolumeUp ? 5 : -10);
+  }, 1000);
+}
+
+function handleVolumeChangeStop(isVolumeUp) {
+  clearInterval(volumeTimerHandle);
+  volumeTimerHandle = null;
 }
 
 module.exports = {

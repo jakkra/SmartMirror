@@ -47,6 +47,7 @@
     "request": "^2.79.0",
     "serialport": "^4.0.7",
     "snowboy": "^1.1.0",
+    "sonos": "^1.12.5",
     "speaker": "^0.3.0",
     "spotify-web-api-node": "^3.0.0",
     "striptags": "^2.1.1",
