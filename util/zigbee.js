@@ -7,6 +7,7 @@ const { Sonos } = require('sonos')
 const device = new Sonos(sonosIp);
 
 let volumeTimerHandle = null;
+let safetyVolumeTimerHandle = null;
 
 console.log(zigbeeUsb, zigbeeDbPath, zigbeeConfig);
 
@@ -88,16 +89,27 @@ function handleVolumeChangeStart(isVolumeUp) {
     clearInterval(volumeTimerHandle);
   }
 
-  changeVolume(isVolumeUp ? 5 : -10);
+  if (safetyVolumeTimerHandle != null) {
+    clearTimeout(safetyVolumeTimerHandle);
+  }
+
+  changeVolume(isVolumeUp ? 2 : -4);
 
   volumeTimerHandle = setInterval(() => {
-    changeVolume(isVolumeUp ? 5 : -10);
-  }, 1000);
+    changeVolume(isVolumeUp ? 2 : -4);
+  }, 500);
+
+  // Incase button release message get lost for some reason, stop change after 5s if isVolumeUp
+  if (isVolumeUp) {
+    safetyVolumeTimerHandle = setTimeout(() => {console.log('saftey off'); clearInterval(volumeTimerHandle);}, 5000);
+  }
 }
 
 function handleVolumeChangeStop(isVolumeUp) {
   clearInterval(volumeTimerHandle);
+  clearTimeout(safetyVolumeTimerHandle);
   volumeTimerHandle = null;
+  safetyVolumeTimerHandle = null;
 }
 
 module.exports = {
