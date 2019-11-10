@@ -4,14 +4,42 @@ const { zigbeeUsb, zigbeeDbPath, sonosIp } = require('../config');
 const zigbeeConfig = require('../zigbee_config');
 
 const { Sonos } = require('sonos')
-const device = new Sonos(sonosIp);
+const buttons = {};
 
+const LongPressAction = {
+  SONOS: 'SONOS',
+  BRIGHTNESS: 'WLED_BRIGHTNESS',
+};
+
+// TODO for now only one button at a time support long pressing
 let volumeTimerHandle = null;
 let safetyVolumeTimerHandle = null;
+
+console.log(buttons)
 
 console.log(zigbeeUsb, zigbeeDbPath, zigbeeConfig);
 
 const zserver = new ZHerdsman(zigbeeUsb, { dbPath: zigbeeDbPath});
+
+zigbeeConfig.devices.forEach(device => {
+  let ieeeAddr = device.ieeeAddr;
+  const deviceSetup = device;
+
+  switch (device.longPressFunctionality.type) {
+    case 'sonos':
+      deviceSetup['longPressAction'] = LongPressAction.SONOS;
+      deviceSetup['sonosDevice'] = new Sonos(device.longPressFunctionality.sonosIp);
+      break;
+    case 'wledBrightness':
+      deviceSetup['longPressAction'] = LongPressAction.WLED_BRIGHTNESS;
+      deviceSetup['wledIp'] = device.longPressFunctionality.wledIp;
+      break;
+    default:
+      console.log('Unknown device.longPressFunctionality.type ', device.longPressFunctionality);
+  }
+
+  buttons[ieeeAddr] = deviceSetup;
+});
 
 zserver.on('ready', function () {
   console.log('Zigbee is ready.');
@@ -20,7 +48,6 @@ zserver.on('ready', function () {
 zserver.on('permitJoining', function (joinTimeLeft) {
   console.log(joinTimeLeft);
 });
-
 
 zserver.start(function (err) {
   if (err)
@@ -39,19 +66,19 @@ zserver.on('ind', function (msg) {
       console.log('Dev Change: ' + msg.data);
       break;
     case 'cmdOn':
-      handleOnOff(msg.endpoints[0].device.ieeeAddr, true);
+      handleOnOff(buttons[msg.endpoints[0].device.ieeeAddr], true);
       break;
     case 'cmdOff':
-      handleOnOff(msg.endpoints[0].device.ieeeAddr, false);
+      handleOnOff(buttons[msg.endpoints[0].device.ieeeAddr], false);
       break;
     case 'cmdMoveWithOnOff':
-      handleVolumeChangeStart(true);
+      handleLongPressStart(true, buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     case 'cmdStopWithOnOff':
-      handleVolumeChangeStop();
+      handleVolumeChangeStop(buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     case 'cmdMove':
-      handleVolumeChangeStart(false);
+      handleLongPressStart(false, buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     default:
       console.log('Unknown');
@@ -60,30 +87,54 @@ zserver.on('ind', function (msg) {
   }
 });
 
-function handleOnOff(address, isOn) {
-  console.log(address, isOn);
-  zigbeeConfig.devices.forEach(device => {
-    if (device.ieeeAddr == address) {
-      const endpoints = isOn ? device.endpointsOn : device.endpointsOff;
-      endpoints.forEach(url => {
-        console.log(url);
-        http.get(url, (res) => {
-          console.log(res.statusCode)
-        }).on('error', err => {
-          console.log(err);
-        });
-      });
-    }
+function handleOnOff(button, isOn) {  
+  const endpoints = isOn ? button.endpointsOn : button.endpointsOff;
+  endpoints.forEach(url => {
+    console.log(url);
+    http.get(url, (res) => {
+      console.log(res.statusCode)
+    }).on('error', err => {
+      console.log(err);
+    });
   });
 }
 
-function changeVolume(percent) {
-  device.getVolume()
-    .then(volume => device.setVolume(volume + percent < 0 ? 0 : volume + percent))
-    .catch(err => console.log(err));
+function handleLongPressStart(isUp, button) {
+  try {
+    switch (button.longPressAction) {
+      case LongPressAction.SONOS:
+        handleVolumeChangeStart(isUp, button);
+        break;
+      case LongPressAction.WLED_BRIGHTNESS:
+        handleWledBrightness(isUp, button);
+        break;
+      default:
+        console.error('Unknown longPressFunctionality.type ' + longPressFunctionality.type)
+    }
+    
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-function handleVolumeChangeStart(isVolumeUp) {
+async function handleWledBrightness(increaseBrightness, button) {
+  const brightnessChange = increaseBrightness ? 25 : -25;
+  const onUrl = `${button.wledIp}/win&T=1`;
+  const brightnessUrl = `${button.wledIp}/win&A=~${brightnessChange}`;
+
+  await http.get(onUrl)
+  await http.get(brightnessUrl);
+}
+
+
+async function changeVolume(sonosDevice, percent) {
+  return sonosDevice.getVolume()
+    .then(volume => sonosDevice.setVolume(volume + percent < 0 ? 0 : volume + percent))
+}
+
+async function handleVolumeChangeStart(isVolumeUp, button) {
+  const sonosDevice = button.sonosDevice;
+
   if (volumeTimerHandle != null) {
     console.log("Something is really wrong");
     clearInterval(volumeTimerHandle);
@@ -93,15 +144,23 @@ function handleVolumeChangeStart(isVolumeUp) {
     clearTimeout(safetyVolumeTimerHandle);
   }
 
-  changeVolume(isVolumeUp ? 2 : -4);
+  if (isVolumeUp) {
+    const state = await sonosDevice.getCurrentState()
+    if (state != 'playing') {
+      await sonosDevice.play();
+    }
+  }
+
+  await changeVolume(sonosDevice, isVolumeUp ? 2 : -4);
 
   volumeTimerHandle = setInterval(() => {
-    changeVolume(isVolumeUp ? 2 : -4);
+    changeVolume(sonosDevice, isVolumeUp ? 2 : -4)
+      .catch(err => console.log(err));
   }, 500);
 
   // Incase button release message get lost for some reason, stop change after 5s if isVolumeUp
   if (isVolumeUp) {
-    safetyVolumeTimerHandle = setTimeout(() => {console.log('saftey off'); clearInterval(volumeTimerHandle);}, 5000);
+    safetyVolumeTimerHandle = setTimeout(() => clearInterval(volumeTimerHandle), 5000);
   }
 }
 
@@ -117,7 +176,6 @@ module.exports = {
     zserver.permitJoin(timeSeconds);
   },
   light: function(name, options) {
-    
     return true;
   },
 };

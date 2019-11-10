@@ -214,6 +214,10 @@ $ arduino --install-library "MsTimer2"
 
 $ arduino --board arduino:avr:uno --port /dev/ttyACM0 --save-prefs # store config
 $ arduino --upload $(pwd)/ledstrip.ino # Flashes the new software
+
+#Find port of CC2531 USB stick
+$ls -l /dev/serial/by-id 
+
 ```
 
 ## Starting and updating the mirror on boot
