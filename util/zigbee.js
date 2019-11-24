@@ -2,6 +2,7 @@ const http = require('http');
 const ZHerdsman = require('zigbee-herdsman');
 const { zigbeeUsb, zigbeeDbPath, sonosIp } = require('../config');
 const zigbeeConfig = require('../zigbee_config');
+const hue = require('./hue');
 
 const { Sonos } = require('sonos')
 const buttons = {};
@@ -24,6 +25,7 @@ const zserver = new ZHerdsman(zigbeeUsb, { dbPath: zigbeeDbPath});
 zigbeeConfig.devices.forEach(device => {
   let ieeeAddr = device.ieeeAddr;
   const deviceSetup = device;
+  deviceSetup['toggleStateIsOn'] = false;
 
   switch (device.longPressFunctionality.type) {
     case 'sonos':
@@ -66,19 +68,60 @@ zserver.on('ind', function (msg) {
       console.log('Dev Change: ' + msg.data);
       break;
     case 'cmdOn':
+      console.log('handleOnOff on');
       handleOnOff(buttons[msg.endpoints[0].device.ieeeAddr], true);
       break;
     case 'cmdOff':
+      console.log('handleOnOff off');  
       handleOnOff(buttons[msg.endpoints[0].device.ieeeAddr], false);
       break;
     case 'cmdMoveWithOnOff':
+      console.log('handleLongPressStart start');
       handleLongPressStart(true, buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     case 'cmdStopWithOnOff':
+      console.log('handleVolumeChangeStop')
       handleVolumeChangeStop(buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     case 'cmdMove':
+      console.log('handleLongPressStart down')
       handleLongPressStart(false, buttons[msg.endpoints[0].device.ieeeAddr]);
+      break;
+    case 'cmdStepWithOnOff':
+      console.log('handleLevelButton up')
+      handleLevelButton(true, buttons[msg.endpoints[0].device.ieeeAddr]);
+      break;
+    case 'cmdStep':
+      console.log('handleLevelButton down')
+      handleLevelButton(false, buttons[msg.endpoints[0].device.ieeeAddr]);
+      break;
+    case 'cmdStop':
+      console.log('handleVolumeChangeStop');
+      handleVolumeChangeStop(buttons[msg.endpoints[0].device.ieeeAddr]);
+      break;
+    case 'cmdTradfriArrowSingle':
+      if (msg.data.data.value === 257) {
+        console.log('handleArrowButton left');
+        handleArrowButton(true, buttons[msg.endpoints[0].device.ieeeAddr]);
+      } else if (msg.data.data.value === 256) {
+        console.log('handleArrowButton right');
+        handleArrowButton(false, buttons[msg.endpoints[0].device.ieeeAddr]);
+      }
+      break;
+    case 'cmdTradfriArrowHold':
+      if (msg.data.data.value === 3329) {
+        console.log('handleArrowButtonLongPress left');
+        handleArrowButtonLongPress(true, buttons[msg.endpoints[0].device.ieeeAddr]);
+      } else if (msg.data.data.value === 3328) {
+        console.log('handleArrowButtonLongPress right');
+        handleArrowButtonLongPress(false, buttons[msg.endpoints[0].device.ieeeAddr]);
+      }
+      break;
+    case 'cmdTradfriArrowRelease':
+      handleArrowButtonLongPress(true, buttons[msg.endpoints[0].device.ieeeAddr]);
+      break;
+    case 'cmdToggle':
+      handleToggle(buttons[msg.endpoints[0].device.ieeeAddr]);
       break;
     default:
       console.log('Unknown');
@@ -87,16 +130,55 @@ zserver.on('ind', function (msg) {
   }
 });
 
+function handleActions(actions) {
+  actions.forEach(action => {
+    if (action.type === 'url') {
+      console.log(action.url);
+      http.get(action.url, (res) => {
+        console.log(res.statusCode)
+      }).on('error', err => {
+        console.log(err);
+      });
+    } else if (action.type === 'hue') {
+      console.log('handle Hue', action.action);
+      if (action.action === 'on') {
+        hue.light(action.name, { on: true })
+      } else if (action.action === 'off') {
+        hue.light(action.name, { on: false })
+      } else if (action.action === 'briUp') {
+        hue.light(action.name, { on: true, bri_inc: 100 })
+      } else if (action.action === 'briDown') {
+        hue.light(action.name, { on: true, bri_inc: -100 })
+       } else {
+        console.log('Unumplemented HUE action', action.action);
+      }
+    }
+  });
+}
+
+function handleToggle(button) {
+  button.toggleStateOn = !button.toggleStateOn;
+  const endpoints = button.toggleStateOn ? button.endpointsToggleOn : button.endpointsToggleOff;
+  handleActions(endpoints);
+}
+
+function handleArrowButtonLongPress(button) {
+  console.log('Arrow long press started');
+}
+
+function handleArrowButton(isLeft, button) {
+  const endpoints = isLeft ? button.endpointsLeft : button.endpointsRight;
+  handleActions(endpoints);
+}
+
+function handleLevelButton(isUp, button) {
+  const endpoints = isUp ? button.endpointsLevelUp : button.endpointsLevelDown;
+  handleActions(endpoints);
+}
+
 function handleOnOff(button, isOn) {  
   const endpoints = isOn ? button.endpointsOn : button.endpointsOff;
-  endpoints.forEach(url => {
-    console.log(url);
-    http.get(url, (res) => {
-      console.log(res.statusCode)
-    }).on('error', err => {
-      console.log(err);
-    });
-  });
+  handleActions(endpoints);
 }
 
 function handleLongPressStart(isUp, button) {
