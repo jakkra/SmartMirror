@@ -7,20 +7,29 @@ const zigbeeConfig = {
       sonosIp: '192.168.1.206',
     },
     endpointsOn: [
-      { type: 'url', url: 'http://192.168.1.129/cm?cmnd=Power%20On'},
-      { type: 'url', url: 'http://192.168.1.188/cm?cmnd=Power%20On'},
-      { type: 'url', url: 'http://192.168.1.180:80/msg?code=4C:RC5:12'},
-      { type: 'url', url: 'http://192.168.1.30:8080/hyperion/on'},
+      { type: 'hue', name: 'star-livingroom', action: 'on'},
+      { type: 'hue', name: 'star-kitchen', action: 'on'},
     ],
     endpointsOff: [
-      { type: 'url', url: 'http://192.168.1.129/cm?cmnd=Power%20off'},
-      { type: 'url', url: 'http://192.168.1.188/cm?cmnd=Power%20off'},
-      { type: 'url', url: 'http://192.168.1.180:80/msg?code=4C:RC5:12'},
-      { type: 'url', url: 'http://192.168.1.30:8080/hyperion/off'},
+      { type: 'hue', name: 'star-livingroom', action: 'off'},
+      { type: 'hue', name: 'star-kitchen', action: 'off'},
     ],
   },
   {
     ieeeAddr: '0xccccccfffe2d74f8',
+    longPressFunctionality: {
+      type: 'sonos',
+      sonosIp: '192.168.1.120',
+    },
+    endpointsOn: [
+      { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20On'},
+    ],
+    endpointsOff: [
+      { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20off'},
+    ]
+  },
+  {
+    ieeeAddr: '0x14b457fffeca3902',
     longPressFunctionality: {
       type: 'sonos',
       sonosIp: '192.168.1.120',
