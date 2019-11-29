@@ -84,6 +84,45 @@ const zigbeeConfig = {
       { type: 'hue', name: 'star-kitchen', action: 'off'},
     ],
   },
+  {
+    ieeeAddr: '0x90fd9ffffeea9ede',
+    longPressFunctionality: {
+      type: 'sonos',
+      sonosIp: '192.168.1.120',
+    },
+    endpointsLevelUp: [
+      { type: 'hue', name: 'Lekrum-spot-right', action: 'on'},
+      { type: 'hue', name: 'Lekrum-spot-middle', action: 'on'},
+      { type: 'hue', name: 'Lekrum-spot-left', action: 'on'},
+      { type: 'url', url: 'http://192.168.1.33/win&T=1'},
+      { type: 'url', url: 'http://192.168.1.196/win&T=1'},
+      { type: 'url', url: 'http://192.168.1.62/win&T=1'},
+    ],
+    endpointsLevelDown: [
+      { type: 'hue', name: 'Lekrum-spot-right', action: 'off'},
+      { type: 'hue', name: 'Lekrum-spot-middle', action: 'off'},
+      { type: 'hue', name: 'Lekrum-spot-left', action: 'off'},
+      { type: 'url', url: 'http://192.168.1.33/win&T=0'},
+      { type: 'url', url: 'http://192.168.1.196/win&T=0'},
+      { type: 'url', url: 'http://192.168.1.62/win&T=0'},
+    ],
+    endpointsLeft: [
+      { type: 'hue', name: 'Lekrum-spot-right', action: 'briDown'},
+      { type: 'hue', name: 'Lekrum-spot-middle', action: 'briDown'},
+      { type: 'hue', name: 'Lekrum-spot-left', action: 'briDown'},
+    ],
+    endpointsRight: [
+      { type: 'hue', name: 'Lekrum-spot-right', action: 'briUp'},
+      { type: 'hue', name: 'Lekrum-spot-middle', action: 'briUp'},
+      { type: 'hue', name: 'Lekrum-spot-left', action: 'briUp'},
+    ],
+    endpointsToggleOn: [
+      { type: 'url', url: 'http://192.168.1.196/win&T=1'},
+    ],
+    endpointsToggleOff: [
+      { type: 'url', url: 'http://192.168.1.196/win&T=0'},
+    ],
+  },
 ]};
 
 module.exports = zigbeeConfig;
