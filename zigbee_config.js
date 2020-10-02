@@ -23,9 +23,11 @@ const zigbeeConfig = {
     },
     endpointsOn: [
       { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20On'},
+      { type: 'url', url: 'http://192.168.1.208/cm?cmnd=Power%20On'},
     ],
     endpointsOff: [
       { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20off'},
+      { type: 'url', url: 'http://192.168.1.208/cm?cmnd=Power%20off'},
     ]
   },
   {
@@ -36,22 +38,24 @@ const zigbeeConfig = {
     },
     endpointsOn: [
       { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20On'},
+      { type: 'url', url: 'http://192.168.1.208/cm?cmnd=Power%20On'},
     ],
     endpointsOff: [
       { type: 'url', url: 'http://192.168.1.199/cm?cmnd=Power%20off'},
+      { type: 'url', url: 'http://192.168.1.208/cm?cmnd=Power%20off'},
     ]
   },
   {
     ieeeAddr: '0x14b457fffe5d4e14',
     longPressFunctionality: {
       type: 'wledBrightness',
-      wledIp: 'http://192.168.1.187',
+      wledIp: 'http://192.168.1.158',
     },
     endpointsOn: [
-      { type: 'url', url: 'http://192.168.1.187/win&T=1' },
+      { type: 'url', url: 'http://192.168.1.158/win&T=1' },
     ],
     endpointsOff: [
-      { type: 'url', url: 'http://192.168.1.187/win&T=0' },
+      { type: 'url', url: 'http://192.168.1.158/win&T=0' },
     ]
   },
   {
