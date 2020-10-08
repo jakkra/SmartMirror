@@ -8,14 +8,14 @@ Both voice recognition and the UI is in Swedish, however English is also support
 
 <img src="pics/full_less.jpg"/>
 <p float="left">
-  <img src="pics/rsz_full.jpg" width="420"/>
-  <img src="pics/left.jpg" width="420"/>
+  <img src="pics/rsz_full.jpg" width="400"/>
+  <img src="pics/left.jpg" width="400"/>
 </p>
 <img src="pics/temps.jpg"/>
 <img src="pics/rsz_lc.jpg">
 <p float="left">
-  <img src="pics/list.gif" width="420">
-  <img src="pics/below.jpg" width="420"/>
+  <img src="pics/list.gif" width="400">
+  <img src="pics/below.jpg" width="400"/>
 </p>
 <img src="pics/rsz_m.jpg">
 
