@@ -5,9 +5,12 @@ const requestHelper = require('./util/request_helper');
 const articleExtractor = require('./util/article_extractor');
 const serialHandler = require('./util/serial_handler');
 var skanetrafiken = require('./util/skanetrafiken');
+var timelapse = require('./util/timelapse');
+
 const moment = require('moment');
 const ip = require('ip');
 const hue = require('./util/hue');
+var fs = require('fs');
 
 module.exports = (app, mirrorSocket) => {
   app.get('/api/brightness/:val', (req, res) => {
@@ -302,6 +305,62 @@ module.exports = (app, mirrorSocket) => {
     res.json({
       success: true,
       ip: ip.address(),
+    });
+  });
+
+  app.get('/api/timelapseRender', (req, res) => {
+    console.log(req.query.length);
+    timelapse.createTimelapse(req.query.length, (timelapsePath) => {
+      res.json({
+        success: true,
+        path: timelapsePath
+      });
+    });
+  });
+
+  app.get('/api/timelapse', (req, res) => {
+    console.log(req.query.length);
+    const path = timelapse.getTimelapsePath();
+    
+    fs.stat(path, (err, stat) => {
+      // Handle file not found
+      if (err !== null && err.code === 'ENOENT') {
+          res.sendStatus(404);
+      }
+
+      const fileSize = stat.size
+      const range = req.headers.range
+
+      if (range) {
+
+          const parts = range.replace(/bytes=/, "").split("-");
+
+          const start = parseInt(parts[0], 10);
+          const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
+          if (start <= end) {
+            const chunksize = (end-start)+1;
+            const file = fs.createReadStream(path, {start, end});
+            const head = {
+                'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': chunksize,
+                'Content-Type': 'video/mp4',
+            }
+            
+            res.writeHead(206, head);
+            file.pipe(res);
+          } else {
+            res.sendStatus(404);
+          }
+      } else {
+          const head = {
+              'Content-Length': fileSize,
+              'Content-Type': 'video/mp4',
+          }
+
+          res.writeHead(200, head);
+          fs.createReadStream(path).pipe(res);
+      }
     });
   });
 
