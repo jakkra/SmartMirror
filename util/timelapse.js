@@ -41,7 +41,7 @@ fs.readdir(timelapseDir, function (err, files) {
 
 setInterval(function () {
     takeScreenshot();
- }, 1 * 60 * 60 * 1000);
+ }, 20 * 60 * 1000);
 
 module.exports = {
     createTimelapse: function(length, callback) {
@@ -54,7 +54,7 @@ module.exports = {
 
 function renderTimelapse(length, callback) {
     const frameRate = imageCountNumber / length;
-    const cmd = `${ffmpegPath} -y  -framerate ${frameRate} -i ${path.join(timelapseDir, '%d.jpg')} -s:v 1440x1080 -c:v libx264 -crf 17 -pix_fmt yuv420p  ${path.join(timelapseDir, 'done.mp4')}`;
+    const cmd = `${ffmpegPath} -y  -framerate ${frameRate} -i ${path.join(timelapseDir, '%04d.jpg')} -s:v 1440x1080 -c:v libx264 -crf 17 -pix_fmt yuv420p  ${path.join(timelapseDir, 'done.mp4')}`;
     console.log(cmd)
     exec(cmd, (err, stdout, stderr) => {
         if (err) {
@@ -70,7 +70,7 @@ function renderTimelapse(length, callback) {
 }
 
 function takeScreenshot() {
-    const cmd = `${ffmpegPath} -y -i rtsp://rtsp:12345678@192.168.1.169:554/av_stream/ch0 -vframes 1 -strftime 1  ${path.join(timelapseDir, imageCountNumber + '.jpg')}`;
+    const cmd = `${ffmpegPath} -y -i rtsp://rtsp:12345678@192.168.1.169:554/av_stream/ch0 -vframes 1 -strftime 1  ${path.join(timelapseDir, String(parseInt(imageCountNumber)).padStart(4, '0') + '.jpg')}`;
     console.log(cmd)
     exec(cmd, (err, stdout, stderr) => {
         if (err) {
