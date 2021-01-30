@@ -63,7 +63,6 @@ function renderTimelapse(length, callback) {
         } else {
             console.log(`stdout: ${stdout}`);
             console.log(`stderr: ${stderr}`);
-            imageCountNumber ++;
             callback(path.join(timelapseDir, 'done.mp4'));
         }
     });
