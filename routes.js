@@ -311,10 +311,11 @@ module.exports = (app, mirrorSocket) => {
   app.get('/api/timelapseRender', (req, res) => {
     console.log(req.query.length);
     timelapse.createTimelapse(req.query.length, (timelapsePath) => {
-      res.json({
-        success: true,
-        path: timelapsePath
-      });
+      console.log("Successfully rendered new timelapse on request " + timelapsePath)
+    });
+    res.json({
+      success: true,
+      path: timelapse.getTimelapsePath()
     });
   });
 
