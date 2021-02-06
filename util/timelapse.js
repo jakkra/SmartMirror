@@ -39,9 +39,15 @@ fs.readdir(timelapseDir, function (err, files) {
     takeScreenshot();
 });
 
+// Take screenshot every 20 min
 setInterval(function () {
     takeScreenshot();
- }, 20 * 60 * 1000);
+}, 20 * 60 * 1000);
+
+// Render a timelapse every 12h since it takes a while
+setInterval(function () {
+    renderTimelapse(50, (path) => console.log('Rendered timelapse ' + path));
+}, 12 * 60 * 60 * 1000);
 
 module.exports = {
     createTimelapse: function(length, callback) {
