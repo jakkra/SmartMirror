@@ -5,16 +5,16 @@
   "proxy": "http://localhost:3001/",
   "devDependencies": {
     "enzyme": "^2.4.1",
-    "react-addons-test-utils": "^15.4.0",
+    "react-addons-test-utils": "^15.6.2",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
     "moment": "^2.17.1",
     "moment-timezone": "^0.5.11",
-    "react": "^15.4.0",
-    "react-dom": "^15.4.0",
-    "react-flip-move": "^2.7.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-flip-move": "^3.0.2",
     "react-fontawesome": "^1.5.0",
     "react-forecast": "0.0.7",
     "react-modal": "^1.6.5",
